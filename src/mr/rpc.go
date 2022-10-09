@@ -14,15 +14,35 @@ import "strconv"
 // and reply for an RPC.
 //
 
-type ExampleArgs struct {
-	X int
+// To remove annoying error.
+type Myint int 
+
+func (i Myint) Error() string {
+	return "1"
 }
 
-type ExampleReply struct {
-	Y int
+// For reduce-worker to send back completion information.
+type ReduceNum uint32
+
+// M-R pair for store Map intermediate file name. Use along with location.
+type Pair struct {
+	M uint32
+	R uint32
 }
 
-// Add your RPC definitions here.
+type Location struct {
+	Mpair []Pair
+	Filename []string
+}
+// Task type 0 means Map worker, 1 means Reduce worker.
+type Task struct {
+	Tasktype uint32
+	Taskfile []string
+	Tasknum uint32
+	Isget bool
+	Nofr uint32
+}
+
 
 
 // Cook up a unique-ish UNIX-domain socket name
