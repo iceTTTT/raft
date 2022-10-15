@@ -58,11 +58,11 @@ func TestReElection2A(t *testing.T) {
 	cfg.begin("Test (2A): election after network failure")
 
 	leader1 := cfg.checkOneLeader()
-
+	fmt.Printf("First leader got\n")
 	// if the leader disconnects, a new one should be elected.
 	cfg.disconnect(leader1)
 	cfg.checkOneLeader()
-
+	fmt.Printf("Reconnect succeeded\n")
 	// if the old leader rejoins, that shouldn't
 	// disturb the new leader. and the old leader
 	// should switch to follower.
@@ -98,7 +98,7 @@ func TestManyElections2A(t *testing.T) {
 	cfg.begin("Test (2A): multiple elections")
 
 	cfg.checkOneLeader()
-
+	fmt.Printf("First check pass\n")
 	iters := 10
 	for ii := 1; ii < iters; ii++ {
 		// disconnect three nodes
