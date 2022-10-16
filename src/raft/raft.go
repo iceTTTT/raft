@@ -59,7 +59,7 @@ type Log struct {
 	Term int
 }
 
-type Cond struct {
+type Timer struct {
 	mu 		sync.Mutex
 	cond 	*sync.Cond
 	ticker  int
@@ -76,7 +76,7 @@ type Raft struct {
 	me        int                 // this peer's index into peers[]
 	dead      int32               // set by Kill()
 
-	cond_	  Cond
+	timer	  Timer
 	isleader  bool
 	// Your data here (2A, 2B, 2C).
 	// Look at the paper's Figure 2 for a description of what
@@ -256,6 +256,7 @@ func (rf *Raft) HeartBeat() {
 					// Become follower.
 					rf.currentTerm = reply.Repterm
 					rf.isleader = false
+					rf.votedFor = -1
 				}
 			}(i, rf, &args)
 		}
@@ -266,10 +267,10 @@ func (rf *Raft) HeartBeat() {
 
 func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 	// reset election timeout.
-	rf.cond_.cond.L.Lock()
-	rf.cond_.ticker = 0
-	rf.cond_.timeout = rand.Int() % 300 + 500
-	rf.cond_.cond.L.Unlock()
+	rf.timer.cond.L.Lock()
+	rf.timer.ticker = 0
+	rf.timer.timeout = rand.Int() % 300 + 500
+	rf.timer.cond.L.Unlock()
 
 	// Check leader term.
 	rf.mu.Lock()
@@ -279,9 +280,6 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 		// If candidates Become follower
 		if rf.votedFor == rf.me {
 			rf.votedFor = -1
-		}
-		// If Leader. Something went wrong.
-		if rf.isleader {
 			rf.isleader = false
 		}
 	}
@@ -306,7 +304,6 @@ type RequestVoteReply struct {
 	Replyid int
 	Term int
 	Grant bool
-	Yourterm int
 }
 
 // RequestVote RPC handler.
@@ -314,13 +311,19 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// Your code here (2A, 2B).
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	// If follower 
-	if rf.votedFor == -1 && !rf.isleader {
+	// Become follower
+	if args.Term > rf.currentTerm {
+		rf.votedFor = -1
+		rf.isleader = false
+		rf.currentTerm = args.Term
+	}
+
+	if rf.votedFor != rf.me && !rf.isleader {
 		// Reset timeout.
-		rf.cond_.cond.L.Lock()
-		rf.cond_.timeout = rand.Int() % 300 + 500
-		rf.cond_.ticker = 0
-		rf.cond_.cond.L.Unlock()
+		rf.timer.cond.L.Lock()
+		rf.timer.timeout = rand.Int() % 300 + 500
+		rf.timer.ticker = 0
+		rf.timer.cond.L.Unlock()
 	}
 	llog := len(rf.log)
 	var LastLogIndex, LastLogTerm int
@@ -328,28 +331,24 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		LastLogIndex = rf.preindex + llog
 		LastLogTerm = rf.log[llog-1].Term
 	}
-    if args.Term >= rf.currentTerm {
-		rf.currentTerm = args.Term
-	}
+
 	if args.Term >= rf.currentTerm && 
 	   	args.LastLogTerm >= LastLogTerm && 
 		args.LastLogIndex >= LastLogIndex && rf.votedFor == -1 {
 		rf.votedFor = args.CandidateId
 		reply.Grant = true
 		reply.Replyid = rf.me
-		reply.Yourterm = args.Term
 		return 
 	}
 	reply.Term = rf.currentTerm
 	reply.Grant = false
-	reply.Yourterm = args.Term
 	return 
 }
 
 
 // send a RequestVote RPC to a server.
-func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, gotvote *int, wg *sync.WaitGroup, mutex *sync.Mutex) bool {
-	defer wg.Done()
+func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, gotvote *int) bool {
+	// defer wg.Done()
 	reply := RequestVoteReply{}
 	ok := rf.peers[server].Call("Raft.RequestVote", args, &reply)
 	// Check reply.
@@ -358,17 +357,20 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, gotvote *int,
 		defer rf.mu.Unlock()
 		if !reply.Grant {
 			if reply.Term > rf.currentTerm {
+				// convert to follower.
 				rf.currentTerm = reply.Term
+				rf.isleader = false
+				if rf.votedFor == rf.me {
+					rf.votedFor = -1
+				} 
 			}
 			return ok
 		}
-		mutex.Lock()
-		defer mutex.Unlock()
 		*gotvote++
-		if *gotvote > len(rf.peers) / 2 && rf.votedFor == rf.me {
+		// DeBug(dVote, "S%v got %v votes\n", rf.me, *gotvote)
+		if *gotvote > len(rf.peers) / 2 && !rf.isleader && rf.votedFor == rf.me {
 			// Become leader.
 			rf.isleader = true
-			rf.votedFor = -1
 			go rf.HeartBeat()
 		} 
 	}
@@ -388,59 +390,49 @@ func Election(rf *Raft) {
 			LastLogTerm = rf.log[llog-1].Term
 		}
 		args := RequestVoteArgs{rf.currentTerm, rf.me, LastLogIndex, LastLogTerm}
-		wg := sync.WaitGroup{}
-		mutex := sync.Mutex{}
 		for i := 0; i < len(rf.peers) && !rf.killed(); i++ {
 			if i == rf.me {
 				continue
 			}
-			wg.Add(1)
-			go rf.sendRequestVote(i, &args, &gotvote, &wg, &mutex)
+			go rf.sendRequestVote(i, &args, &gotvote)
 		}
 		rf.mu.Unlock()
-		// Wait for all request.
-		wg.Wait()
-		// After this term election, reset state data.
-		rf.mu.Lock()
-		defer rf.mu.Unlock()
-		rf.votedFor = -1
 }
 // Ticker routine.Runs all the time.
 func (rf *Raft) ticker() {
-	rf.cond_.cond.L.Lock()
-	defer rf.cond_.cond.L.Unlock()
+	rf.timer.cond.L.Lock()
+	defer rf.timer.cond.L.Unlock()
 	go Interval(rf)
 	for !rf.killed() {
 		// Reset timeout, Become candidate start election.
-		rf.cond_.timeout = rand.Int() % 300 + 500
-		rf.cond_.ticker = 0
-		// Start election.
+		rf.timer.timeout = rand.Int() % 500 + 300
+		rf.timer.ticker = 0
 		go Election(rf)	 
 		// Waiting ...
 		for !rf.killed() {
-			for	rf.cond_.ticker < rf.cond_.timeout && !rf.killed() {
-				rf.cond_.cond.Wait()
+			for	rf.timer.ticker < rf.timer.timeout && !rf.killed() {
+				rf.timer.cond.Wait()
 			}
 			if !rf.Isleader() {
 				// Break start election.
 				break
 			}
 			// Is leader reset timeout, keep waiting.
-			rf.cond_.timeout = rand.Int() % 300 + 500
-			rf.cond_.ticker = 0 
+			rf.timer.timeout = rand.Int() % 300 + 500
+			rf.timer.ticker = 0 
 		}
 	} 
 }
 
 func Interval(rf *Raft) {
 	for !rf.killed() {
-		rf.cond_.cond.L.Lock()
-		rf.cond_.ticker += 10
-		rf.cond_.cond.L.Unlock()
+		rf.timer.cond.L.Lock()
+		rf.timer.ticker += 10
+		rf.timer.cond.L.Unlock()
 		time.Sleep(10 * time.Millisecond)
-		rf.cond_.cond.Signal()
+		rf.timer.cond.Signal()
 	}
-	rf.cond_.cond.Signal()
+	rf.timer.cond.Signal()
 }
 //
 // the service or tester wants to create a Raft server. the ports
@@ -460,9 +452,9 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.persister = persister
 	rf.me = me
 
-	rf.cond_ = Cond{}
-	// rf.cond_.cond = sync.NewCond(&rf.cond_.mu)
-	rf.cond_.cond = sync.NewCond(&rf.cond_.mu)
+	rf.timer = Timer{}
+	// rf.timer.cond = sync.NewTimer(&rf.timer.mu)
+	rf.timer.cond = sync.NewCond(&rf.timer.mu)
 	rf.votedFor = -1
 	// Your initialization code here (2A, 2B, 2C).
 	// initialize from state persisted before a crash
