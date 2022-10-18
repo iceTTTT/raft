@@ -58,11 +58,9 @@ func TestReElection2A(t *testing.T) {
 	cfg.begin("Test (2A): election after network failure")
 
 	leader1 := cfg.checkOneLeader()
-	fmt.Printf("First leader got\n")
 	// if the leader disconnects, a new one should be elected.
 	cfg.disconnect(leader1)
 	cfg.checkOneLeader()
-	fmt.Printf("Reconnect succeeded\n")
 	// if the old leader rejoins, that shouldn't
 	// disturb the new leader. and the old leader
 	// should switch to follower.
@@ -98,7 +96,6 @@ func TestManyElections2A(t *testing.T) {
 	cfg.begin("Test (2A): multiple elections")
 
 	cfg.checkOneLeader()
-	fmt.Printf("First check pass\n")
 	iters := 10
 	for ii := 1; ii < iters; ii++ {
 		// disconnect three nodes
@@ -477,19 +474,14 @@ func TestRejoin2B(t *testing.T) {
 	cfg.rafts[leader1].Start(102)
 	cfg.rafts[leader1].Start(103)
 	cfg.rafts[leader1].Start(104)
-
 	// new leader commits, also for index=2
 	cfg.one(103, 2, true)
-
 	// new leader network failure
 	leader2 := cfg.checkOneLeader()
 	cfg.disconnect(leader2)
-
 	// old leader connected again
 	cfg.connect(leader1)
-
 	cfg.one(104, 2, true)
-
 	// all together now
 	cfg.connect(leader2)
 
@@ -506,7 +498,6 @@ func TestBackup2B(t *testing.T) {
 	cfg.begin("Test (2B): leader backs up quickly over incorrect follower logs")
 
 	cfg.one(rand.Int(), servers, true)
-
 	// put leader and one follower in a partition
 	leader1 := cfg.checkOneLeader()
 	cfg.disconnect((leader1 + 2) % servers)
@@ -519,7 +510,7 @@ func TestBackup2B(t *testing.T) {
 	}
 
 	time.Sleep(RaftElectionTimeout / 2)
-
+	fmt.Printf("To section 2\n")
 	cfg.disconnect((leader1 + 0) % servers)
 	cfg.disconnect((leader1 + 1) % servers)
 
@@ -560,13 +551,13 @@ func TestBackup2B(t *testing.T) {
 	for i := 0; i < 50; i++ {
 		cfg.one(rand.Int(), 3, true)
 	}
-
 	// now everyone
 	for i := 0; i < servers; i++ {
 		cfg.connect(i)
 	}
+	fmt.Printf("Start last one agreement\n")
 	cfg.one(rand.Int(), servers, true)
-
+	fmt.Printf("Last passed\n")
 	cfg.end()
 }
 
@@ -576,7 +567,7 @@ func TestCount2B(t *testing.T) {
 	defer cfg.cleanup()
 
 	cfg.begin("Test (2B): RPC counts aren't too high")
-
+	fmt.Printf("After begin\n")
 	rpcs := func() (n int) {
 		for j := 0; j < servers; j++ {
 			n += cfg.rpcCount(j)
@@ -586,6 +577,7 @@ func TestCount2B(t *testing.T) {
 
 	leader := cfg.checkOneLeader()
 
+	fmt.Printf("After check leader\n")
 	total1 := rpcs()
 
 	if total1 > 30 || total1 < 1 {

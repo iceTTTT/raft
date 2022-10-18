@@ -186,11 +186,8 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	if rf.isleader {
 		rf.log = append(rf.log, Log{command, rf.currentTerm})
 		index = rf.preindex + len(rf.log)
-		llog := len(rf.log)
-		var LastLogIndex int
-		if llog != 0 {
-			LastLogIndex = rf.preindex + llog
-		}
+		Printo(dLog, "S%v got log length %v wit llt %v\n", rf.me, len(rf.log), rf.currentTerm)
+		LastLogIndex := rf.preindex + len(rf.log)
 		for i := 0; i < len(rf.peers) && !rf.Killed() && rf.isleader; i++ {
 			if i == rf.me {
 				continue
@@ -217,12 +214,15 @@ type AppendArgs struct {
 type AppendReply struct {
 	Repterm int
 	Suc     bool
+	// 0 represent term.
+	Cause	int
 }
 
 func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	// Check leader term.
+	Printo(dLog, "S%v got Append from S%v\n", rf.me, args.Leaderid)
 	if args.LeaderTerm >= rf.currentTerm {
 		// Reset election timeout. For the real leader.
 		rf.timer.cond.L.Lock()
@@ -239,44 +239,56 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 
 	if args.LeaderTerm < rf.currentTerm {
 		reply.Repterm = rf.currentTerm
+		reply.Cause = 0
+		Printo(dLog, "S%v reject S%v for low term\n", rf.me, args.Leaderid)
 		return
 	}
-
+	reply.Cause = 1
 	if len(args.Entries) > 0 { 
 		// check match	append entries
 		for i := len(rf.log); i >= 0; i-- {
 			if i+rf.preindex == args.PreLogIndex && 
 			( (i == 0 && rf.preindex == args.PreLogIndex)	|| rf.log[i - 1].Term == args.PreLogTerm ) {
+				Printo(dLog, "Match index %v append entries length%v\n", i+rf.preindex, len(args.Entries))
 				inserted := 0
 				reply.Suc = true
 				i++
-				for ; i <= len(rf.log) && inserted < len(args.Entries); i++{
+				for ; i <= len(rf.log) && inserted < len(args.Entries); i++ {
 					rf.log[i - 1] = args.Entries[inserted] 
 					inserted++
 				}
+
+				for ; i <= len(rf.log); i++ {
+					if rf.log[i - 1].Term < args.LeaderTerm {
+						rf.log = rf.log[ : i-1]
+						break
+					}
+				}
+
 				for ; inserted < len(args.Entries); inserted++ {
 					rf.log = append(rf.log, args.Entries[inserted])
 				}
-				if rf.matchIndex[args.Leaderid] < args.PreLogIndex + len(args.Entries) {
-					rf.matchIndex[args.Leaderid] = args.PreLogIndex + len(args.Entries)
-				} 
+				Printo(dLog, "S%v got log length %v with llt %v\n", rf.me, len(rf.log), rf.log[len(rf.log)-1].Term)
 				break
 			}
 		}
 	}
+
 	if args.LeaderCommit > rf.commitIndex {
-		lastindex := rf.preindex + len(rf.log)
-		if lastindex > args.LeaderCommit {
+		newthisterm := 0
+		for i := len(rf.log) - 1; i >= 0; i-- {
+			if rf.log[i].Term == args.LeaderTerm {
+				newthisterm = rf.preindex + i + 1
+				break
+			}
+		}
+		if newthisterm > args.LeaderCommit {
 			rf.commitIndex = args.LeaderCommit
 		} else {
-			rf.commitIndex = lastindex
+			rf.commitIndex = newthisterm
 		}
-		// Commit: Will be replicate in future. Match: this server got in.
-		minn := rf.commitIndex
-		if minn > rf.matchIndex[args.Leaderid] {
-			minn = rf.matchIndex[args.Leaderid]
-		}
-		go rf.RfApplyMsg(minn)
+		Printo(dLog, "S%v commit index%v\n", rf.me, rf.commitIndex)
+		go rf.RfApplyMsg(rf.commitIndex)
 	}
 	reply.Repterm = rf.currentTerm
 	return 
@@ -285,6 +297,11 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 func (rf *Raft) sendAppendEntries(server int) {
 start:
 	rf.mu.Lock()
+	llg := rf.preindex + len(rf.log)
+	if llg < rf.nextIndex[server] {
+		rf.mu.Unlock()
+		return
+	}
 	args := AppendArgs{}
 	args.Leaderid = rf.me	
 	args.LeaderTerm = rf.currentTerm
@@ -307,7 +324,12 @@ start:
 	reply := AppendReply{}
 	ok := false
 	for !ok && !rf.Killed() && rf.Isleader() {
+		Printo(dLog, "S%v send append to S%v\n", rf.me, server)
 		ok = rf.peers[server].Call("Raft.AppendEntries", &args, &reply)
+		if !ok  {
+			Printo(dLog, "Resend\n")
+			time.Sleep(20 * time.Millisecond)
+		}
 	}
 	if !rf.Isleader() {
 		return
@@ -315,17 +337,20 @@ start:
 	// Check reply
 	rf.mu.Lock()
 	if !reply.Suc {
-		if reply.Repterm > rf.currentTerm {
+		if reply.Cause == 0 {
 			// Become follower
-			rf.currentTerm = reply.Repterm
-			rf.votedFor = -1
-			rf.isleader = false
+			if reply.Repterm > rf.currentTerm {
+				rf.currentTerm = reply.Repterm
+				rf.votedFor = -1
+				rf.isleader = false
+			}
 			rf.mu.Unlock()
 			return
 		}
 		// Decrement nextindex and restart.
 		rf.nextIndex[server]--
 		rf.mu.Unlock()
+		Printo(dLog, "Resend because unfit index\n")
 		goto start
 	}	
 	rf.matchIndex[server] = lastindexsend
@@ -358,7 +383,7 @@ func (rf *Raft) Checkmatch() {
 	if maxindex != 0 {
 		rf.commitIndex = maxindex	
 		// send a commit heartbeat.
-		
+		Printo(dLog, "S%v commit to index %v\n", rf.me, rf.commitIndex)	
 		go rf.RfApplyMsg(rf.commitIndex)
 	}
 }
@@ -370,18 +395,22 @@ func (rf *Raft) HeartBeat() {
 			if i == rf.me {
 				continue
 			}
-			args := AppendArgs{}
-			rf.mu.Lock()
-			args.Leaderid = rf.me
-			args.LeaderTerm = rf.currentTerm
-			args.LeaderCommit = rf.commitIndex
-			rf.mu.Unlock()
-			// Repeat sending heartbeat till get reply.
-			go func(i int, rf *Raft, args *AppendArgs){
+		    // Repeat sending heartbeat till get reply.
+			go func(i int, rf *Raft) {
 				reply := AppendReply{}
-				ok := rf.peers[i].Call("Raft.AppendEntries", args, &reply)
+				args := AppendArgs{}
+				rf.mu.Lock()
+				args.Leaderid = rf.me
+				args.LeaderTerm = rf.currentTerm
+				args.LeaderCommit = rf.commitIndex
+				rf.mu.Unlock()
+				Printo(dLog, "S%v send heartbeat to S%v\n", rf.me, i)
+				ok := rf.peers[i].Call("Raft.AppendEntries", &args, &reply)
 				for !ok && !rf.Killed() && rf.Isleader() {
-					ok = rf.peers[i].Call("Raft.AppendEntries", args, &reply)
+					Printo(dLog, "Resend\n")
+					time.Sleep(20 * time.Millisecond)
+					Printo(dLog, "S%v send heartbeat ot S%v\n", rf.me, i)
+					ok = rf.peers[i].Call("Raft.AppendEntries", &args, &reply)
 				}
 				rf.mu.Lock()
 				defer rf.mu.Unlock()
@@ -391,7 +420,7 @@ func (rf *Raft) HeartBeat() {
 					rf.isleader = false
 					rf.votedFor = -1
 				}
-			}(i, rf, &args)
+			}(i, rf)
 		}
 		time.Sleep(150 * time.Millisecond)
 	}
@@ -410,7 +439,7 @@ func (rf *Raft) RfApplyMsg(cmit int) {
 				rf.lastApplied++
 		default:
 			rf.mu.Unlock()
-			time.Sleep(5 * time.Millisecond)
+			time.Sleep(10 * time.Millisecond)
 			rf.mu.Lock()
 		}
 	}
@@ -458,6 +487,8 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	   	( args.LastLogTerm > LastLogTerm ||
 			(args.LastLogTerm == LastLogTerm && args.LastLogIndex >= LastLogIndex) ) &&
 			 rf.votedFor == -1 {
+		Printo(dVote, "S%v with llt %v grant S%v with llt %v\n", rf.me, LastLogTerm, args.CandidateId,
+	 args.LastLogTerm)
 		rf.votedFor = args.CandidateId
 		reply.Grant = true
 		reply.Replyid = rf.me
@@ -502,6 +533,11 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, gotvote *int)
 			// Become leader.
 			Printo(dVote, "S%v become leader at term %v\n", rf.me, rf.currentTerm)			
 			rf.isleader = true
+			// Initialize index.
+			for i := 0; i < len(rf.peers); i++ {
+				rf.nextIndex[i] = rf.preindex + len(rf.log) + 1 
+				rf.matchIndex[i] = 0
+			}
 			go rf.HeartBeat()
 		} 
 	}
@@ -539,7 +575,6 @@ func (rf *Raft) ticker() {
 		// Reset timeout, Become candidate start election.
 		rf.timer.timeout = rand.Int() % 300 + 500
 		rf.timer.ticker = 0
-		go rf.Election()	 
 		// Waiting ...
 		for !rf.Killed() {
 			for	rf.timer.ticker < rf.timer.timeout && !rf.Killed() {
@@ -553,6 +588,7 @@ func (rf *Raft) ticker() {
 			rf.timer.timeout = rand.Int() % 300 + 500
 			rf.timer.ticker = 0 
 		}
+		go rf.Election()	 
 	} 
 }
 

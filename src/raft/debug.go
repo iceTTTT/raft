@@ -40,7 +40,7 @@ func init() {
 	log.SetFlags(log.Flags() &^ (log.Ldate | log.Ltime))
 }
 
-func DeBug(topic logTopic, format string, fm ...interface{}) {
+func Printo(topic logTopic, format string, fm ...interface{}) {
 	if debugVerbosity >= 1 {
 		time := time.Since(debugStart).Microseconds()
 		time /= 100
