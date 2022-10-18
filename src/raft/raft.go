@@ -216,6 +216,8 @@ type AppendReply struct {
 	Suc     bool
 	// 0 represent term.
 	Cause	int
+	Cftterm int
+	Cftindex int
 }
 
 func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
@@ -246,9 +248,12 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 	reply.Cause = 1
 	if len(args.Entries) > 0 { 
 		// check match	append entries
+		reply.Cftindex = -1
 		for i := len(rf.log); i >= 0; i-- {
-			if i+rf.preindex == args.PreLogIndex && 
-			( (i == 0 && rf.preindex == args.PreLogIndex)	|| rf.log[i - 1].Term == args.PreLogTerm ) {
+			if i + rf.preindex != args.PreLogIndex {
+				continue
+			}
+			if (i == 0 && rf.preterm == args.PreLogTerm) || rf.log[i - 1].Term == args.PreLogTerm {
 				Printo(dLog, "Match index %v append entries length%v\n", i+rf.preindex, len(args.Entries))
 				inserted := 0
 				reply.Suc = true
@@ -271,6 +276,19 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 				Printo(dLog, "S%v got log length %v with llt %v\n", rf.me, len(rf.log), rf.log[len(rf.log)-1].Term)
 				break
 			}
+			// Return conflicting term and first index with that term.	
+			if i == 0 {
+				reply.Cftindex = rf.preindex	
+				reply.Cftterm = rf.preterm
+				break
+			}
+			for j := 1; j <= i ; j++ {
+				if rf.log[j - 1].Term == rf.log[i - 1].Term {
+					reply.Cftindex = rf.preindex + j 
+					reply.Cftterm = rf.log[j - 1].Term
+				}
+			}
+			break
 		}
 	}
 
@@ -347,8 +365,26 @@ start:
 			rf.mu.Unlock()
 			return
 		}
-		// Decrement nextindex and restart.
+		// Change nextindex and restart.
+		if reply.Cftindex != -1 {
+			if reply.Cftindex <= rf.preindex {
+				if reply.Cftterm == rf.preterm {
+					rf.nextIndex[server] = rf.preindex + 1
+					goto goon	
+				}
+				// Can't match
+				rf.mu.Unlock()
+				return
+			}
+			if rf.log[reply.Cftindex - rf.preindex - 1].Term == reply.Cftterm {
+				rf.nextIndex[server] = reply.Cftindex + 1
+				goto goon
+			}
+			rf.nextIndex[server] = reply.Cftindex	
+			goto goon
+		} 
 		rf.nextIndex[server]--
+		goon:
 		rf.mu.Unlock()
 		Printo(dLog, "Resend because unfit index\n")
 		goto start
