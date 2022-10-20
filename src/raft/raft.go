@@ -90,6 +90,7 @@ type Raft struct {
 	log []Log
 
 	// Volatile
+	appinfly []int
 
 	commitIndex int
 	lastApplied int
@@ -173,7 +174,8 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 			if i == rf.me {
 				continue
 			}
-			if LastLogIndex >= rf.nextIndex[i] {
+			if LastLogIndex >= rf.nextIndex[i] && rf.appinfly[i] == 0 {
+				rf.appinfly[i]++
 				go rf.sendAppendEntries(i)
 			}  
 		}
@@ -285,6 +287,7 @@ start:
 	rf.mu.Lock()
 	lli := rf.preindex + len(rf.log)
 	if lli < rf.nextIndex[server] || !rf.isleader {
+		rf.appinfly[server]--
 		rf.mu.Unlock()
 		return
 	}
@@ -294,6 +297,7 @@ start:
 	args.LeaderCommit = rf.commitIndex
 	insliceindex := rf.nextIndex[server] - rf.preindex - 1	
 	if insliceindex < 0 {
+		rf.appinfly[server]--
 		rf.mu.Unlock()
 		return 
 	} 
@@ -318,6 +322,9 @@ start:
 		}
 	}
 	if !rf.Isleader() {
+		rf.mu.Lock()
+		defer rf.mu.Unlock()
+		rf.appinfly[server]--
 		return
 	}
 	// Check reply
@@ -332,6 +339,7 @@ start:
 				rf.isleader = false
 				rf.persist()
 			}
+			rf.appinfly[server]--
 			rf.mu.Unlock()
 			return
 		}
@@ -339,6 +347,7 @@ start:
 		if rf.nextIndex[server] > rf.preindex + 1 {
 			rf.nextIndex[server] = rf.preindex + 1
 		} else {
+			rf.appinfly[server]--
 			rf.mu.Unlock()
 			return 
 		}
@@ -353,6 +362,7 @@ start:
 		rf.mu.Unlock()
 		goto start
 	} 
+	rf.appinfly[server]--
 	rf.mu.Unlock()
 	go rf.Checkmatch()
 }
@@ -398,7 +408,8 @@ func (rf *Raft) HeartBeat() {
 				reply := AppendReply{}
 				args := AppendArgs{}
 				rf.mu.Lock()
-				if rf.nextIndex[i] <= rf.preindex + len(rf.log) {
+				if rf.nextIndex[i] <= rf.preindex + len(rf.log) && rf.appinfly[i] == 0{
+					rf.appinfly[i]++
 					rf.mu.Unlock()
 					go rf.sendAppendEntries(i)
 					return
@@ -625,7 +636,7 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.peers = peers
 	rf.persister = persister
 	rf.me = me
-
+	rf.appinfly = make([]int, len(rf.peers)) 
 	rf.timer = Timer{}
 	// rf.timer.cond = sync.NewTimer(&rf.timer.mu)
 	rf.timer.cond = sync.NewCond(&rf.timer.mu)
