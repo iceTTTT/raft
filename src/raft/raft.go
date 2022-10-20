@@ -103,77 +103,6 @@ type Raft struct {
 
 	apmsg chan ApplyMsg
 }
-//
-// save Raft's persistent state to stable storage,
-// where it can later be retrieved after a crash and restart.
-// see paper's Figure 2 for a description of what should be persistent.
-//
-func (rf *Raft) persist() {
-	// Your code here (2C).
-	// Example:
-	w := new(bytes.Buffer)
-	e := labgob.NewEncoder(w)
-	e.Encode(rf.currentTerm)
-	e.Encode(rf.preindex)
-	e.Encode(rf.preterm)
-	e.Encode(rf.votedFor)
-	for _, log := range rf.log {
-		e.Encode(log)
-	}
-	data := w.Bytes()
-	/* llt := rf.preterm
-	if len(rf.log) > 0 {
-		llt = rf.log[len(rf.log) - 1].Term
-	} */
-	rf.persister.SaveRaftState(data)
-}
-//
-// restore previously persisted state.
-//
-func (rf *Raft) readPersist(data []byte) {
-	if data == nil || len(data) < 1 { // bootstrap without any state?
-		rf.votedFor = -1
-		return
-	}
-	rf.mu.Lock()
-	defer rf.mu.Unlock()
-	r := bytes.NewBuffer(data)
-	d := labgob.NewDecoder(r)
-	rf.currentTerm = 0
-	rf.preindex = 0
-	rf.preterm = 0
-	rf.votedFor = 0
-	if d.Decode(&rf.currentTerm) != nil || d.Decode(&rf.preindex) != nil ||
-	  d.Decode(&rf.preterm) != nil || d.Decode(&rf.votedFor) != nil {
-		Printo(dDecode,"Decode wrong\n")
-	}
-	rf.log = make([]Log, 0)
-	for {
-		var readlog Log
-		if d.Decode(&readlog) == io.EOF {
-			break
-		}
-		rf.log = append(rf.log, readlog)
-	}
-	/* llt := rf.preterm
-	if len(rf.log) > 0 {
-		llt = rf.log[len(rf.log) - 1].Term
-	} */
-	// Your code here (2C).
-	// Example:
-	// r := bytes.NewBuffer(data)
-	// d := labgob.NewDecoder(r)
-	// var xxx
-	// var yyy
-	// if d.Decode(&xxx) != nil ||
-	//    d.Decode(&yyy) != nil {
-	//   error...
-	// } else {
-	//   rf.xxx = xxx
-	//   rf.yyy = yyy
-	// }
-}
-
 
 //
 // A service wants to switch to snapshot.  Only do so if Raft hasn't
@@ -195,6 +124,23 @@ func (rf *Raft) Snapshot(index int, snapshot []byte) {
 
 }
 
+type SnapshotArgs struct {
+	Term int
+	LeaderId int
+	Lastindex int
+	Lastterm int
+	Offset int
+	Data []byte
+	Done bool
+}
+
+type SnapshotReply struct {
+	Term int
+}
+
+func (rf *Raft) InstallSnapshot(args *SnapshotArgs, reply *SnapshotReply) {
+
+}
 //
 // the service using Raft (e.g. a k/v server) wants to start
 // agreement on the next command to be appended to Raft's log. if this
@@ -452,6 +398,11 @@ func (rf *Raft) HeartBeat() {
 				reply := AppendReply{}
 				args := AppendArgs{}
 				rf.mu.Lock()
+				if rf.nextIndex[i] <= rf.preindex + len(rf.log) {
+					rf.mu.Unlock()
+					go rf.sendAppendEntries(i)
+					return
+				}
 				args.Leaderid = rf.me
 				args.LeaderTerm = rf.currentTerm
 				args.LeaderCommit = rf.commitIndex
@@ -628,6 +579,7 @@ func (rf *Raft) ticker() {
 	for !rf.Killed() {
 		// Reset timeout, Become candidate start election.
 		rf.timer.timeout = rand.Int() % 500 + 400
+		Printo(dTimer, "S%v got timeout %v\n", rf.me, rf.timer.timeout)
 		rf.timer.ticker = 0
 		// Waiting ...
 		for !rf.Killed() {
@@ -726,3 +678,58 @@ func (rf *Raft) Sameterm(oldterm int) bool {
 	defer rf.mu.Unlock()
 	return oldterm == rf.currentTerm
 }
+
+//
+// save Raft's persistent state to stable storage,
+// where it can later be retrieved after a crash and restart.
+// see paper's Figure 2 for a description of what should be persistent.
+//
+func (rf *Raft) persist() {
+	// Your code here (2C).
+	// Example:
+	w := new(bytes.Buffer)
+	e := labgob.NewEncoder(w)
+	e.Encode(rf.currentTerm)
+	e.Encode(rf.preindex)
+	e.Encode(rf.preterm)
+	e.Encode(rf.votedFor)
+	for _, log := range rf.log {
+		e.Encode(log)
+	}
+	data := w.Bytes()
+	/* llt := rf.preterm
+	if len(rf.log) > 0 {
+		llt = rf.log[len(rf.log) - 1].Term
+	} */
+	rf.persister.SaveRaftState(data)
+}
+//
+// restore previously persisted state.
+//
+func (rf *Raft) readPersist(data []byte) {
+	if data == nil || len(data) < 1 { // bootstrap without any state?
+		rf.votedFor = -1
+		return
+	}
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	r := bytes.NewBuffer(data)
+	d := labgob.NewDecoder(r)
+	rf.currentTerm = 0
+	rf.preindex = 0
+	rf.preterm = 0
+	rf.votedFor = 0
+	if d.Decode(&rf.currentTerm) != nil || d.Decode(&rf.preindex) != nil ||
+	  d.Decode(&rf.preterm) != nil || d.Decode(&rf.votedFor) != nil {
+		Printo(dDecode,"Decode wrong\n")
+	}
+	rf.log = make([]Log, 0)
+	for {
+		var readlog Log
+		if d.Decode(&readlog) == io.EOF {
+			break
+		}
+		rf.log = append(rf.log, readlog)
+	}
+}
+
