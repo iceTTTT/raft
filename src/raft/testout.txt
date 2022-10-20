@@ -1,0 +1,23 @@
+Running test 2C for 10 trials
+1 / 10
+2 / 10
+3 / 10
+Failed at trial 3, saving log at 2C_3.txt
+4 / 10
+5 / 10
+6 / 10
+7 / 10
+8 / 10
+9 / 10
+10 / 10
+Running test 2B for 1 trials
+1 / 1
+Running test 2B for 1 trials
+1 / 1
+Running test 2B for 1 trials
+1 / 1
+Running test 2B for 1 trials
+1 / 1
+Failed at trial 1, saving log at 2B_1.txt
+Running test 2B for 1 trials
+1 / 1

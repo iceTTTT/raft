@@ -824,6 +824,7 @@ func TestFigure82C(t *testing.T) {
 	nup := servers
 	for iters := 0; iters < 1000; iters++ {
 		leader := -1
+		fmt.Printf("In iter %v/ 1000\n", iters)
 		for i := 0; i < servers; i++ {
 			if cfg.rafts[i] != nil {
 				_, _, ok := cfg.rafts[i].Start(rand.Int())
@@ -835,15 +836,16 @@ func TestFigure82C(t *testing.T) {
 
 		if (rand.Int() % 1000) < 100 {
 			ms := rand.Int63() % (int64(RaftElectionTimeout/time.Millisecond) / 2)
+			fmt.Printf("Should wait %v ms\n", ms)
 			time.Sleep(time.Duration(ms) * time.Millisecond)
 		} else {
 			ms := (rand.Int63() % 13)
+			fmt.Printf("Should wait %v ms\n", ms)
 			time.Sleep(time.Duration(ms) * time.Millisecond)
 		}
 
 		if leader != -1 {
 			cfg.crash1(leader)
-			fmt.Printf("Leader S%v crash\n", leader)
 			nup -= 1
 		}
 
@@ -852,7 +854,6 @@ func TestFigure82C(t *testing.T) {
 			if cfg.rafts[s] == nil {
 				cfg.start1(s, cfg.applier)
 				cfg.connect(s)
-				fmt.Printf("S%v connect\n", s)
 				nup += 1
 			}
 		}
@@ -862,7 +863,6 @@ func TestFigure82C(t *testing.T) {
 		if cfg.rafts[i] == nil {
 			cfg.start1(i, cfg.applier)
 			cfg.connect(i)
-			fmt.Printf("S%v connect\n", i)
 		}
 	}
 
@@ -911,7 +911,7 @@ func TestFigure8Unreliable2C(t *testing.T) {
 
 	nup := servers
 	for iters := 0; iters < 1000; iters++ {
-		fmt.Printf("Iter %v\n", iters)
+		fmt.Printf("In iter %v/ 1000\n", iters)
 		if iters == 200 {
 			cfg.setlongreordering(true)
 		}
@@ -925,9 +925,11 @@ func TestFigure8Unreliable2C(t *testing.T) {
 
 		if (rand.Int() % 1000) < 100 {
 			ms := rand.Int63() % (int64(RaftElectionTimeout/time.Millisecond) / 2)
+			fmt.Printf("Should wait %v ms\n", ms)
 			time.Sleep(time.Duration(ms) * time.Millisecond)
 		} else {
 			ms := (rand.Int63() % 13)
+			fmt.Printf("Should wait %v ms\n", ms)
 			time.Sleep(time.Duration(ms) * time.Millisecond)
 		}
 
