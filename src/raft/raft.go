@@ -264,14 +264,14 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 		// Reset election timeout. For the real leader.
 		rf.timer.cond.L.Lock()
 		rf.timer.ticker = 0
-		rf.timer.timeout = rand.Int() % 300 + 500
+		rf.timer.timeout = rand.Int() % 500 + 400
 		rf.timer.cond.L.Unlock()
 		rf.currentTerm = args.LeaderTerm
 		// If candidates or leader Become follower
 		if rf.votedFor == rf.me {
 			rf.votedFor = -1
-			rf.isleader = false
 		}
+		rf.isleader = false
 	}
 
 	if args.LeaderTerm < rf.currentTerm {
@@ -337,8 +337,8 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 func (rf *Raft) sendAppendEntries(server int) {
 start:
 	rf.mu.Lock()
-	llg := rf.preindex + len(rf.log)
-	if llg < rf.nextIndex[server] || !rf.isleader {
+	lli := rf.preindex + len(rf.log)
+	if lli < rf.nextIndex[server] || !rf.isleader {
 		rf.mu.Unlock()
 		return
 	}
@@ -402,6 +402,11 @@ start:
 	}	
 	rf.matchIndex[server] = lastindexsend
 	rf.nextIndex[server] = lastindexsend + 1
+	lli = rf.preindex + len(rf.log)
+	if	lli >= rf.nextIndex[server] {
+		rf.mu.Unlock()
+		goto start
+	} 
 	rf.mu.Unlock()
 	go rf.Checkmatch()
 }
@@ -453,13 +458,9 @@ func (rf *Raft) HeartBeat() {
 				rf.mu.Unlock()
 				Printo(dLog, "S%v send heartbeat to S%v\n", rf.me, i)
 				ok := rf.peers[i].Call("Raft.AppendEntries", &args, &reply)
-				for !ok && !rf.Killed() && rf.Isleader() && rf.Sameterm(args.LeaderTerm) {
-					time.Sleep(20 * time.Millisecond)
-					if !ok && !rf.Killed() && rf.Isleader() && rf.Sameterm(args.LeaderTerm) {
-						Printo(dLog, "S%v Resend heartbeat to S%v\n", rf.me, i)
-						ok = rf.peers[i].Call("Raft.AppendEntries", &args, &reply)
-					}
-				}
+				if !ok {
+					return
+				}	
 				rf.mu.Lock()
 				defer rf.mu.Unlock()
 				if reply.Repterm > rf.currentTerm {
@@ -544,7 +545,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		rf.isleader = false
 		// Reset timeout after granting.
 		rf.timer.cond.L.Lock()
-		rf.timer.timeout = rand.Int() % 300 + 500
+		rf.timer.timeout = rand.Int() % 500 + 400
 		rf.timer.ticker = 0
 		rf.timer.cond.L.Unlock()
 		rf.persist()
@@ -626,7 +627,7 @@ func (rf *Raft) ticker() {
 	go rf.Interval()
 	for !rf.Killed() {
 		// Reset timeout, Become candidate start election.
-		rf.timer.timeout = rand.Int() % 300 + 500
+		rf.timer.timeout = rand.Int() % 500 + 400
 		rf.timer.ticker = 0
 		// Waiting ...
 		for !rf.Killed() {
@@ -638,7 +639,7 @@ func (rf *Raft) ticker() {
 				break
 			}
 			// Is leader reset timeout, keep waiting.
-			rf.timer.timeout = rand.Int() % 300 + 500
+			rf.timer.timeout = rand.Int() % 500 + 400
 			rf.timer.ticker = 0 
 		}
 		go rf.Election()	 
