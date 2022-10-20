@@ -28,6 +28,7 @@ const (
 	dLeader logTopic = "LEAD"
 	dTimer  logTopic = "TIMR"
 	dLog	logTopic = "LOGE"
+	dDecode logTopic = "DECO"
 )
 
 var debugStart time.Time

@@ -843,6 +843,7 @@ func TestFigure82C(t *testing.T) {
 
 		if leader != -1 {
 			cfg.crash1(leader)
+			fmt.Printf("Leader S%v crash\n", leader)
 			nup -= 1
 		}
 
@@ -851,15 +852,17 @@ func TestFigure82C(t *testing.T) {
 			if cfg.rafts[s] == nil {
 				cfg.start1(s, cfg.applier)
 				cfg.connect(s)
+				fmt.Printf("S%v connect\n", s)
 				nup += 1
 			}
 		}
 	}
-
+	fmt.Printf("Connect all\n")
 	for i := 0; i < servers; i++ {
 		if cfg.rafts[i] == nil {
 			cfg.start1(i, cfg.applier)
 			cfg.connect(i)
+			fmt.Printf("S%v connect\n", i)
 		}
 	}
 
@@ -908,6 +911,7 @@ func TestFigure8Unreliable2C(t *testing.T) {
 
 	nup := servers
 	for iters := 0; iters < 1000; iters++ {
+		fmt.Printf("Iter %v\n", iters)
 		if iters == 200 {
 			cfg.setlongreordering(true)
 		}
@@ -940,7 +944,7 @@ func TestFigure8Unreliable2C(t *testing.T) {
 			}
 		}
 	}
-
+	fmt.Printf("Connect all\n")
 	for i := 0; i < servers; i++ {
 		if cfg.connected[i] == false {
 			cfg.connect(i)

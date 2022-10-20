@@ -1,0 +1,3392 @@
+Test (2C): basic persistence ...
+007291 VOTE S2 start election
+007299 VOTE S1 in term 1 with llt 0 grant S2 with llt 0 with term 1
+007301 VOTE S0 in term 1 with llt 0 grant S2 with llt 0 with term 1
+007302 VOTE S2 become leader at term 1
+007303 LOGE S2 send heartbeat to S1
+007305 LOGE S1 got Append from S2
+007305 LOGE S2 send heartbeat to S0
+007308 LOGE S0 got Append from S2
+007641 LOGE S2 got log length 1 wit llt 1
+007642 LOGE S2 send append to S1 with term 1
+007643 LOGE S2 send append to S0 with term 1
+007645 LOGE S1 got Append from S2
+007645 LOGE S1 Match index 0 append entries length1
+007645 LOGE S1 append to log length 1 with llt 1
+007646 LOGE S2 as leader commit to index 1
+007646 LOGE S0 got Append from S2
+007646 LOGE S0 Match index 0 append entries length1
+007646 LOGE S0 append to log length 1 with llt 1
+008820 LOGE S2 send heartbeat to S1
+008821 LOGE S2 send heartbeat to S0
+008823 LOGE S1 got Append from S2
+008824 LOGE S1 commit index 1
+008824 LOGE S0 got Append from S2
+008826 LOGE S0 commit index 1
+008917 VOTE S0 start election
+008920 VOTE S1 start election
+009024 VOTE S2 start election
+015278 VOTE S1 start election
+015284 VOTE S2 in term 2 with llt 1 grant S1 with llt 1 with term 2
+015286 VOTE S0 in term 2 with llt 1 grant S1 with llt 1 with term 2
+015288 VOTE S1 become leader at term 2
+015288 LOGE S1 send heartbeat to S2
+015289 LOGE S1 send heartbeat to S0
+015290 LOGE S2 got Append from S1
+015292 LOGE S0 got Append from S1
+015552 LOGE S1 got log length 2 wit llt 2
+015553 LOGE S1 send append to S2 with term 2
+015553 LOGE S1 send append to S0 with term 2
+015555 LOGE S2 got Append from S1
+015555 LOGE S2 Match index 1 append entries length1
+015555 LOGE S2 append to log length 2 with llt 2
+015555 LOGE S0 got Append from S1
+015556 LOGE S0 Match index 1 append entries length1
+015556 LOGE S0 append to log length 2 with llt 2
+015557 LOGE S1 as leader commit to index 2
+016790 LOGE S1 send heartbeat to S2
+016793 LOGE S1 send heartbeat to S0
+016797 LOGE S2 got Append from S1
+016798 LOGE S2 commit index 2
+016801 LOGE S0 got Append from S1
+016801 LOGE S0 commit index 2
+018294 LOGE S1 send heartbeat to S2
+018297 LOGE S1 send heartbeat to S0
+018299 LOGE S2 got Append from S1
+018301 LOGE S0 got Append from S1
+019806 LOGE S1 send heartbeat to S2
+019808 LOGE S1 send heartbeat to S0
+019808 LOGE S2 got Append from S1
+019810 LOGE S0 got Append from S1
+021310 LOGE S1 send heartbeat to S2
+021314 LOGE S2 got Append from S1
+021314 LOGE S1 send heartbeat to S0
+021319 LOGE S0 got Append from S1
+022335 VOTE S1 start election
+027188 VOTE S0 start election
+027190 VOTE S2 in term 3 with llt 2 grant S0 with llt 2 with term 3
+027191 VOTE S1 in term 3 with llt 2 grant S0 with llt 2 with term 3
+027193 VOTE S0 become leader at term 3
+027193 LOGE S0 send heartbeat to S2
+027195 LOGE S0 send heartbeat to S1
+027196 LOGE S2 got Append from S0
+027197 LOGE S1 got Append from S0
+027197 LOGE S1 commit index 0
+027338 LOGE S0 got log length 3 wit llt 3
+027339 LOGE S0 send append to S2 with term 3
+027340 LOGE S0 send append to S1 with term 3
+027344 LOGE S1 got Append from S0
+027345 LOGE S1 Match index 2 append entries length1
+027345 LOGE S1 append to log length 3 with llt 3
+027345 LOGE S1 commit index 2
+027344 LOGE S2 got Append from S0
+027347 LOGE S0 as leader commit to index 3
+027347 LOGE S2 Match index 2 append entries length1
+027347 LOGE S2 append to log length 3 with llt 3
+028698 LOGE S0 send heartbeat to S2
+028701 LOGE S0 send heartbeat to S1
+028703 LOGE S2 got Append from S0
+028705 LOGE S2 commit index 3
+028704 LOGE S1 got Append from S0
+028706 LOGE S1 commit index 3
+030208 LOGE S0 send heartbeat to S2
+030211 LOGE S0 send heartbeat to S1
+030216 LOGE S1 got Append from S0
+030217 LOGE S2 got Append from S0
+031709 LOGE S0 send heartbeat to S2
+031711 LOGE S0 send heartbeat to S1
+031717 LOGE S1 got Append from S0
+031720 LOGE S2 got Append from S0
+033214 LOGE S0 send heartbeat to S2
+033215 LOGE S0 send heartbeat to S1
+033216 LOGE S2 got Append from S0
+033216 LOGE S1 got Append from S0
+034717 LOGE S0 send heartbeat to S2
+034719 LOGE S0 send heartbeat to S1
+036220 LOGE S0 send heartbeat to S2
+036222 LOGE S0 send heartbeat to S1
+037723 LOGE S0 send heartbeat to S2
+037725 LOGE S0 send heartbeat to S1
+039235 LOGE S0 send heartbeat to S2
+039236 LOGE S0 send heartbeat to S1
+040384 LOGE S0 Resend heartbeat to S2
+040738 LOGE S0 send heartbeat to S2
+040740 LOGE S0 send heartbeat to S1
+040742 VOTE S1 start election
+040748 VOTE S2 in term 4 with llt 3 grant S1 with llt 3 with term 4
+040752 VOTE S1 become leader at term 4
+040752 LOGE S1 send heartbeat to S2
+040754 LOGE S2 got Append from S1
+040755 LOGE S1 send heartbeat to S0
+041234 LOGE S1 got log length 4 wit llt 4
+041235 LOGE S1 send append to S2 with term 4
+041236 LOGE S1 send append to S0 with term 4
+041240 LOGE S2 got Append from S1
+041240 LOGE S2 Match index 3 append entries length1
+041240 LOGE S2 append to log length 4 with llt 4
+041243 LOGE S1 as leader commit to index 4
+042242 LOGE S0 send heartbeat to S2
+042245 LOGE S0 send heartbeat to S1
+042263 LOGE S1 send heartbeat to S2
+042266 LOGE S1 send heartbeat to S0
+042271 LOGE S2 got Append from S1
+042272 LOGE S2 commit index 4
+042345 VOTE S0 start election
+043782 LOGE S1 send heartbeat to S2
+043783 LOGE S1 send heartbeat to S0
+043784 LOGE S2 got Append from S1
+043785 LOGE S0 got Append from S1
+043785 LOGE S0 commit index 0
+045303 LOGE S1 send heartbeat to S2
+045306 LOGE S1 send heartbeat to S0
+045307 LOGE S2 got Append from S1
+045310 LOGE S0 got Append from S1
+045311 LOGE S0 commit index 0
+046819 LOGE S1 send heartbeat to S2
+046823 LOGE S1 send heartbeat to S0
+046824 LOGE S2 got Append from S1
+046827 LOGE S0 got Append from S1
+046832 LOGE S0 commit index 0
+048321 LOGE S1 send heartbeat to S2
+048324 LOGE S1 send heartbeat to S0
+048325 LOGE S2 got Append from S1
+048328 LOGE S0 got Append from S1
+048330 LOGE S0 commit index 0
+049838 LOGE S1 send heartbeat to S2
+049842 LOGE S1 send heartbeat to S0
+049846 LOGE S2 got Append from S1
+049850 LOGE S0 got Append from S1
+049852 LOGE S0 commit index 0
+051353 LOGE S1 send heartbeat to S2
+051357 LOGE S1 send heartbeat to S0
+051359 LOGE S2 got Append from S1
+051360 LOGE S0 got Append from S1
+051362 LOGE S0 commit index 0
+052872 LOGE S1 send heartbeat to S2
+052874 LOGE S1 send heartbeat to S0
+052878 LOGE S2 got Append from S1
+052878 LOGE S0 got Append from S1
+052879 LOGE S0 commit index 0
+054395 LOGE S1 send heartbeat to S2
+054398 LOGE S1 send heartbeat to S0
+054399 LOGE S2 got Append from S1
+054400 LOGE S0 got Append from S1
+054400 LOGE S0 commit index 0
+055901 LOGE S1 send heartbeat to S2
+055903 LOGE S1 send heartbeat to S0
+055904 LOGE S2 got Append from S1
+055905 LOGE S0 got Append from S1
+055905 LOGE S0 commit index 0
+057415 LOGE S1 send heartbeat to S2
+057417 LOGE S1 send heartbeat to S0
+057418 LOGE S2 got Append from S1
+057419 LOGE S0 got Append from S1
+057419 LOGE S0 commit index 0
+058916 LOGE S1 send heartbeat to S2
+058917 LOGE S1 send heartbeat to S0
+058918 LOGE S2 got Append from S1
+058919 LOGE S0 got Append from S1
+058925 LOGE S0 commit index 0
+060435 LOGE S1 send heartbeat to S2
+060437 LOGE S1 send heartbeat to S0
+060439 LOGE S2 got Append from S1
+060439 LOGE S0 got Append from S1
+060440 LOGE S0 commit index 0
+061946 LOGE S1 send heartbeat to S2
+061949 LOGE S1 send heartbeat to S0
+061951 LOGE S2 got Append from S1
+061955 LOGE S0 got Append from S1
+061955 LOGE S0 commit index 0
+063468 LOGE S1 send heartbeat to S2
+063470 LOGE S1 send heartbeat to S0
+063472 LOGE S2 got Append from S1
+063473 LOGE S0 got Append from S1
+063473 LOGE S0 commit index 0
+064991 LOGE S1 send heartbeat to S2
+064992 LOGE S1 send heartbeat to S0
+064993 LOGE S2 got Append from S1
+064994 LOGE S0 got Append from S1
+064994 LOGE S0 commit index 0
+066493 LOGE S1 send heartbeat to S2
+066495 LOGE S1 send heartbeat to S0
+066496 LOGE S2 got Append from S1
+066497 LOGE S0 got Append from S1
+066497 LOGE S0 commit index 0
+068003 LOGE S1 send heartbeat to S2
+068004 LOGE S1 send heartbeat to S0
+068005 LOGE S2 got Append from S1
+068006 LOGE S0 got Append from S1
+068006 LOGE S0 commit index 0
+069512 LOGE S1 send heartbeat to S0
+069513 LOGE S1 send heartbeat to S2
+069514 LOGE S0 got Append from S1
+069514 LOGE S0 commit index 0
+069515 LOGE S2 got Append from S1
+071013 LOGE S1 send heartbeat to S2
+071017 LOGE S1 send heartbeat to S0
+071018 LOGE S2 got Append from S1
+071021 LOGE S0 got Append from S1
+071022 LOGE S0 commit index 0
+072515 LOGE S1 send heartbeat to S2
+072522 LOGE S1 send heartbeat to S0
+072526 LOGE S2 got Append from S1
+072526 LOGE S0 got Append from S1
+072528 LOGE S0 commit index 0
+074034 LOGE S1 send heartbeat to S2
+074036 LOGE S1 send heartbeat to S0
+074036 LOGE S2 got Append from S1
+074037 LOGE S0 got Append from S1
+074038 LOGE S0 commit index 0
+075550 LOGE S1 send heartbeat to S2
+075554 LOGE S1 send heartbeat to S0
+075556 LOGE S2 got Append from S1
+075560 LOGE S0 got Append from S1
+075562 LOGE S0 commit index 0
+077065 LOGE S1 send heartbeat to S2
+077068 LOGE S1 send heartbeat to S0
+077070 LOGE S2 got Append from S1
+077071 LOGE S0 got Append from S1
+077075 LOGE S0 commit index 0
+078582 LOGE S1 send heartbeat to S2
+078585 LOGE S1 send heartbeat to S0
+078586 LOGE S2 got Append from S1
+078590 LOGE S0 got Append from S1
+078591 LOGE S0 commit index 0
+080096 LOGE S1 send heartbeat to S2
+080097 LOGE S1 send heartbeat to S0
+080098 LOGE S2 got Append from S1
+080098 LOGE S0 got Append from S1
+080098 LOGE S0 commit index 0
+081057 LOGE S1 send append to S0 with term 4
+081061 LOGE S0 got Append from S1
+081061 LOGE S0 Match index 3 append entries length1
+081061 LOGE S0 append to log length 4 with llt 4
+081061 LOGE S0 commit index 4
+081605 LOGE S1 send heartbeat to S2
+081608 LOGE S1 send heartbeat to S0
+081609 LOGE S2 got Append from S1
+081610 LOGE S0 got Append from S1
+083107 LOGE S1 send heartbeat to S2
+083110 LOGE S1 send heartbeat to S0
+083112 LOGE S2 got Append from S1
+083116 LOGE S0 got Append from S1
+084617 LOGE S1 send heartbeat to S2
+084618 LOGE S1 send heartbeat to S0
+084618 LOGE S2 got Append from S1
+084620 LOGE S0 got Append from S1
+086123 LOGE S1 send heartbeat to S2
+086126 LOGE S1 send heartbeat to S0
+086128 LOGE S2 got Append from S1
+086133 LOGE S0 got Append from S1
+087630 LOGE S1 send heartbeat to S2
+087632 LOGE S1 send heartbeat to S0
+087634 LOGE S2 got Append from S1
+087636 LOGE S0 got Append from S1
+089136 LOGE S1 send heartbeat to S2
+089139 LOGE S2 got Append from S1
+089140 LOGE S1 send heartbeat to S0
+089143 LOGE S0 got Append from S1
+090640 LOGE S1 send heartbeat to S2
+090642 LOGE S1 send heartbeat to S0
+090644 LOGE S2 got Append from S1
+090645 LOGE S0 got Append from S1
+092149 LOGE S1 send heartbeat to S2
+092151 LOGE S1 send heartbeat to S0
+092152 LOGE S2 got Append from S1
+092154 LOGE S0 got Append from S1
+093652 LOGE S1 send heartbeat to S2
+093654 LOGE S1 send heartbeat to S0
+093656 LOGE S2 got Append from S1
+093657 LOGE S0 got Append from S1
+095162 LOGE S1 send heartbeat to S2
+095164 LOGE S1 send heartbeat to S0
+095165 LOGE S2 got Append from S1
+095166 LOGE S0 got Append from S1
+096663 LOGE S1 send heartbeat to S2
+096666 LOGE S1 send heartbeat to S0
+096668 LOGE S2 got Append from S1
+096669 LOGE S0 got Append from S1
+098174 LOGE S1 send heartbeat to S2
+098176 LOGE S1 send heartbeat to S0
+098177 LOGE S2 got Append from S1
+098180 LOGE S0 got Append from S1
+098215 LOGE S1 got log length 5 wit llt 4
+098219 LOGE S1 send append to S2 with term 4
+098221 LOGE S1 send append to S0 with term 4
+098222 LOGE S0 got Append from S1
+098223 LOGE S0 Match index 4 append entries length1
+098223 LOGE S0 append to log length 5 with llt 4
+098225 LOGE S1 as leader commit to index 5
+099694 LOGE S1 send heartbeat to S2
+099696 LOGE S1 send heartbeat to S0
+099698 LOGE S0 got Append from S1
+099699 LOGE S0 commit index 5
+099908 LOGE S1 got log length 6 wit llt 4
+099909 LOGE S1 send append to S2 with term 4
+099910 LOGE S1 send append to S0 with term 4
+099912 LOGE S0 got Append from S1
+099912 LOGE S0 Match index 5 append entries length1
+099912 LOGE S0 append to log length 6 with llt 4
+099915 LOGE S2 got Append from S1
+099916 LOGE S2 Match index 4 append entries length2
+099916 LOGE S2 append to log length 6 with llt 4
+099916 LOGE S2 commit index 5
+099916 LOGE S1 as leader commit to index 6
+099988 VOTE S2 start election
+101204 LOGE S1 send heartbeat to S2
+101207 LOGE S1 send heartbeat to S0
+101212 LOGE S0 got Append from S1
+101213 LOGE S0 commit index 6
+101212 LOGE S2 got Append from S1
+101214 LOGE S2 commit index 6
+  ... Passed --  10.1  3  140   36562    6
+Test (2C): more persistence ...
+101425 VOTE S1 start election
+101430 VOTE S0 start election
+101432 VOTE S2 start election
+107032 VOTE S1 start election
+107040 VOTE S4 in term 1 with llt 0 grant S1 with llt 0 with term 1
+107040 VOTE S0 in term 1 with llt 0 grant S1 with llt 0 with term 1
+107042 VOTE S2 in term 1 with llt 0 grant S1 with llt 0 with term 1
+107066 VOTE S1 become leader at term 1
+107069 LOGE S1 send heartbeat to S4
+107069 LOGE S1 send heartbeat to S0
+107086 LOGE S1 send heartbeat to S2
+107087 LOGE S1 send heartbeat to S3
+107087 LOGE S2 got Append from S1
+107088 VOTE S3 in term 1 with llt 0 grant S1 with llt 0 with term 1
+107090 LOGE S0 got Append from S1
+107090 LOGE S3 got Append from S1
+107091 LOGE S4 got Append from S1
+107539 LOGE S1 got log length 1 wit llt 1
+107540 LOGE S1 send append to S4 with term 1
+107541 LOGE S1 send append to S0 with term 1
+107542 LOGE S4 got Append from S1
+107541 LOGE S1 send append to S2 with term 1
+107544 LOGE S0 got Append from S1
+107545 LOGE S0 Match index 0 append entries length1
+107545 LOGE S0 append to log length 1 with llt 1
+107544 LOGE S2 got Append from S1
+107546 LOGE S2 Match index 0 append entries length1
+107546 LOGE S2 append to log length 1 with llt 1
+107546 LOGE S1 as leader commit to index 1
+107542 LOGE S4 Match index 0 append entries length1
+107546 LOGE S4 append to log length 1 with llt 1
+107541 LOGE S1 send append to S3 with term 1
+107548 LOGE S3 got Append from S1
+107548 LOGE S3 Match index 0 append entries length1
+107548 LOGE S3 append to log length 1 with llt 1
+108575 LOGE S1 send heartbeat to S4
+108577 LOGE S1 send heartbeat to S2
+108578 LOGE S4 got Append from S1
+108578 LOGE S4 commit index 1
+108578 LOGE S1 send heartbeat to S3
+108580 LOGE S2 got Append from S1
+108580 LOGE S2 commit index 1
+108581 LOGE S1 send heartbeat to S0
+108583 LOGE S3 got Append from S1
+108584 LOGE S3 commit index 1
+108584 LOGE S0 got Append from S1
+108585 LOGE S0 commit index 1
+110076 LOGE S1 send heartbeat to S4
+110077 LOGE S1 send heartbeat to S2
+110094 LOGE S2 got Append from S1
+110077 LOGE S1 send heartbeat to S0
+110077 LOGE S1 send heartbeat to S3
+110101 LOGE S0 got Append from S1
+110080 LOGE S4 got Append from S1
+110104 LOGE S3 got Append from S1
+111585 LOGE S1 send heartbeat to S0
+111588 LOGE S0 got Append from S1
+111588 LOGE S1 send heartbeat to S3
+111588 LOGE S1 send heartbeat to S2
+111589 LOGE S1 send heartbeat to S4
+111593 LOGE S3 got Append from S1
+111594 LOGE S2 got Append from S1
+111595 LOGE S4 got Append from S1
+113086 LOGE S1 send heartbeat to S4
+113088 LOGE S1 send heartbeat to S2
+113090 LOGE S4 got Append from S1
+113091 LOGE S1 send heartbeat to S0
+113091 LOGE S1 send heartbeat to S3
+113091 LOGE S2 got Append from S1
+113095 LOGE S0 got Append from S1
+113095 LOGE S3 got Append from S1
+113238 LOGE S1 got log length 2 wit llt 1
+113239 LOGE S1 send append to S4 with term 1
+113240 LOGE S1 send append to S2 with term 1
+113242 LOGE S1 send append to S0 with term 1
+113242 LOGE S4 got Append from S1
+113242 LOGE S4 Match index 1 append entries length1
+113242 LOGE S4 append to log length 2 with llt 1
+113244 LOGE S1 send append to S3 with term 1
+113244 LOGE S0 got Append from S1
+113246 LOGE S0 Match index 1 append entries length1
+113246 LOGE S0 append to log length 2 with llt 1
+113247 LOGE S1 as leader commit to index 2
+114589 LOGE S1 send heartbeat to S4
+114591 LOGE S1 send heartbeat to S3
+114591 LOGE S1 send heartbeat to S2
+114592 LOGE S1 send heartbeat to S0
+114593 LOGE S4 got Append from S1
+114593 LOGE S4 commit index 2
+114594 LOGE S0 got Append from S1
+114595 LOGE S0 commit index 2
+114758 VOTE S2 start election
+114808 VOTE S3 start election
+116113 LOGE S1 send heartbeat to S4
+116115 LOGE S1 send heartbeat to S2
+116115 LOGE S1 send heartbeat to S3
+116116 LOGE S1 send heartbeat to S0
+117617 LOGE S1 send heartbeat to S4
+117620 LOGE S1 send heartbeat to S2
+117620 LOGE S1 send heartbeat to S3
+117620 LOGE S1 send heartbeat to S0
+119130 LOGE S1 send heartbeat to S4
+119132 LOGE S1 send heartbeat to S3
+119132 LOGE S1 send heartbeat to S2
+119132 LOGE S1 send heartbeat to S0
+120642 LOGE S1 send heartbeat to S4
+120645 LOGE S1 send heartbeat to S3
+120645 LOGE S1 send heartbeat to S2
+120646 LOGE S1 send heartbeat to S0
+122017 VOTE S0 start election
+122150 LOGE S1 send heartbeat to S4
+122153 LOGE S1 send heartbeat to S3
+122151 LOGE S1 send heartbeat to S2
+122151 LOGE S1 send heartbeat to S0
+122556 VOTE S2 start election
+122563 VOTE S3 in term 2 with llt 1 grant S2 with llt 1 with term 2
+122676 VOTE S4 start election
+123629 LOGE S1 Resend heartbeat to S2
+123667 LOGE S1 send heartbeat to S4
+123669 LOGE S1 send heartbeat to S0
+123670 LOGE S1 send heartbeat to S2
+123670 LOGE S1 send heartbeat to S3
+124789 VOTE S4 start election
+125172 LOGE S1 send heartbeat to S4
+125174 LOGE S1 send heartbeat to S3
+125174 LOGE S1 send heartbeat to S2
+125174 LOGE S1 send heartbeat to S0
+125224 LOGE S1 Resend heartbeat to S4
+126674 LOGE S1 send heartbeat to S4
+126676 LOGE S1 send heartbeat to S2
+126676 LOGE S1 send heartbeat to S0
+126676 LOGE S1 send heartbeat to S3
+127803 VOTE S0 start election
+128195 LOGE S1 Resend heartbeat to S2
+128197 LOGE S1 send heartbeat to S4
+128198 LOGE S1 send heartbeat to S0
+128198 LOGE S1 send heartbeat to S2
+128199 LOGE S1 send heartbeat to S3
+129324 VOTE S3 start election
+129326 VOTE S2 in term 3 with llt 1 grant S3 with llt 1 with term 3
+129461 LOGE S1 Resend heartbeat to S2
+129700 LOGE S1 send heartbeat to S4
+129702 LOGE S1 send heartbeat to S3
+129702 LOGE S1 send heartbeat to S0
+129702 LOGE S1 send heartbeat to S2
+130469 LOGE S1 Resend heartbeat to S0
+131211 LOGE S1 send heartbeat to S4
+131213 LOGE S1 send heartbeat to S3
+131214 LOGE S1 send heartbeat to S2
+131214 LOGE S1 send heartbeat to S0
+132164 VOTE S4 start election
+132169 VOTE S3 in term 4 with llt 1 grant S4 with llt 1 with term 4
+132170 VOTE S2 in term 4 with llt 1 grant S4 with llt 1 with term 4
+132174 VOTE S4 become leader at term 4
+132175 LOGE S4 send heartbeat to S3
+132177 LOGE S4 send heartbeat to S1
+132177 LOGE S3 got Append from S4
+132178 LOGE S4 send heartbeat to S0
+132179 LOGE S4 send heartbeat to S2
+132181 LOGE S2 got Append from S4
+132322 LOGE S4 got log length 3 wit llt 4
+132324 LOGE S4 send append to S3 with term 4
+132325 LOGE S4 send append to S1 with term 4
+132327 LOGE S4 send append to S0 with term 4
+132327 LOGE S4 send append to S2 with term 4
+132327 LOGE S3 got Append from S4
+132329 LOGE S2 got Append from S4
+132330 LOGE S4 Resend because unfit index
+132330 LOGE S4 send append to S3 with term 4
+132333 LOGE S4 Resend because unfit index
+132335 LOGE S4 send append to S2 with term 4
+132333 LOGE S3 got Append from S4
+132337 LOGE S3 Match index 0 append entries length3
+132337 LOGE S3 append to log length 3 with llt 4
+132340 LOGE S2 got Append from S4
+132340 LOGE S2 Match index 0 append entries length3
+132341 LOGE S2 append to log length 3 with llt 4
+132342 LOGE S4 as leader commit to index 3
+132728 LOGE S1 send heartbeat to S4
+132730 LOGE S1 send heartbeat to S3
+132730 LOGE S1 send heartbeat to S2
+132730 LOGE S1 send heartbeat to S0
+133491 VOTE S0 start election
+133569 LOGE S1 Resend heartbeat to S0
+133587 LOGE S4 send append to S0 with term 4
+133690 LOGE S4 send heartbeat to S3
+133695 LOGE S4 send heartbeat to S2
+133695 LOGE S4 send heartbeat to S1
+133697 LOGE S4 send heartbeat to S0
+133698 LOGE S2 got Append from S4
+133698 LOGE S2 commit index 3
+133701 LOGE S3 got Append from S4
+133702 LOGE S3 commit index 3
+133995 LOGE S1 got log length 3 wit llt 1
+133995 LOGE S1 send append to S4 with term 1
+133997 LOGE S1 send append to S2 with term 1
+133997 LOGE S4 got Append from S1
+133997 LOGE S4 with term 4 reject S1 for low term 1
+133997 VOTE S1 being reject by S4 and become follower
+133998 LOGE S2 got Append from S1
+133998 LOGE S2 with term 4 reject S1 for low term 1
+135195 LOGE S4 send heartbeat to S3
+135198 LOGE S4 send heartbeat to S2
+135199 LOGE S4 send heartbeat to S1
+135202 LOGE S3 got Append from S4
+135202 LOGE S4 send heartbeat to S0
+135204 LOGE S2 got Append from S4
+135202 LOGE S1 got Append from S4
+135207 LOGE S1 commit index 0
+135206 LOGE S0 got Append from S4
+135211 LOGE S0 commit index 0
+136711 LOGE S4 send heartbeat to S3
+136712 LOGE S4 send heartbeat to S0
+136713 LOGE S3 got Append from S4
+136714 LOGE S4 send heartbeat to S1
+136714 LOGE S0 got Append from S4
+136716 LOGE S0 commit index 0
+136716 LOGE S1 got Append from S4
+136717 LOGE S1 commit index 0
+136714 LOGE S4 send heartbeat to S2
+136719 LOGE S2 got Append from S4
+138214 LOGE S4 send heartbeat to S3
+138217 LOGE S4 send heartbeat to S0
+138217 LOGE S4 send heartbeat to S1
+138218 LOGE S4 send heartbeat to S2
+138217 LOGE S3 got Append from S4
+138221 LOGE S2 got Append from S4
+138222 LOGE S1 got Append from S4
+138222 LOGE S1 commit index 0
+138222 LOGE S0 got Append from S4
+138222 LOGE S0 commit index 0
+139717 LOGE S4 send heartbeat to S3
+139719 LOGE S4 send heartbeat to S1
+139720 LOGE S3 got Append from S4
+139721 LOGE S4 send heartbeat to S2
+139724 LOGE S1 got Append from S4
+139724 LOGE S1 commit index 0
+139725 LOGE S2 got Append from S4
+139722 LOGE S4 send heartbeat to S0
+139730 LOGE S0 got Append from S4
+139731 LOGE S0 commit index 0
+140792 LOGE S4 send append to S0 with term 4
+140798 LOGE S0 got Append from S4
+140799 LOGE S0 Match index 2 append entries length1
+140799 LOGE S0 append to log length 3 with llt 4
+140799 LOGE S0 commit index 3
+141235 LOGE S4 send heartbeat to S3
+141237 LOGE S4 send heartbeat to S1
+141239 LOGE S3 got Append from S4
+141240 LOGE S1 got Append from S4
+141240 LOGE S4 send heartbeat to S2
+141240 LOGE S1 commit index 0
+141240 LOGE S4 send heartbeat to S0
+141243 LOGE S2 got Append from S4
+141251 LOGE S0 got Append from S4
+141545 LOGE S4 Resend heartbeat to S1
+141548 LOGE S1 got Append from S4
+141548 LOGE S1 commit index 0
+142753 LOGE S4 send heartbeat to S3
+142756 LOGE S4 send heartbeat to S1
+142757 LOGE S3 got Append from S4
+142758 LOGE S4 send heartbeat to S2
+142763 LOGE S2 got Append from S4
+142759 LOGE S1 got Append from S4
+142765 LOGE S1 commit index 0
+142759 LOGE S4 send heartbeat to S0
+142772 LOGE S0 got Append from S4
+144246 LOGE S4 Resend heartbeat to S1
+144249 LOGE S1 got Append from S4
+144267 LOGE S4 send heartbeat to S3
+144269 LOGE S4 send heartbeat to S1
+144270 LOGE S3 got Append from S4
+144270 LOGE S1 got Append from S4
+144271 LOGE S1 commit index 0
+144270 LOGE S4 send heartbeat to S0
+144274 LOGE S0 got Append from S4
+144270 LOGE S4 send heartbeat to S2
+144276 LOGE S2 got Append from S4
+145768 LOGE S4 send heartbeat to S3
+145771 LOGE S4 send heartbeat to S1
+145772 LOGE S3 got Append from S4
+145773 LOGE S4 send heartbeat to S2
+145776 LOGE S2 got Append from S4
+145773 LOGE S1 got Append from S4
+145778 LOGE S1 commit index 0
+145774 LOGE S4 send heartbeat to S0
+145782 LOGE S0 got Append from S4
+147271 LOGE S4 send heartbeat to S3
+147274 LOGE S4 send heartbeat to S1
+147275 LOGE S3 got Append from S4
+147277 LOGE S4 send heartbeat to S0
+147277 LOGE S4 send heartbeat to S2
+147280 LOGE S0 got Append from S4
+147281 LOGE S2 got Append from S4
+147277 LOGE S1 got Append from S4
+147284 LOGE S1 commit index 0
+148772 LOGE S4 send heartbeat to S3
+148776 LOGE S4 send heartbeat to S1
+148776 LOGE S4 send heartbeat to S2
+148777 LOGE S4 send heartbeat to S0
+148779 LOGE S2 got Append from S4
+148781 LOGE S3 got Append from S4
+148781 LOGE S1 got Append from S4
+148781 LOGE S1 commit index 0
+148779 LOGE S0 got Append from S4
+150280 LOGE S4 send heartbeat to S3
+150283 LOGE S4 send heartbeat to S1
+150284 LOGE S3 got Append from S4
+150286 LOGE S4 send heartbeat to S2
+150286 LOGE S4 send heartbeat to S0
+150291 LOGE S0 got Append from S4
+150287 LOGE S1 got Append from S4
+150294 LOGE S1 commit index 0
+150289 LOGE S2 got Append from S4
+151783 LOGE S4 send heartbeat to S3
+151785 LOGE S4 send heartbeat to S1
+151787 LOGE S3 got Append from S4
+151788 LOGE S1 got Append from S4
+151788 LOGE S1 commit index 0
+151789 LOGE S4 send heartbeat to S2
+151788 LOGE S4 send heartbeat to S0
+151791 LOGE S2 got Append from S4
+151793 LOGE S0 got Append from S4
+153285 LOGE S4 send heartbeat to S3
+153290 LOGE S3 got Append from S4
+153291 LOGE S4 send heartbeat to S2
+153291 LOGE S4 send heartbeat to S1
+153293 LOGE S2 got Append from S4
+153294 LOGE S1 got Append from S4
+153294 LOGE S1 commit index 0
+153291 LOGE S4 send heartbeat to S0
+153298 LOGE S0 got Append from S4
+154078 LOGE S4 got log length 4 wit llt 4
+154081 LOGE S4 send append to S3 with term 4
+154083 LOGE S3 got Append from S4
+154084 LOGE S3 Match index 3 append entries length1
+154084 LOGE S3 append to log length 4 with llt 4
+154083 LOGE S4 send append to S1 with term 4
+154089 LOGE S1 got Append from S4
+154089 LOGE S1 Match index 2 append entries length2
+154089 LOGE S1 append to log length 4 with llt 4
+154089 LOGE S1 commit index 3
+154083 LOGE S4 send append to S0 with term 4
+154091 LOGE S4 as leader commit to index 4
+154095 LOGE S0 got Append from S4
+154095 LOGE S0 Match index 3 append entries length1
+154095 LOGE S0 append to log length 4 with llt 4
+154084 LOGE S4 send append to S2 with term 4
+154098 LOGE S2 got Append from S4
+154098 LOGE S2 Match index 3 append entries length1
+154098 LOGE S2 append to log length 4 with llt 4
+154791 LOGE S4 send heartbeat to S3
+154794 LOGE S4 send heartbeat to S1
+154795 LOGE S3 got Append from S4
+154795 LOGE S3 commit index 4
+154796 LOGE S4 send heartbeat to S2
+154800 LOGE S2 got Append from S4
+154801 LOGE S2 commit index 4
+154796 LOGE S1 got Append from S4
+154801 LOGE S1 commit index 4
+154797 LOGE S4 send heartbeat to S0
+154804 LOGE S0 got Append from S4
+154804 LOGE S0 commit index 4
+156299 LOGE S4 send heartbeat to S3
+156303 LOGE S4 send heartbeat to S1
+156304 LOGE S4 send heartbeat to S2
+156303 LOGE S3 got Append from S4
+156306 LOGE S4 send heartbeat to S0
+156311 LOGE S2 got Append from S4
+156312 LOGE S1 got Append from S4
+156313 LOGE S0 got Append from S4
+157815 LOGE S4 send heartbeat to S3
+157818 LOGE S4 send heartbeat to S1
+157819 LOGE S3 got Append from S4
+157821 LOGE S4 send heartbeat to S2
+157821 LOGE S4 send heartbeat to S0
+157823 LOGE S2 got Append from S4
+157822 LOGE S1 got Append from S4
+157826 LOGE S0 got Append from S4
+159317 LOGE S4 send heartbeat to S3
+159321 LOGE S4 send heartbeat to S1
+159321 LOGE S3 got Append from S4
+159321 LOGE S4 send heartbeat to S2
+159321 LOGE S4 send heartbeat to S0
+159331 LOGE S0 got Append from S4
+159324 LOGE S1 got Append from S4
+159329 LOGE S2 got Append from S4
+160224 LOGE S4 got log length 5 wit llt 4
+160226 LOGE S4 send append to S3 with term 4
+160229 LOGE S4 send append to S1 with term 4
+160232 LOGE S3 got Append from S4
+160241 LOGE S3 Match index 4 append entries length1
+160241 LOGE S3 append to log length 5 with llt 4
+160232 LOGE S4 send append to S2 with term 4
+160232 LOGE S4 send append to S0 with term 4
+160245 LOGE S2 got Append from S4
+160245 LOGE S2 Match index 4 append entries length1
+160245 LOGE S2 append to log length 5 with llt 4
+160247 LOGE S4 as leader commit to index 5
+160822 LOGE S4 send heartbeat to S3
+160824 LOGE S4 send heartbeat to S1
+160825 LOGE S3 got Append from S4
+160826 LOGE S3 commit index 5
+160826 LOGE S4 send heartbeat to S2
+160826 LOGE S4 send heartbeat to S0
+160828 LOGE S2 got Append from S4
+160833 LOGE S2 commit index 5
+160862 VOTE S1 start election
+160863 VOTE S0 start election
+162335 LOGE S4 send heartbeat to S3
+162337 LOGE S4 send heartbeat to S2
+162338 LOGE S4 send heartbeat to S1
+162338 LOGE S4 send heartbeat to S0
+162407 LOGE S4 send append to S1 with term 4
+163305 LOGE S4 Resend heartbeat to S1
+163850 LOGE S4 send heartbeat to S3
+163852 LOGE S4 send heartbeat to S0
+163852 LOGE S4 send heartbeat to S1
+163855 LOGE S4 send heartbeat to S2
+165365 LOGE S4 send heartbeat to S3
+165368 LOGE S4 send heartbeat to S2
+165369 LOGE S4 send heartbeat to S0
+165369 LOGE S4 send heartbeat to S1
+166870 LOGE S4 send heartbeat to S3
+166872 LOGE S4 send heartbeat to S0
+166873 LOGE S4 send heartbeat to S2
+166873 LOGE S4 send heartbeat to S1
+167875 VOTE S3 start election
+168185 VOTE S1 start election
+168190 VOTE S0 in term 5 with llt 4 grant S1 with llt 4 with term 5
+168385 LOGE S4 send heartbeat to S3
+168387 LOGE S4 send heartbeat to S1
+168387 LOGE S4 send heartbeat to S2
+168388 LOGE S4 send heartbeat to S0
+168958 VOTE S2 start election
+169376 LOGE S4 Resend heartbeat to S0
+169677 LOGE S4 Resend heartbeat to S0
+169887 LOGE S4 send heartbeat to S3
+169888 LOGE S4 send heartbeat to S2
+169889 LOGE S4 send heartbeat to S1
+169889 LOGE S4 send heartbeat to S0
+170607 LOGE S4 Resend heartbeat to S3
+170936 VOTE S2 start election
+171387 LOGE S4 send heartbeat to S3
+171388 LOGE S4 send heartbeat to S0
+171389 LOGE S4 send heartbeat to S2
+171388 LOGE S4 send heartbeat to S1
+172904 LOGE S4 send heartbeat to S3
+172907 LOGE S4 send heartbeat to S0
+172907 LOGE S4 send heartbeat to S1
+172908 LOGE S4 send heartbeat to S2
+174240 VOTE S0 start election
+174261 VOTE S1 in term 6 with llt 4 grant S0 with llt 4 with term 6
+174409 LOGE S4 send heartbeat to S3
+174412 LOGE S4 send heartbeat to S1
+174413 LOGE S4 send heartbeat to S0
+174413 LOGE S4 send heartbeat to S2
+174459 VOTE S3 start election
+175173 LOGE S4 Resend heartbeat to S3
+175928 LOGE S4 send heartbeat to S3
+175930 LOGE S4 send heartbeat to S0
+175930 LOGE S4 send heartbeat to S2
+175931 LOGE S4 send heartbeat to S1
+176519 LOGE S4 Resend heartbeat to S1
+176883 LOGE S4 Resend heartbeat to S1
+177081 LOGE S4 Resend heartbeat to S0
+177321 VOTE S2 start election
+177325 VOTE S1 in term 7 with llt 4 grant S2 with llt 4 with term 7
+177325 VOTE S0 in term 7 with llt 4 grant S2 with llt 4 with term 7
+177329 VOTE S2 become leader at term 7
+177329 LOGE S2 send heartbeat to S4
+177330 LOGE S2 send heartbeat to S3
+177330 LOGE S2 send heartbeat to S1
+177331 LOGE S2 send heartbeat to S0
+177333 LOGE S1 got Append from S2
+177336 LOGE S0 got Append from S2
+177445 LOGE S4 send heartbeat to S3
+177447 LOGE S4 send heartbeat to S1
+177447 LOGE S4 send heartbeat to S0
+177447 LOGE S4 send heartbeat to S2
+177492 LOGE S2 got log length 6 wit llt 7
+177493 LOGE S2 send append to S4 with term 7
+177494 LOGE S2 send append to S1 with term 7
+177494 LOGE S2 send append to S0 with term 7
+177497 LOGE S0 got Append from S2
+177497 LOGE S1 got Append from S2
+177494 LOGE S2 send append to S3 with term 7
+177499 LOGE S2 Resend because unfit index
+177499 LOGE S2 send append to S0 with term 7
+177500 LOGE S2 Resend because unfit index
+177500 LOGE S2 send append to S1 with term 7
+177501 LOGE S0 got Append from S2
+177501 LOGE S0 Match index 0 append entries length6
+177501 LOGE S0 append to log length 6 with llt 7
+177502 LOGE S1 got Append from S2
+177502 LOGE S1 Match index 0 append entries length6
+177502 LOGE S1 append to log length 6 with llt 7
+177504 LOGE S2 as leader commit to index 6
+178597 LOGE S4 Resend heartbeat to S1
+178834 LOGE S2 send heartbeat to S4
+178836 LOGE S2 send heartbeat to S1
+178837 LOGE S2 send heartbeat to S3
+178837 LOGE S2 send heartbeat to S0
+178838 LOGE S1 got Append from S2
+178839 LOGE S1 commit index 6
+178839 LOGE S0 got Append from S2
+178839 LOGE S0 commit index 6
+178912 LOGE S4 Resend heartbeat to S0
+178956 LOGE S4 send heartbeat to S3
+178958 LOGE S4 send heartbeat to S1
+178958 LOGE S4 send heartbeat to S2
+178958 LOGE S4 send heartbeat to S0
+179569 LOGE S2 got log length 7 wit llt 7
+179570 LOGE S2 send append to S4 with term 7
+179571 LOGE S2 send append to S1 with term 7
+179573 LOGE S4 got Append from S2
+179573 LOGE S4 Match index 5 append entries length2
+179573 LOGE S4 append to log length 7 with llt 7
+179573 LOGE S4 commit index 6
+179575 LOGE S2 send append to S3 with term 7
+179576 LOGE S1 got Append from S2
+179577 LOGE S1 Match index 6 append entries length1
+179577 LOGE S1 append to log length 7 with llt 7
+179576 LOGE S2 send append to S0 with term 7
+179579 LOGE S3 got Append from S2
+179580 LOGE S2 as leader commit to index 7
+179580 LOGE S3 Match index 5 append entries length2
+179582 LOGE S3 append to log length 7 with llt 7
+179582 LOGE S3 commit index 6
+179584 LOGE S0 got Append from S2
+179585 LOGE S0 Match index 6 append entries length1
+179585 LOGE S0 append to log length 7 with llt 7
+180335 LOGE S2 send heartbeat to S4
+180337 LOGE S2 send heartbeat to S1
+180338 LOGE S4 got Append from S2
+180338 LOGE S4 commit index 7
+180339 LOGE S1 got Append from S2
+180339 LOGE S2 send heartbeat to S0
+180339 LOGE S1 commit index 7
+180344 LOGE S0 got Append from S2
+180344 LOGE S0 commit index 7
+180339 LOGE S2 send heartbeat to S3
+180351 LOGE S3 got Append from S2
+180352 LOGE S3 commit index 7
+181837 LOGE S2 send heartbeat to S4
+181840 LOGE S2 send heartbeat to S1
+181841 LOGE S4 got Append from S2
+181843 LOGE S2 send heartbeat to S3
+181843 LOGE S1 got Append from S2
+181844 LOGE S3 got Append from S2
+181843 LOGE S2 send heartbeat to S0
+181847 LOGE S0 got Append from S2
+183356 LOGE S2 send heartbeat to S4
+183358 LOGE S2 send heartbeat to S1
+183359 LOGE S4 got Append from S2
+183359 LOGE S2 send heartbeat to S0
+183363 LOGE S1 got Append from S2
+183359 LOGE S2 send heartbeat to S3
+183364 LOGE S0 got Append from S2
+183366 LOGE S3 got Append from S2
+184860 LOGE S2 send heartbeat to S4
+184861 LOGE S2 send heartbeat to S1
+184862 LOGE S4 got Append from S2
+184863 LOGE S1 got Append from S2
+184863 LOGE S2 send heartbeat to S3
+184863 LOGE S2 send heartbeat to S0
+184866 LOGE S0 got Append from S2
+184865 LOGE S3 got Append from S2
+185319 LOGE S2 got log length 8 wit llt 7
+185320 LOGE S2 send append to S4 with term 7
+185320 LOGE S2 send append to S1 with term 7
+185321 LOGE S2 send append to S0 with term 7
+185322 LOGE S0 got Append from S2
+185322 LOGE S0 Match index 7 append entries length1
+185322 LOGE S0 append to log length 8 with llt 7
+185321 LOGE S2 send append to S3 with term 7
+185322 LOGE S1 got Append from S2
+185323 LOGE S1 Match index 7 append entries length1
+185323 LOGE S1 append to log length 8 with llt 7
+185324 LOGE S2 as leader commit to index 8
+186061 LOGE S2 Resend heartbeat to S4
+186370 LOGE S2 send heartbeat to S4
+186373 LOGE S2 send heartbeat to S1
+186374 LOGE S2 send heartbeat to S3
+186375 LOGE S2 send heartbeat to S0
+186376 LOGE S1 got Append from S2
+186378 LOGE S1 commit index 8
+186378 LOGE S0 got Append from S2
+186381 LOGE S0 commit index 8
+186652 VOTE S4 start election
+186653 VOTE S3 start election
+187882 LOGE S2 send heartbeat to S4
+187884 LOGE S2 send heartbeat to S3
+187884 LOGE S2 send heartbeat to S1
+187884 LOGE S2 send heartbeat to S0
+189384 LOGE S2 send heartbeat to S4
+189386 LOGE S2 send heartbeat to S3
+189386 LOGE S2 send heartbeat to S1
+189388 LOGE S2 send heartbeat to S0
+190756 LOGE S2 send append to S4 with term 7
+190904 LOGE S2 send heartbeat to S4
+190906 LOGE S2 send heartbeat to S0
+190906 LOGE S2 send heartbeat to S1
+190907 LOGE S2 send heartbeat to S3
+191840 LOGE S2 send append to S3 with term 7
+192331 VOTE S1 start election
+192421 LOGE S2 send heartbeat to S4
+192423 LOGE S2 send heartbeat to S0
+192424 LOGE S2 send heartbeat to S1
+192424 LOGE S2 send heartbeat to S3
+193117 VOTE S0 start election
+193463 LOGE S2 Resend heartbeat to S0
+193934 LOGE S2 send heartbeat to S4
+193936 LOGE S2 send heartbeat to S1
+193936 LOGE S2 send heartbeat to S3
+193936 LOGE S2 send heartbeat to S0
+194085 VOTE S3 start election
+194087 VOTE S4 in term 8 with llt 7 grant S3 with llt 7 with term 8
+195438 LOGE S2 send heartbeat to S4
+195441 LOGE S2 send heartbeat to S0
+195441 LOGE S2 send heartbeat to S1
+195441 LOGE S2 send heartbeat to S3
+196376 LOGE S2 Resend heartbeat to S1
+196670 VOTE S0 start election
+196950 LOGE S2 send heartbeat to S4
+196952 LOGE S2 send heartbeat to S0
+196952 LOGE S2 send heartbeat to S3
+196952 LOGE S2 send heartbeat to S1
+197331 LOGE S2 send append to S3 with term 7
+198471 LOGE S2 send heartbeat to S4
+198474 LOGE S2 send heartbeat to S0
+198475 LOGE S2 send heartbeat to S1
+198475 LOGE S2 send heartbeat to S3
+198772 LOGE S2 send append to S3 with term 7
+199521 LOGE S2 Resend heartbeat to S0
+199589 VOTE S1 start election
+199981 LOGE S2 send heartbeat to S4
+199984 LOGE S2 send heartbeat to S0
+199984 LOGE S2 send heartbeat to S3
+199984 LOGE S2 send heartbeat to S1
+200814 LOGE S2 Resend heartbeat to S0
+201279 VOTE S4 start election
+201284 VOTE S3 in term 9 with llt 7 grant S4 with llt 7 with term 9
+201486 LOGE S2 send heartbeat to S4
+201488 LOGE S2 send heartbeat to S0
+201489 LOGE S2 send heartbeat to S3
+201489 LOGE S2 send heartbeat to S1
+202994 LOGE S2 send heartbeat to S4
+202996 LOGE S2 send heartbeat to S3
+202997 LOGE S2 send heartbeat to S0
+202997 LOGE S2 send heartbeat to S1
+203175 VOTE S0 start election
+203180 VOTE S4 in term 10 with llt 7 grant S0 with llt 7 with term 10
+203181 VOTE S3 in term 10 with llt 7 grant S0 with llt 7 with term 10
+203186 VOTE S0 become leader at term 10
+203187 LOGE S0 send heartbeat to S4
+203189 LOGE S0 send heartbeat to S2
+203191 LOGE S0 send heartbeat to S1
+203192 LOGE S4 got Append from S0
+203192 LOGE S0 send heartbeat to S3
+203195 LOGE S3 got Append from S0
+203224 LOGE S0 got log length 9 wit llt 10
+203226 LOGE S0 send append to S4 with term 10
+203229 LOGE S0 send append to S2 with term 10
+203230 LOGE S0 send append to S1 with term 10
+203231 LOGE S0 send append to S3 with term 10
+203233 LOGE S4 got Append from S0
+203234 LOGE S3 got Append from S0
+203235 LOGE S0 Resend because unfit index
+203235 LOGE S0 send append to S3 with term 10
+203236 LOGE S0 Resend because unfit index
+203236 LOGE S0 send append to S4 with term 10
+203239 LOGE S4 got Append from S0
+203240 LOGE S4 Match index 0 append entries length9
+203240 LOGE S3 got Append from S0
+203241 LOGE S3 Match index 0 append entries length9
+203241 LOGE S3 append to log length 9 with llt 10
+203240 LOGE S4 append to log length 9 with llt 10
+203245 LOGE S0 as leader commit to index 9
+204499 LOGE S2 send heartbeat to S4
+204500 LOGE S2 send heartbeat to S1
+204500 LOGE S2 send heartbeat to S3
+204500 LOGE S2 send heartbeat to S0
+204601 LOGE S0 Resend heartbeat to S2
+204701 LOGE S0 send heartbeat to S4
+204704 LOGE S4 got Append from S0
+204705 LOGE S4 commit index 9
+204705 LOGE S0 send heartbeat to S2
+204706 LOGE S0 send heartbeat to S3
+204706 LOGE S0 send heartbeat to S1
+204709 LOGE S3 got Append from S0
+204710 LOGE S3 commit index 9
+205022 LOGE S2 send append to S4 with term 7
+205732 LOGE S2 got log length 9 wit llt 7
+205733 LOGE S2 send append to S4 with term 7
+205734 LOGE S2 send append to S1 with term 7
+205735 LOGE S4 got Append from S2
+205735 LOGE S4 with term 10 reject S2 for low term 7
+205736 LOGE S1 got Append from S2
+205736 LOGE S1 with term 9 reject S2 for low term 7
+205736 VOTE S2 being reject by S4 and become follower
+205736 LOGE S2 send append to S3 with term 7
+205741 LOGE S3 got Append from S2
+205741 LOGE S3 with term 10 reject S2 for low term 7
+205736 LOGE S2 send append to S0 with term 7
+205743 LOGE S0 got Append from S2
+205743 LOGE S0 with term 10 reject S2 for low term 7
+206203 LOGE S0 send heartbeat to S4
+206205 LOGE S0 send heartbeat to S2
+206206 LOGE S4 got Append from S0
+206207 LOGE S2 got Append from S0
+206208 LOGE S2 commit index 0
+206207 LOGE S0 send heartbeat to S3
+206211 LOGE S3 got Append from S0
+206207 LOGE S0 send heartbeat to S1
+206215 LOGE S1 got Append from S0
+206216 LOGE S1 commit index 0
+207722 LOGE S0 send heartbeat to S4
+207724 LOGE S0 send heartbeat to S2
+207725 LOGE S4 got Append from S0
+207726 LOGE S2 got Append from S0
+207727 LOGE S2 commit index 0
+207726 LOGE S0 send heartbeat to S3
+207726 LOGE S0 send heartbeat to S1
+207731 LOGE S3 got Append from S0
+207732 LOGE S1 got Append from S0
+207733 LOGE S1 commit index 0
+207754 LOGE S0 send append to S1 with term 10
+207758 LOGE S1 got Append from S0
+207758 LOGE S1 Match index 8 append entries length1
+207758 LOGE S1 append to log length 9 with llt 10
+207758 LOGE S1 commit index 9
+209238 LOGE S0 send heartbeat to S4
+209241 LOGE S4 got Append from S0
+209242 LOGE S0 send heartbeat to S1
+209244 LOGE S0 send heartbeat to S2
+209246 LOGE S2 got Append from S0
+209246 LOGE S2 commit index 0
+209244 LOGE S1 got Append from S0
+209244 LOGE S0 send heartbeat to S3
+209250 LOGE S3 got Append from S0
+210738 LOGE S0 send heartbeat to S4
+210741 LOGE S0 send heartbeat to S2
+210742 LOGE S4 got Append from S0
+210742 LOGE S0 send heartbeat to S3
+210757 LOGE S3 got Append from S0
+210742 LOGE S0 send heartbeat to S1
+210753 LOGE S2 got Append from S0
+210759 LOGE S2 commit index 0
+210759 LOGE S1 got Append from S0
+212248 LOGE S0 send heartbeat to S4
+212250 LOGE S0 send heartbeat to S2
+212251 LOGE S4 got Append from S0
+212251 LOGE S0 send heartbeat to S1
+212252 LOGE S0 send heartbeat to S3
+212252 LOGE S1 got Append from S0
+212255 LOGE S3 got Append from S0
+212253 LOGE S2 got Append from S0
+212257 LOGE S2 commit index 0
+213749 LOGE S0 send heartbeat to S4
+213751 LOGE S0 send heartbeat to S2
+213752 LOGE S4 got Append from S0
+213754 LOGE S2 got Append from S0
+213755 LOGE S2 commit index 0
+213755 LOGE S0 send heartbeat to S3
+213755 LOGE S0 send heartbeat to S1
+213758 LOGE S3 got Append from S0
+213761 LOGE S1 got Append from S0
+215252 LOGE S0 send heartbeat to S4
+215254 LOGE S0 send heartbeat to S2
+215255 LOGE S4 got Append from S0
+215256 LOGE S0 send heartbeat to S3
+215257 LOGE S2 got Append from S0
+215257 LOGE S2 commit index 0
+215259 LOGE S3 got Append from S0
+215257 LOGE S0 send heartbeat to S1
+215263 LOGE S1 got Append from S0
+216778 LOGE S0 send heartbeat to S4
+216780 LOGE S0 send heartbeat to S2
+216782 LOGE S0 send heartbeat to S3
+216783 LOGE S2 got Append from S0
+216784 LOGE S2 commit index 0
+216782 LOGE S4 got Append from S0
+216785 LOGE S3 got Append from S0
+216782 LOGE S0 send heartbeat to S1
+216786 LOGE S1 got Append from S0
+218214 LOGE S0 Resend heartbeat to S2
+218218 LOGE S2 got Append from S0
+218218 LOGE S2 commit index 0
+218280 LOGE S0 send heartbeat to S4
+218282 LOGE S0 send heartbeat to S2
+218283 LOGE S4 got Append from S0
+218285 LOGE S0 send heartbeat to S1
+218285 LOGE S2 got Append from S0
+218287 LOGE S2 commit index 0
+218288 LOGE S1 got Append from S0
+218285 LOGE S0 send heartbeat to S3
+218294 LOGE S3 got Append from S0
+219792 LOGE S0 send heartbeat to S4
+219794 LOGE S0 send heartbeat to S2
+219795 LOGE S4 got Append from S0
+219797 LOGE S0 send heartbeat to S1
+219797 LOGE S0 send heartbeat to S3
+219800 LOGE S1 got Append from S0
+219801 LOGE S3 got Append from S0
+219797 LOGE S2 got Append from S0
+219803 LOGE S2 commit index 0
+221313 LOGE S0 send heartbeat to S4
+221319 LOGE S4 got Append from S0
+221322 LOGE S0 send heartbeat to S3
+221322 LOGE S0 send heartbeat to S2
+221325 LOGE S3 got Append from S0
+221327 LOGE S0 send heartbeat to S1
+221327 LOGE S2 got Append from S0
+221331 LOGE S2 commit index 0
+221331 LOGE S1 got Append from S0
+222818 LOGE S0 send heartbeat to S4
+222822 LOGE S0 send heartbeat to S2
+222824 LOGE S4 got Append from S0
+222826 LOGE S0 send heartbeat to S3
+222827 LOGE S2 got Append from S0
+222827 LOGE S2 commit index 0
+222827 LOGE S0 send heartbeat to S1
+222836 LOGE S1 got Append from S0
+222837 LOGE S3 got Append from S0
+224321 LOGE S0 send heartbeat to S4
+224323 LOGE S0 send heartbeat to S2
+224324 LOGE S4 got Append from S0
+224324 LOGE S0 send heartbeat to S3
+224326 LOGE S3 got Append from S0
+224324 LOGE S2 got Append from S0
+224327 LOGE S2 commit index 0
+224324 LOGE S0 send heartbeat to S1
+224328 LOGE S1 got Append from S0
+225798 LOGE S0 got log length 10 wit llt 10
+225799 LOGE S0 send append to S4 with term 10
+225800 LOGE S0 send append to S1 with term 10
+225802 LOGE S4 got Append from S0
+225802 LOGE S4 Match index 9 append entries length1
+225802 LOGE S4 append to log length 10 with llt 10
+225802 LOGE S1 got Append from S0
+225803 LOGE S1 Match index 9 append entries length1
+225803 LOGE S1 append to log length 10 with llt 10
+225802 LOGE S0 send append to S2 with term 10
+225805 LOGE S0 as leader commit to index 10
+225803 LOGE S0 send append to S3 with term 10
+225806 LOGE S2 got Append from S0
+225809 LOGE S2 Match index 8 append entries length2
+225809 LOGE S2 append to log length 10 with llt 10
+225809 LOGE S3 got Append from S0
+225809 LOGE S3 Match index 9 append entries length1
+225809 LOGE S3 append to log length 10 with llt 10
+225809 LOGE S2 commit index 9
+225826 LOGE S0 send heartbeat to S4
+225828 LOGE S0 send heartbeat to S2
+225830 LOGE S4 got Append from S0
+225830 LOGE S4 commit index 10
+225831 LOGE S0 send heartbeat to S3
+225831 LOGE S2 got Append from S0
+225832 LOGE S2 commit index 10
+225833 LOGE S0 send heartbeat to S1
+225834 LOGE S3 got Append from S0
+225834 LOGE S3 commit index 10
+225835 LOGE S1 got Append from S0
+225836 LOGE S1 commit index 10
+227329 LOGE S0 send heartbeat to S4
+227333 LOGE S0 send heartbeat to S2
+227336 LOGE S4 got Append from S0
+227337 LOGE S2 got Append from S0
+227336 LOGE S0 send heartbeat to S1
+227336 LOGE S0 send heartbeat to S3
+227342 LOGE S1 got Append from S0
+227345 LOGE S3 got Append from S0
+228293 LOGE S0 Resend heartbeat to S2
+228298 LOGE S2 got Append from S0
+228834 LOGE S0 send heartbeat to S4
+228837 LOGE S4 got Append from S0
+228837 LOGE S0 send heartbeat to S2
+228837 LOGE S0 send heartbeat to S1
+228837 LOGE S0 send heartbeat to S3
+228845 LOGE S1 got Append from S0
+228863 LOGE S3 got Append from S0
+228865 LOGE S2 got Append from S0
+230341 LOGE S0 send heartbeat to S4
+230342 LOGE S0 send heartbeat to S2
+230343 LOGE S4 got Append from S0
+230344 LOGE S0 send heartbeat to S3
+230344 LOGE S2 got Append from S0
+230344 LOGE S0 send heartbeat to S1
+230346 LOGE S3 got Append from S0
+230349 LOGE S1 got Append from S0
+231135 LOGE S0 got log length 11 wit llt 10
+231137 LOGE S0 send append to S4 with term 10
+231139 LOGE S0 send append to S2 with term 10
+231139 LOGE S4 got Append from S0
+231142 LOGE S4 Match index 10 append entries length1
+231142 LOGE S4 append to log length 11 with llt 10
+231139 LOGE S0 send append to S3 with term 10
+231147 LOGE S3 got Append from S0
+231147 LOGE S3 Match index 10 append entries length1
+231147 LOGE S3 append to log length 11 with llt 10
+231140 LOGE S0 send append to S1 with term 10
+231148 LOGE S0 as leader commit to index 11
+231843 LOGE S0 send heartbeat to S4
+231845 LOGE S0 send heartbeat to S2
+231846 LOGE S0 send heartbeat to S1
+231846 LOGE S4 got Append from S0
+231846 LOGE S4 commit index 11
+231846 LOGE S0 send heartbeat to S3
+231850 LOGE S3 got Append from S0
+231850 LOGE S3 commit index 11
+232063 VOTE S2 start election
+232064 VOTE S1 start election
+233353 LOGE S0 send heartbeat to S4
+233355 LOGE S0 send heartbeat to S2
+233355 LOGE S0 send heartbeat to S1
+233355 LOGE S0 send heartbeat to S3
+234138 LOGE S0 send append to S1 with term 10
+234855 LOGE S0 send heartbeat to S4
+234856 LOGE S0 send heartbeat to S1
+234857 LOGE S0 send heartbeat to S3
+234857 LOGE S0 send heartbeat to S2
+234934 LOGE S0 Resend heartbeat to S1
+236362 LOGE S0 send heartbeat to S4
+236364 LOGE S0 send heartbeat to S1
+236364 LOGE S0 send heartbeat to S3
+236364 LOGE S0 send heartbeat to S2
+236851 LOGE S0 Resend heartbeat to S1
+237868 LOGE S0 send heartbeat to S4
+237870 LOGE S0 send heartbeat to S1
+237871 LOGE S0 send heartbeat to S2
+237871 LOGE S0 send heartbeat to S3
+238188 LOGE S0 Resend heartbeat to S2
+238758 VOTE S4 start election
+238971 LOGE S0 Resend heartbeat to S1
+239371 LOGE S0 send heartbeat to S4
+239373 LOGE S0 send heartbeat to S3
+239374 LOGE S0 send heartbeat to S1
+239374 LOGE S0 send heartbeat to S2
+239651 VOTE S1 start election
+239656 VOTE S2 in term 11 with llt 10 grant S1 with llt 10 with term 11
+239872 VOTE S3 start election
+240060 LOGE S0 Resend heartbeat to S1
+240571 LOGE S0 Resend heartbeat to S2
+240888 LOGE S0 send heartbeat to S4
+240890 LOGE S0 send heartbeat to S3
+240890 LOGE S0 send heartbeat to S2
+240891 LOGE S0 send heartbeat to S1
+241301 LOGE S0 Resend heartbeat to S4
+242074 VOTE S3 start election
+242394 LOGE S0 send heartbeat to S4
+242397 LOGE S0 send heartbeat to S3
+242397 LOGE S0 send heartbeat to S2
+242398 LOGE S0 send heartbeat to S1
+242686 LOGE S0 Resend heartbeat to S2
+243909 LOGE S0 send heartbeat to S4
+243910 LOGE S0 send heartbeat to S3
+243911 LOGE S0 send heartbeat to S1
+243910 LOGE S0 send heartbeat to S2
+243927 LOGE S0 Resend heartbeat to S1
+244510 LOGE S0 Resend heartbeat to S4
+244852 LOGE S0 Resend heartbeat to S3
+244893 VOTE S4 start election
+245219 VOTE S1 start election
+245223 VOTE S2 in term 12 with llt 10 grant S1 with llt 10 with term 12
+245416 LOGE S0 send heartbeat to S4
+245418 LOGE S0 send heartbeat to S3
+245418 LOGE S0 send heartbeat to S2
+245419 LOGE S0 send heartbeat to S1
+246618 LOGE S0 send append to S2 with term 10
+246919 LOGE S0 send heartbeat to S4
+246920 LOGE S0 send heartbeat to S2
+246921 LOGE S0 send heartbeat to S3
+246921 LOGE S0 send heartbeat to S1
+248424 LOGE S0 send heartbeat to S4
+248427 LOGE S0 send heartbeat to S1
+248428 LOGE S0 send heartbeat to S3
+248437 LOGE S0 send heartbeat to S2
+249189 VOTE S3 start election
+249193 VOTE S1 in term 13 with llt 10 grant S3 with llt 10 with term 13
+249193 VOTE S2 in term 13 with llt 10 grant S3 with llt 10 with term 13
+249199 VOTE S3 become leader at term 13
+249200 LOGE S3 send heartbeat to S4
+249201 LOGE S3 send heartbeat to S2
+249201 LOGE S3 send heartbeat to S1
+249202 LOGE S2 got Append from S3
+249203 LOGE S3 send heartbeat to S0
+249204 LOGE S1 got Append from S3
+249573 LOGE S3 got log length 12 wit llt 13
+249574 LOGE S3 send append to S4 with term 13
+249575 LOGE S3 send append to S0 with term 13
+249576 LOGE S3 send append to S2 with term 13
+249576 LOGE S3 send append to S1 with term 13
+249579 LOGE S2 got Append from S3
+249580 LOGE S1 got Append from S3
+249583 LOGE S3 Resend because unfit index
+249583 LOGE S3 send append to S1 with term 13
+249582 LOGE S3 Resend because unfit index
+249584 LOGE S3 send append to S2 with term 13
+249585 LOGE S1 got Append from S3
+249585 LOGE S1 Match index 0 append entries length12
+249585 LOGE S1 append to log length 12 with llt 13
+249588 LOGE S2 got Append from S3
+249589 LOGE S2 Match index 0 append entries length12
+249590 LOGE S2 append to log length 12 with llt 13
+249591 LOGE S3 as leader commit to index 12
+249674 LOGE S0 Resend heartbeat to S4
+249948 LOGE S0 send heartbeat to S4
+249949 LOGE S0 send heartbeat to S3
+249950 LOGE S0 send heartbeat to S2
+249950 LOGE S0 send heartbeat to S1
+250446 LOGE S0 Resend heartbeat to S4
+250709 LOGE S3 send heartbeat to S4
+250711 LOGE S3 send heartbeat to S2
+250711 LOGE S3 send heartbeat to S1
+250713 LOGE S2 got Append from S3
+250714 LOGE S2 commit index 12
+250713 LOGE S3 send heartbeat to S0
+250713 LOGE S1 got Append from S3
+250717 LOGE S1 commit index 12
+251250 VOTE S4 start election
+251467 LOGE S0 send heartbeat to S4
+251467 LOGE S0 send heartbeat to S2
+251467 LOGE S0 send heartbeat to S1
+251468 LOGE S0 send heartbeat to S3
+251664 LOGE S0 Resend heartbeat to S4
+252108 LOGE S3 got log length 13 wit llt 13
+252110 LOGE S3 send append to S4 with term 13
+252112 LOGE S4 got Append from S3
+252112 LOGE S4 Match index 11 append entries length2
+252112 LOGE S4 append to log length 13 with llt 13
+252112 LOGE S4 commit index 12
+252112 LOGE S3 send append to S0 with term 13
+252112 LOGE S3 send append to S2 with term 13
+252112 LOGE S3 send append to S1 with term 13
+252116 LOGE S2 got Append from S3
+252117 LOGE S2 Match index 12 append entries length1
+252117 LOGE S2 append to log length 13 with llt 13
+252114 LOGE S0 got Append from S3
+252117 LOGE S0 Match index 11 append entries length2
+252117 LOGE S0 append to log length 13 with llt 13
+252118 LOGE S0 commit index 12
+252118 LOGE S1 got Append from S3
+252118 LOGE S1 Match index 12 append entries length1
+252118 LOGE S1 append to log length 13 with llt 13
+252118 LOGE S3 as leader commit to index 13
+252210 LOGE S3 send heartbeat to S4
+252212 LOGE S3 send heartbeat to S1
+252213 LOGE S4 got Append from S3
+252213 LOGE S4 commit index 13
+252215 LOGE S3 send heartbeat to S0
+252217 LOGE S0 got Append from S3
+252217 LOGE S0 commit index 13
+252215 LOGE S1 got Append from S3
+252219 LOGE S1 commit index 13
+252215 LOGE S3 send heartbeat to S2
+252222 LOGE S2 got Append from S3
+252223 LOGE S2 commit index 13
+253723 LOGE S3 send heartbeat to S4
+253724 LOGE S3 send heartbeat to S1
+253726 LOGE S3 send heartbeat to S2
+253727 LOGE S3 send heartbeat to S0
+253729 LOGE S0 got Append from S3
+253729 LOGE S2 got Append from S3
+253727 LOGE S1 got Append from S3
+253727 LOGE S4 got Append from S3
+255242 LOGE S3 send heartbeat to S4
+255244 LOGE S3 send heartbeat to S1
+255245 LOGE S4 got Append from S3
+255246 LOGE S1 got Append from S3
+255246 LOGE S3 send heartbeat to S2
+255249 LOGE S2 got Append from S3
+255246 LOGE S3 send heartbeat to S0
+255252 LOGE S0 got Append from S3
+256744 LOGE S3 send heartbeat to S4
+256749 LOGE S3 send heartbeat to S1
+256752 LOGE S3 send heartbeat to S0
+256753 LOGE S1 got Append from S3
+256757 LOGE S0 got Append from S3
+256753 LOGE S3 send heartbeat to S2
+256753 LOGE S4 got Append from S3
+256766 LOGE S2 got Append from S3
+257135 LOGE S3 got log length 14 wit llt 13
+257136 LOGE S3 send append to S4 with term 13
+257138 LOGE S3 send append to S0 with term 13
+257138 LOGE S3 send append to S2 with term 13
+257139 LOGE S3 send append to S1 with term 13
+257140 LOGE S2 got Append from S3
+257142 LOGE S1 got Append from S3
+257142 LOGE S1 Match index 13 append entries length1
+257142 LOGE S1 append to log length 14 with llt 13
+257141 LOGE S2 Match index 13 append entries length1
+257144 LOGE S2 append to log length 14 with llt 13
+257146 LOGE S3 as leader commit to index 14
+258248 LOGE S3 send heartbeat to S4
+258250 LOGE S3 send heartbeat to S2
+258251 LOGE S3 send heartbeat to S1
+258252 LOGE S2 got Append from S3
+258253 LOGE S2 commit index 14
+258253 LOGE S1 got Append from S3
+258253 LOGE S1 commit index 14
+258252 LOGE S3 send heartbeat to S0
+258454 VOTE S4 start election
+258456 VOTE S0 start election
+259767 LOGE S3 send heartbeat to S4
+259769 LOGE S3 send heartbeat to S2
+259769 LOGE S3 send heartbeat to S0
+259769 LOGE S3 send heartbeat to S1
+259875 LOGE S3 Resend heartbeat to S0
+261282 LOGE S3 send heartbeat to S4
+261284 LOGE S3 send heartbeat to S1
+261284 LOGE S3 send heartbeat to S2
+261284 LOGE S3 send heartbeat to S0
+262793 LOGE S3 send heartbeat to S4
+262796 LOGE S3 send heartbeat to S2
+262796 LOGE S3 send heartbeat to S1
+262797 LOGE S3 send heartbeat to S0
+263971 VOTE S0 start election
+263974 VOTE S4 in term 14 with llt 13 grant S0 with llt 13 with term 14
+264298 LOGE S3 send heartbeat to S4
+264299 LOGE S3 send heartbeat to S0
+264299 LOGE S3 send heartbeat to S1
+264299 LOGE S3 send heartbeat to S2
+264773 VOTE S1 start election
+265801 LOGE S3 send heartbeat to S4
+265804 LOGE S3 send heartbeat to S2
+265804 LOGE S3 send heartbeat to S1
+265805 LOGE S3 send heartbeat to S0
+265876 LOGE S3 Resend heartbeat to S4
+265879 VOTE S2 start election
+267308 LOGE S3 send heartbeat to S4
+267309 LOGE S3 send heartbeat to S2
+267309 LOGE S3 send heartbeat to S1
+267309 LOGE S3 send heartbeat to S0
+267893 LOGE S3 Resend heartbeat to S1
+268486 VOTE S1 start election
+268811 LOGE S3 send heartbeat to S4
+268813 LOGE S3 send heartbeat to S1
+268813 LOGE S3 send heartbeat to S2
+268813 LOGE S3 send heartbeat to S0
+269453 LOGE S3 Resend heartbeat to S0
+269454 LOGE S3 Resend heartbeat to S4
+270320 LOGE S3 send heartbeat to S4
+270321 LOGE S3 send heartbeat to S2
+270321 LOGE S3 send heartbeat to S0
+270321 LOGE S3 send heartbeat to S1
+271399 LOGE S3 Resend heartbeat to S2
+271401 VOTE S4 start election
+271403 VOTE S0 in term 15 with llt 13 grant S4 with llt 13 with term 15
+271583 LOGE S3 Resend heartbeat to S0
+271623 VOTE S2 start election
+271825 LOGE S3 send heartbeat to S4
+271827 LOGE S3 send heartbeat to S0
+271827 LOGE S3 send heartbeat to S1
+271828 LOGE S3 send heartbeat to S2
+272496 LOGE S3 Resend heartbeat to S4
+272828 LOGE S3 Resend heartbeat to S2
+273338 LOGE S3 send heartbeat to S4
+273340 LOGE S3 send heartbeat to S2
+273340 LOGE S3 send heartbeat to S1
+273340 LOGE S3 send heartbeat to S0
+274846 LOGE S3 send heartbeat to S4
+274847 LOGE S3 send heartbeat to S2
+274847 LOGE S3 send heartbeat to S0
+274847 LOGE S3 send heartbeat to S1
+275479 VOTE S1 start election
+275482 VOTE S4 in term 16 with llt 13 grant S1 with llt 13 with term 16
+275484 VOTE S0 in term 16 with llt 13 grant S1 with llt 13 with term 16
+275486 VOTE S1 become leader at term 16
+275487 LOGE S1 send heartbeat to S4
+275489 LOGE S4 got Append from S1
+275489 LOGE S1 send heartbeat to S2
+275491 LOGE S1 send heartbeat to S0
+275492 LOGE S1 send heartbeat to S3
+275493 LOGE S0 got Append from S1
+275584 LOGE S1 got log length 15 wit llt 16
+275585 LOGE S1 send append to S4 with term 16
+275585 LOGE S1 send append to S2 with term 16
+275586 LOGE S1 send append to S0 with term 16
+275587 LOGE S4 got Append from S1
+275587 LOGE S1 send append to S3 with term 16
+275587 LOGE S0 got Append from S1
+275588 LOGE S1 Resend because unfit index
+275588 LOGE S1 send append to S4 with term 16
+275589 LOGE S1 Resend because unfit index
+275590 LOGE S1 send append to S0 with term 16
+275592 LOGE S4 got Append from S1
+275593 LOGE S4 Match index 0 append entries length15
+275594 LOGE S4 append to log length 15 with llt 16
+275593 LOGE S0 got Append from S1
+275595 LOGE S0 Match index 0 append entries length15
+275595 LOGE S0 append to log length 15 with llt 16
+275596 LOGE S1 as leader commit to index 15
+276352 LOGE S3 send heartbeat to S4
+276354 LOGE S3 send heartbeat to S2
+276354 LOGE S3 send heartbeat to S0
+276354 LOGE S3 send heartbeat to S1
+276811 LOGE S3 Resend heartbeat to S0
+276991 LOGE S1 send heartbeat to S4
+276993 LOGE S1 send heartbeat to S2
+276994 LOGE S4 got Append from S1
+276994 LOGE S4 commit index 15
+276995 LOGE S1 send heartbeat to S0
+276996 LOGE S1 send heartbeat to S3
+276997 LOGE S0 got Append from S1
+276998 LOGE S0 commit index 15
+277241 VOTE S2 start election
+277875 LOGE S3 send heartbeat to S4
+277877 LOGE S3 send heartbeat to S2
+277878 LOGE S3 send heartbeat to S1
+277878 LOGE S3 send heartbeat to S0
+277913 LOGE S1 Resend heartbeat to S3
+278375 LOGE S3 Resend heartbeat to S4
+278495 LOGE S1 send heartbeat to S4
+278497 LOGE S1 send heartbeat to S2
+278498 LOGE S1 send heartbeat to S0
+278498 LOGE S4 got Append from S1
+278499 LOGE S1 send heartbeat to S3
+278500 LOGE S0 got Append from S1
+278698 LOGE S1 got log length 16 wit llt 16
+278699 LOGE S1 send append to S4 with term 16
+278700 LOGE S1 send append to S2 with term 16
+278702 LOGE S4 got Append from S1
+278703 LOGE S1 send append to S0 with term 16
+278705 LOGE S0 got Append from S1
+278705 LOGE S0 Match index 15 append entries length1
+278705 LOGE S0 append to log length 16 with llt 16
+278703 LOGE S4 Match index 15 append entries length1
+278706 LOGE S4 append to log length 16 with llt 16
+278703 LOGE S2 got Append from S1
+278708 LOGE S1 as leader commit to index 16
+278708 LOGE S2 Match index 14 append entries length2
+278708 LOGE S2 append to log length 16 with llt 16
+278708 LOGE S2 commit index 15
+278703 LOGE S1 send append to S3 with term 16
+278712 LOGE S3 got Append from S1
+278713 LOGE S3 Match index 14 append entries length2
+278713 LOGE S3 append to log length 16 with llt 16
+278713 LOGE S3 commit index 15
+280003 LOGE S1 send heartbeat to S4
+280005 LOGE S1 send heartbeat to S2
+280006 LOGE S4 got Append from S1
+280006 LOGE S4 commit index 16
+280007 LOGE S2 got Append from S1
+280007 LOGE S2 commit index 16
+280007 LOGE S1 send heartbeat to S3
+280007 LOGE S1 send heartbeat to S0
+280010 LOGE S3 got Append from S1
+280010 LOGE S3 commit index 16
+280012 LOGE S0 got Append from S1
+280013 LOGE S0 commit index 16
+  ... Passed --  17.9  5  783  165937   16
+Test (2C): partitioned leader and one follower crash, leader restarts ...
+280244 VOTE S1 start election
+280246 VOTE S2 start election
+280247 VOTE S4 start election
+280248 VOTE S3 start election
+280249 VOTE S0 start election
+285791 VOTE S1 start election
+285794 VOTE S2 in term 1 with llt 0 grant S1 with llt 0 with term 1
+285794 VOTE S0 in term 1 with llt 0 grant S1 with llt 0 with term 1
+285796 VOTE S1 become leader at term 1
+285798 LOGE S1 send heartbeat to S2
+285800 LOGE S1 send heartbeat to S0
+285800 LOGE S2 got Append from S1
+285802 LOGE S0 got Append from S1
+285839 LOGE S1 got log length 1 wit llt 1
+285840 LOGE S1 send append to S2 with term 1
+285841 LOGE S1 send append to S0 with term 1
+285842 LOGE S2 got Append from S1
+285842 LOGE S2 Match index 0 append entries length1
+285842 LOGE S2 append to log length 1 with llt 1
+285843 LOGE S0 got Append from S1
+285843 LOGE S0 Match index 0 append entries length1
+285844 LOGE S0 append to log length 1 with llt 1
+285844 LOGE S1 as leader commit to index 1
+287304 LOGE S1 send heartbeat to S2
+287306 LOGE S1 send heartbeat to S0
+287307 LOGE S2 got Append from S1
+287308 LOGE S2 commit index 1
+287312 LOGE S0 got Append from S1
+287313 LOGE S0 commit index 1
+288808 LOGE S1 send heartbeat to S2
+288810 LOGE S1 send heartbeat to S0
+288811 LOGE S2 got Append from S1
+288812 LOGE S0 got Append from S1
+290313 LOGE S1 send heartbeat to S2
+290316 LOGE S1 send heartbeat to S0
+290317 LOGE S2 got Append from S1
+290320 LOGE S0 got Append from S1
+291817 LOGE S1 send heartbeat to S2
+291820 LOGE S1 send heartbeat to S0
+291820 LOGE S2 got Append from S1
+291823 LOGE S0 got Append from S1
+292303 LOGE S1 got log length 2 wit llt 1
+292304 LOGE S1 send append to S2 with term 1
+292306 LOGE S1 send append to S0 with term 1
+292307 LOGE S2 got Append from S1
+292308 LOGE S2 Match index 1 append entries length1
+292309 LOGE S2 append to log length 2 with llt 1
+292314 LOGE S1 as leader commit to index 2
+293336 LOGE S1 send heartbeat to S2
+293339 LOGE S1 send heartbeat to S0
+293340 LOGE S2 got Append from S1
+293340 LOGE S2 commit index 2
+293379 VOTE S1 start election
+293382 VOTE S2 start election
+298991 VOTE S0 start election
+300422 VOTE S1 start election
+300426 VOTE S0 in term 3 with llt 1 grant S1 with llt 1 with term 3
+300431 VOTE S1 become leader at term 3
+300432 LOGE S1 send heartbeat to S2
+300433 LOGE S1 send heartbeat to S0
+300434 LOGE S0 got Append from S1
+300513 LOGE S1 got log length 3 wit llt 3
+300514 LOGE S1 send append to S2 with term 3
+300515 LOGE S1 send append to S0 with term 3
+300518 LOGE S0 got Append from S1
+300520 LOGE S1 Resend because unfit index
+300521 LOGE S1 send append to S0 with term 3
+300523 LOGE S0 got Append from S1
+300524 LOGE S0 Match index 0 append entries length3
+300524 LOGE S0 append to log length 3 with llt 3
+300526 LOGE S1 as leader commit to index 3
+301940 LOGE S1 send heartbeat to S2
+301942 LOGE S1 send heartbeat to S0
+301945 LOGE S0 got Append from S1
+301946 LOGE S0 commit index 3
+302191 LOGE S1 got log length 4 wit llt 3
+302192 LOGE S1 send append to S2 with term 3
+302192 LOGE S1 send append to S0 with term 3
+302194 LOGE S0 got Append from S1
+302194 LOGE S0 Match index 3 append entries length1
+302195 LOGE S0 append to log length 4 with llt 3
+302196 LOGE S1 as leader commit to index 4
+302196 LOGE S2 got Append from S1
+302196 LOGE S2 Match index 2 append entries length2
+302196 LOGE S2 append to log length 4 with llt 3
+302196 LOGE S2 commit index 3
+303452 LOGE S1 send heartbeat to S2
+303454 LOGE S1 send heartbeat to S0
+303455 LOGE S2 got Append from S1
+303456 LOGE S2 commit index 4
+303456 LOGE S0 got Append from S1
+303456 LOGE S0 commit index 4
+  ... Passed --   2.3  3   33    8115    4
+Test (2C): Figure 8 ...
+303704 VOTE S2 start election
+303706 VOTE S0 start election
+303708 VOTE S1 start election
+309683 VOTE S3 start election
+309687 VOTE S4 in term 1 with llt 0 grant S3 with llt 0 with term 1
+309688 VOTE S0 in term 1 with llt 0 grant S3 with llt 0 with term 1
+309703 VOTE S1 in term 1 with llt 0 grant S3 with llt 0 with term 1
+309705 VOTE S3 become leader at term 1
+309707 LOGE S3 send heartbeat to S4
+309710 VOTE S2 in term 1 with llt 0 grant S3 with llt 0 with term 1
+309734 LOGE S3 send heartbeat to S1
+309735 LOGE S3 send heartbeat to S0
+309736 LOGE S3 send heartbeat to S2
+309739 LOGE S1 got Append from S3
+309740 LOGE S0 got Append from S3
+309740 LOGE S4 got Append from S3
+309739 LOGE S2 got Append from S3
+309784 LOGE S3 got log length 1 wit llt 1
+309786 LOGE S3 send append to S4 with term 1
+309787 LOGE S3 send append to S1 with term 1
+309791 LOGE S4 got Append from S3
+309791 LOGE S3 send append to S2 with term 1
+309792 LOGE S1 got Append from S3
+309793 LOGE S1 Match index 0 append entries length1
+309794 LOGE S1 append to log length 1 with llt 1
+309794 LOGE S2 got Append from S3
+309794 LOGE S2 Match index 0 append entries length1
+309794 LOGE S2 append to log length 1 with llt 1
+309791 LOGE S4 Match index 0 append entries length1
+309795 LOGE S4 append to log length 1 with llt 1
+309791 LOGE S3 send append to S0 with term 1
+309797 LOGE S3 as leader commit to index 1
+309800 LOGE S0 got Append from S3
+309801 LOGE S0 Match index 0 append entries length1
+309801 LOGE S0 append to log length 1 with llt 1
+310009 LOGE S3 got log length 2 wit llt 1
+310011 LOGE S3 send append to S4 with term 1
+310011 LOGE S3 send append to S1 with term 1
+310013 LOGE S3 send append to S2 with term 1
+310013 LOGE S4 got Append from S3
+310014 LOGE S4 Match index 1 append entries length1
+310014 LOGE S4 append to log length 2 with llt 1
+310014 LOGE S4 commit index 1
+310014 LOGE S1 got Append from S3
+310014 LOGE S1 Match index 1 append entries length1
+310015 LOGE S1 append to log length 2 with llt 1
+310015 LOGE S1 commit index 1
+310015 LOGE S3 send append to S0 with term 1
+310017 LOGE S2 got Append from S3
+310018 LOGE S0 got Append from S3
+310018 LOGE S0 Match index 1 append entries length1
+310018 LOGE S0 append to log length 2 with llt 1
+310018 LOGE S0 commit index 1
+310018 LOGE S2 Match index 1 append entries length1
+310019 LOGE S2 append to log length 2 with llt 1
+310020 LOGE S2 commit index 1
+310017 LOGE S3 as leader commit to index 2
+310123 VOTE S3 start election
+316740 VOTE S2 start election
+316744 VOTE S1 in term 2 with llt 1 grant S2 with llt 1 with term 2
+316744 VOTE S0 in term 2 with llt 1 grant S2 with llt 1 with term 2
+316770 VOTE S2 become leader at term 2
+316770 LOGE S2 send heartbeat to S4
+316771 LOGE S2 send heartbeat to S0
+316771 LOGE S2 send heartbeat to S1
+316775 LOGE S1 got Append from S2
+316772 LOGE S2 send heartbeat to S3
+316746 VOTE S4 in term 2 with llt 1 grant S2 with llt 1 with term 2
+316773 LOGE S0 got Append from S2
+316779 LOGE S4 got Append from S2
+318288 LOGE S2 send heartbeat to S4
+318290 LOGE S2 send heartbeat to S1
+318291 LOGE S4 got Append from S2
+318292 LOGE S2 send heartbeat to S3
+318293 LOGE S1 got Append from S2
+318294 LOGE S2 send heartbeat to S0
+318296 LOGE S0 got Append from S2
+318418 LOGE S2 got log length 3 wit llt 2
+318419 LOGE S2 send append to S4 with term 2
+318420 LOGE S2 send append to S1 with term 2
+318421 LOGE S4 got Append from S2
+318422 LOGE S4 Match index 2 append entries length1
+318422 LOGE S4 append to log length 3 with llt 2
+318422 LOGE S1 got Append from S2
+318424 LOGE S1 Match index 2 append entries length1
+318424 LOGE S1 append to log length 3 with llt 2
+318422 LOGE S2 send append to S3 with term 2
+318422 LOGE S2 send append to S0 with term 2
+318428 LOGE S0 got Append from S2
+318428 LOGE S0 Match index 2 append entries length1
+318428 LOGE S0 append to log length 3 with llt 2
+318426 LOGE S2 as leader commit to index 3
+318623 VOTE S2 start election
+324030 VOTE S0 start election
+324032 VOTE S4 in term 3 with llt 2 grant S0 with llt 2 with term 3
+324033 VOTE S1 in term 3 with llt 2 grant S0 with llt 2 with term 3
+324037 VOTE S0 become leader at term 3
+324039 LOGE S0 send heartbeat to S4
+324040 LOGE S4 got Append from S0
+324040 LOGE S0 send heartbeat to S2
+324041 LOGE S0 send heartbeat to S3
+324041 LOGE S0 send heartbeat to S1
+324042 LOGE S1 got Append from S0
+325555 LOGE S0 send heartbeat to S4
+325558 LOGE S0 send heartbeat to S2
+325559 LOGE S4 got Append from S0
+325559 LOGE S0 send heartbeat to S1
+325559 LOGE S0 send heartbeat to S3
+325561 LOGE S1 got Append from S0
+326361 LOGE S0 got log length 4 wit llt 3
+326362 LOGE S0 send append to S4 with term 3
+326363 LOGE S0 send append to S2 with term 3
+326364 LOGE S0 send append to S1 with term 3
+326364 LOGE S4 got Append from S0
+326364 LOGE S4 Match index 3 append entries length1
+326364 LOGE S4 append to log length 4 with llt 3
+326365 LOGE S0 send append to S3 with term 3
+326366 LOGE S1 got Append from S0
+326368 LOGE S1 Match index 3 append entries length1
+326368 LOGE S1 append to log length 4 with llt 3
+326371 LOGE S0 as leader commit to index 4
+326521 VOTE S0 start election
+332517 VOTE S1 start election
+332521 VOTE S4 in term 4 with llt 3 grant S1 with llt 3 with term 4
+332522 VOTE S0 in term 4 with llt 3 grant S1 with llt 3 with term 4
+332523 VOTE S1 become leader at term 4
+332524 LOGE S1 send heartbeat to S4
+332525 LOGE S1 send heartbeat to S2
+332526 LOGE S4 got Append from S1
+332526 LOGE S1 send heartbeat to S0
+332526 LOGE S1 send heartbeat to S3
+332528 LOGE S0 got Append from S1
+332529 LOGE S0 commit index 0
+333331 LOGE S1 got log length 5 wit llt 4
+333332 LOGE S1 send append to S4 with term 4
+333333 LOGE S1 send append to S0 with term 4
+333335 LOGE S4 got Append from S1
+333335 LOGE S4 Match index 4 append entries length1
+333336 LOGE S1 send append to S2 with term 4
+333336 LOGE S0 got Append from S1
+333337 LOGE S0 Match index 4 append entries length1
+333337 LOGE S0 append to log length 5 with llt 4
+333337 LOGE S0 commit index 1
+333336 LOGE S4 append to log length 5 with llt 4
+333336 LOGE S1 send append to S3 with term 4
+333341 LOGE S1 as leader commit to index 5
+333413 VOTE S1 start election
+339364 VOTE S1 start election
+339367 VOTE S4 in term 5 with llt 4 grant S1 with llt 4 with term 5
+339368 VOTE S0 in term 5 with llt 4 grant S1 with llt 4 with term 5
+339370 VOTE S1 become leader at term 5
+339371 LOGE S1 send heartbeat to S4
+339371 LOGE S1 send heartbeat to S2
+339372 LOGE S4 got Append from S1
+339372 LOGE S1 send heartbeat to S3
+339372 LOGE S1 send heartbeat to S0
+339376 LOGE S0 got Append from S1
+340873 LOGE S1 send heartbeat to S4
+340875 LOGE S1 send heartbeat to S0
+340877 LOGE S4 got Append from S1
+340878 LOGE S0 got Append from S1
+340878 LOGE S1 send heartbeat to S2
+340878 LOGE S1 send heartbeat to S3
+342389 LOGE S1 send heartbeat to S4
+342391 LOGE S1 send heartbeat to S2
+342391 LOGE S1 send heartbeat to S0
+342391 LOGE S1 send heartbeat to S3
+342391 LOGE S4 got Append from S1
+342392 LOGE S0 got Append from S1
+342601 LOGE S1 got log length 6 wit llt 5
+342601 LOGE S1 send append to S4 with term 5
+342602 LOGE S1 send append to S0 with term 5
+342603 LOGE S4 got Append from S1
+342603 LOGE S4 Match index 5 append entries length1
+342603 LOGE S4 append to log length 6 with llt 5
+342603 LOGE S0 got Append from S1
+342603 LOGE S1 send append to S2 with term 5
+342604 LOGE S1 send append to S3 with term 5
+342604 LOGE S0 Match index 5 append entries length1
+342605 LOGE S0 append to log length 6 with llt 5
+342606 LOGE S1 as leader commit to index 6
+342740 VOTE S1 start election
+348941 VOTE S4 start election
+348945 VOTE S0 in term 6 with llt 5 grant S4 with llt 5 with term 6
+348945 VOTE S2 in term 6 with llt 2 grant S4 with llt 5 with term 6
+348949 VOTE S4 become leader at term 6
+348949 LOGE S4 send heartbeat to S3
+348950 LOGE S4 send heartbeat to S0
+348951 LOGE S4 send heartbeat to S1
+348951 LOGE S0 got Append from S4
+348951 LOGE S4 send heartbeat to S2
+348958 LOGE S2 got Append from S4
+348958 LOGE S2 commit index 0
+349218 LOGE S4 got log length 7 wit llt 6
+349219 LOGE S4 send append to S3 with term 6
+349220 LOGE S4 send append to S1 with term 6
+349220 LOGE S4 send append to S2 with term 6
+349220 LOGE S4 send append to S0 with term 6
+349226 LOGE S2 got Append from S4
+349227 LOGE S2 commit index 0
+349228 LOGE S0 got Append from S4
+349228 LOGE S0 Match index 6 append entries length1
+349228 LOGE S0 append to log length 7 with llt 6
+349228 LOGE S4 Resend because unfit index
+349228 LOGE S4 send append to S2 with term 6
+349230 LOGE S2 got Append from S4
+349230 LOGE S2 Match index 0 append entries length7
+349231 LOGE S2 append to log length 7 with llt 6
+349231 LOGE S2 commit index 1
+349233 LOGE S4 as leader commit to index 7
+349410 VOTE S4 start election
+355075 VOTE S2 start election
+355079 VOTE S0 in term 7 with llt 6 grant S2 with llt 6 with term 7
+355082 VOTE S3 in term 7 with llt 1 grant S2 with llt 6 with term 7
+355084 VOTE S2 become leader at term 7
+355085 LOGE S2 send heartbeat to S4
+355086 LOGE S2 send heartbeat to S0
+355087 LOGE S2 send heartbeat to S1
+355087 LOGE S0 got Append from S2
+355087 LOGE S2 send heartbeat to S3
+355088 LOGE S3 got Append from S2
+355089 LOGE S3 commit index 0
+356611 LOGE S2 send heartbeat to S4
+356612 LOGE S2 send heartbeat to S1
+356613 LOGE S2 send heartbeat to S3
+356613 LOGE S2 send heartbeat to S0
+356615 LOGE S3 got Append from S2
+356617 LOGE S3 commit index 0
+356617 LOGE S0 got Append from S2
+357561 LOGE S2 got log length 8 wit llt 7
+357562 LOGE S2 send append to S4 with term 7
+357563 LOGE S2 send append to S1 with term 7
+357563 LOGE S2 send append to S3 with term 7
+357563 LOGE S2 send append to S0 with term 7
+357566 LOGE S3 got Append from S2
+357566 LOGE S3 commit index 0
+357568 LOGE S2 Resend because unfit index
+357570 LOGE S2 send append to S3 with term 7
+357571 LOGE S0 got Append from S2
+357571 LOGE S0 Match index 7 append entries length1
+357571 LOGE S0 append to log length 8 with llt 7
+357572 LOGE S3 got Append from S2
+357573 LOGE S3 Match index 0 append entries length8
+357573 LOGE S3 append to log length 8 with llt 7
+357573 LOGE S3 commit index 1
+357631 VOTE S2 start election
+363223 VOTE S3 start election
+363226 VOTE S0 in term 8 with llt 7 grant S3 with llt 7 with term 8
+363230 VOTE S2 in term 8 with llt 7 grant S3 with llt 7 with term 8
+363232 VOTE S3 become leader at term 8
+363233 LOGE S3 send heartbeat to S4
+363233 LOGE S3 send heartbeat to S2
+363233 LOGE S3 send heartbeat to S1
+363234 LOGE S3 send heartbeat to S0
+363236 LOGE S0 got Append from S3
+363234 LOGE S2 got Append from S3
+363237 LOGE S2 commit index 0
+363373 LOGE S3 got log length 9 wit llt 8
+363374 LOGE S3 send append to S4 with term 8
+363375 LOGE S3 send append to S2 with term 8
+363375 LOGE S3 send append to S1 with term 8
+363377 LOGE S2 got Append from S3
+363377 LOGE S2 Match index 8 append entries length1
+363377 LOGE S2 append to log length 9 with llt 8
+363377 LOGE S2 commit index 1
+363377 LOGE S3 send append to S0 with term 8
+363381 LOGE S0 got Append from S3
+363382 LOGE S0 Match index 8 append entries length1
+363382 LOGE S0 append to log length 9 with llt 8
+363383 LOGE S3 as leader commit to index 9
+363545 VOTE S3 start election
+369297 VOTE S2 start election
+369304 VOTE S0 in term 9 with llt 8 grant S2 with llt 8 with term 9
+369314 VOTE S3 in term 9 with llt 8 grant S2 with llt 8 with term 9
+369324 VOTE S2 become leader at term 9
+369325 LOGE S2 send heartbeat to S4
+369325 LOGE S2 send heartbeat to S0
+369327 LOGE S0 got Append from S2
+369330 LOGE S2 send heartbeat to S3
+369330 LOGE S2 send heartbeat to S1
+369333 LOGE S3 got Append from S2
+369334 LOGE S3 commit index 0
+370833 LOGE S2 send heartbeat to S4
+370836 LOGE S2 send heartbeat to S1
+370836 LOGE S2 send heartbeat to S3
+370838 LOGE S2 send heartbeat to S0
+370842 LOGE S3 got Append from S2
+370843 LOGE S3 commit index 0
+370842 LOGE S0 got Append from S2
+372338 LOGE S2 send heartbeat to S4
+372342 LOGE S2 send heartbeat to S1
+372342 LOGE S2 send heartbeat to S3
+372343 LOGE S2 send heartbeat to S0
+372345 LOGE S3 got Append from S2
+372347 LOGE S3 commit index 0
+372347 LOGE S0 got Append from S2
+372952 LOGE S2 got log length 10 wit llt 9
+372955 LOGE S2 send append to S4 with term 9
+372956 LOGE S2 send append to S3 with term 9
+372956 LOGE S2 send append to S1 with term 9
+372959 LOGE S2 send append to S0 with term 9
+372959 LOGE S3 got Append from S2
+372961 LOGE S3 Match index 9 append entries length1
+372962 LOGE S3 append to log length 10 with llt 9
+372963 LOGE S3 commit index 1
+372961 LOGE S0 got Append from S2
+372964 LOGE S0 Match index 9 append entries length1
+372964 LOGE S0 append to log length 10 with llt 9
+372966 LOGE S2 as leader commit to index 10
+373174 VOTE S2 start election
+379850 VOTE S3 start election
+379854 VOTE S4 in term 10 with llt 6 grant S3 with llt 9 with term 10
+379857 VOTE S0 in term 10 with llt 9 grant S3 with llt 9 with term 10
+379861 VOTE S3 become leader at term 10
+379862 LOGE S3 send heartbeat to S4
+379863 LOGE S3 send heartbeat to S1
+379863 LOGE S3 send heartbeat to S2
+379864 LOGE S3 send heartbeat to S0
+379863 LOGE S4 got Append from S3
+379864 LOGE S4 commit index 0
+379866 LOGE S0 got Append from S3
+381120 LOGE S3 Resend heartbeat to S2
+381381 LOGE S3 send heartbeat to S4
+381384 LOGE S3 send heartbeat to S1
+381385 LOGE S4 got Append from S3
+381385 LOGE S4 commit index 0
+381385 LOGE S3 send heartbeat to S0
+381388 LOGE S3 send heartbeat to S2
+381391 LOGE S0 got Append from S3
+382899 LOGE S3 send heartbeat to S4
+382902 LOGE S3 send heartbeat to S1
+382903 LOGE S4 got Append from S3
+382904 LOGE S3 send heartbeat to S0
+382904 LOGE S3 send heartbeat to S2
+382904 LOGE S4 commit index 0
+382906 LOGE S0 got Append from S3
+383620 LOGE S3 got log length 11 wit llt 10
+383622 LOGE S3 send append to S4 with term 10
+383622 LOGE S3 send append to S0 with term 10
+383625 LOGE S4 got Append from S3
+383625 LOGE S4 commit index 0
+383629 LOGE S0 got Append from S3
+383630 LOGE S0 Match index 10 append entries length1
+383630 LOGE S0 append to log length 11 with llt 10
+383630 LOGE S3 Resend because unfit index
+383633 LOGE S3 send append to S4 with term 10
+383630 LOGE S3 send append to S1 with term 10
+383630 LOGE S3 send append to S2 with term 10
+383635 LOGE S4 got Append from S3
+383640 LOGE S4 Match index 0 append entries length11
+383640 LOGE S4 append to log length 11 with llt 10
+383640 LOGE S4 commit index 1
+383642 LOGE S3 as leader commit to index 11
+383792 VOTE S3 start election
+389482 VOTE S2 start election
+389825 VOTE S0 start election
+389828 VOTE S4 in term 11 with llt 10 grant S0 with llt 10 with term 11
+389829 VOTE S2 in term 11 with llt 9 grant S0 with llt 10 with term 11
+389832 VOTE S0 become leader at term 11
+389833 LOGE S0 send heartbeat to S4
+389834 LOGE S4 got Append from S0
+389835 LOGE S0 send heartbeat to S2
+389836 LOGE S0 send heartbeat to S3
+389837 LOGE S0 send heartbeat to S1
+389837 LOGE S2 got Append from S0
+389838 LOGE S2 commit index 0
+391337 LOGE S0 send heartbeat to S4
+391340 LOGE S0 send heartbeat to S2
+391340 LOGE S4 got Append from S0
+391341 LOGE S0 send heartbeat to S3
+391342 LOGE S0 send heartbeat to S1
+391342 LOGE S2 got Append from S0
+391343 LOGE S2 commit index 0
+391801 LOGE S0 got log length 12 wit llt 11
+391802 LOGE S0 send append to S4 with term 11
+391805 LOGE S0 send append to S2 with term 11
+391806 LOGE S4 got Append from S0
+391806 LOGE S4 Match index 11 append entries length1
+391806 LOGE S4 append to log length 12 with llt 11
+391806 LOGE S0 send append to S3 with term 11
+391807 LOGE S0 send append to S1 with term 11
+391809 LOGE S2 got Append from S0
+391809 LOGE S2 commit index 0
+391810 LOGE S0 Resend because unfit index
+391811 LOGE S0 send append to S2 with term 11
+391814 LOGE S2 got Append from S0
+391815 LOGE S2 Match index 0 append entries length12
+391815 LOGE S2 append to log length 12 with llt 11
+391815 LOGE S2 commit index 1
+391816 LOGE S0 as leader commit to index 12
+392845 LOGE S0 send heartbeat to S4
+392847 LOGE S0 send heartbeat to S2
+392848 LOGE S4 got Append from S0
+392848 LOGE S4 commit index 12
+392849 LOGE S0 send heartbeat to S3
+392849 LOGE S2 got Append from S0
+392850 LOGE S2 commit index 12
+392849 LOGE S0 send heartbeat to S1
+392879 VOTE S0 start election
+399470 VOTE S4 start election
+399474 VOTE S2 in term 12 with llt 11 grant S4 with llt 11 with term 12
+399475 VOTE S3 in term 12 with llt 10 grant S4 with llt 11 with term 12
+399477 VOTE S4 become leader at term 12
+399477 LOGE S4 send heartbeat to S3
+399479 LOGE S3 got Append from S4
+399479 LOGE S4 send heartbeat to S1
+399479 LOGE S3 commit index 0
+399480 LOGE S4 send heartbeat to S0
+399479 LOGE S4 send heartbeat to S2
+399510 LOGE S2 got Append from S4
+400403 LOGE S4 got log length 13 wit llt 12
+400404 LOGE S4 send append to S3 with term 12
+400408 LOGE S3 got Append from S4
+400408 LOGE S3 commit index 0
+400408 LOGE S4 send append to S2 with term 12
+400409 LOGE S4 Resend because unfit index
+400410 LOGE S4 send append to S3 with term 12
+400411 LOGE S2 got Append from S4
+400411 LOGE S2 Match index 12 append entries length1
+400411 LOGE S2 append to log length 13 with llt 12
+400408 LOGE S4 send append to S0 with term 12
+400408 LOGE S4 send append to S1 with term 12
+400413 LOGE S3 got Append from S4
+400413 LOGE S3 Match index 0 append entries length13
+400413 LOGE S3 append to log length 13 with llt 12
+400413 LOGE S3 commit index 12
+400414 LOGE S4 as leader commit to index 13
+400584 VOTE S4 start election
+406738 VOTE S4 start election
+406742 VOTE S2 in term 13 with llt 12 grant S4 with llt 12 with term 13
+406743 VOTE S3 in term 13 with llt 12 grant S4 with llt 12 with term 13
+406745 VOTE S4 become leader at term 13
+406745 LOGE S4 send heartbeat to S3
+406747 LOGE S3 got Append from S4
+406748 LOGE S4 send heartbeat to S2
+406749 LOGE S2 got Append from S4
+406748 LOGE S4 send heartbeat to S1
+406748 LOGE S4 send heartbeat to S0
+408031 LOGE S4 got log length 14 wit llt 13
+408033 LOGE S4 send append to S3 with term 13
+408036 LOGE S4 send append to S1 with term 13
+408037 LOGE S3 got Append from S4
+408037 LOGE S3 Match index 13 append entries length1
+408037 LOGE S3 append to log length 14 with llt 13
+408037 LOGE S4 send append to S0 with term 13
+408038 LOGE S4 send append to S2 with term 13
+408040 LOGE S2 got Append from S4
+408041 LOGE S2 Match index 13 append entries length1
+408042 LOGE S2 append to log length 14 with llt 13
+408044 LOGE S4 as leader commit to index 14
+408182 VOTE S4 start election
+413630 VOTE S1 start election
+413858 VOTE S3 start election
+413861 VOTE S1 in term 14 with llt 5 grant S3 with llt 13 with term 14
+413862 VOTE S2 in term 14 with llt 13 grant S3 with llt 13 with term 14
+413864 VOTE S3 become leader at term 14
+413865 LOGE S3 send heartbeat to S4
+413866 LOGE S3 send heartbeat to S0
+413866 LOGE S3 send heartbeat to S1
+413867 LOGE S1 got Append from S3
+413868 LOGE S1 commit index 0
+413868 LOGE S3 send heartbeat to S2
+413872 LOGE S2 got Append from S3
+415368 LOGE S3 send heartbeat to S4
+415370 LOGE S3 send heartbeat to S2
+415370 LOGE S3 send heartbeat to S1
+415372 LOGE S2 got Append from S3
+415373 LOGE S3 send heartbeat to S0
+415374 LOGE S1 got Append from S3
+415374 LOGE S1 commit index 0
+415618 LOGE S3 got log length 15 wit llt 14
+415621 LOGE S3 send append to S4 with term 14
+415622 LOGE S3 send append to S2 with term 14
+415622 LOGE S3 send append to S1 with term 14
+415623 LOGE S3 send append to S0 with term 14
+415624 LOGE S2 got Append from S3
+415624 LOGE S2 Match index 14 append entries length1
+415624 LOGE S2 append to log length 15 with llt 14
+415625 LOGE S1 got Append from S3
+415625 LOGE S1 commit index 0
+415626 LOGE S3 Resend because unfit index
+415627 LOGE S3 send append to S1 with term 14
+415632 LOGE S1 got Append from S3
+415632 LOGE S1 Match index 0 append entries length15
+415632 LOGE S1 append to log length 15 with llt 14
+415633 LOGE S1 commit index 12
+415634 LOGE S3 as leader commit to index 15
+415708 VOTE S3 start election
+422129 VOTE S4 start election
+422948 VOTE S1 start election
+422952 VOTE S4 in term 15 with llt 13 grant S1 with llt 14 with term 15
+422954 VOTE S2 in term 15 with llt 14 grant S1 with llt 14 with term 15
+422957 VOTE S1 become leader at term 15
+422957 LOGE S1 send heartbeat to S4
+422958 LOGE S1 send heartbeat to S2
+422959 LOGE S4 got Append from S1
+422959 LOGE S4 commit index 0
+422960 LOGE S1 send heartbeat to S0
+422960 LOGE S1 send heartbeat to S3
+422960 LOGE S2 got Append from S1
+423213 LOGE S1 got log length 16 wit llt 15
+423214 LOGE S1 send append to S4 with term 15
+423215 LOGE S1 send append to S2 with term 15
+423216 LOGE S4 got Append from S1
+423217 LOGE S4 commit index 0
+423217 LOGE S2 got Append from S1
+423217 LOGE S2 Match index 15 append entries length1
+423217 LOGE S1 send append to S3 with term 15
+423218 LOGE S1 Resend because unfit index
+423218 LOGE S1 send append to S4 with term 15
+423217 LOGE S2 append to log length 16 with llt 15
+423220 LOGE S4 got Append from S1
+423221 LOGE S4 Match index 0 append entries length16
+423221 LOGE S4 append to log length 16 with llt 15
+423221 LOGE S4 commit index 12
+423217 LOGE S1 send append to S0 with term 15
+423222 LOGE S1 as leader commit to index 16
+423276 VOTE S1 start election
+429084 VOTE S4 start election
+429088 VOTE S3 in term 16 with llt 14 grant S4 with llt 15 with term 16
+429089 VOTE S2 in term 16 with llt 15 grant S4 with llt 15 with term 16
+429091 VOTE S4 become leader at term 16
+429092 LOGE S4 send heartbeat to S3
+429094 LOGE S4 send heartbeat to S1
+429094 LOGE S3 got Append from S4
+429095 LOGE S3 commit index 0
+429095 LOGE S4 send heartbeat to S0
+429095 LOGE S4 send heartbeat to S2
+429098 LOGE S2 got Append from S4
+429453 LOGE S4 got log length 17 wit llt 16
+429455 LOGE S4 send append to S3 with term 16
+429457 LOGE S4 send append to S1 with term 16
+429458 LOGE S3 got Append from S4
+429458 LOGE S3 commit index 0
+429457 LOGE S4 send append to S2 with term 16
+429460 LOGE S4 Resend because unfit index
+429460 LOGE S4 send append to S3 with term 16
+429457 LOGE S4 send append to S0 with term 16
+429463 LOGE S2 got Append from S4
+429463 LOGE S2 Match index 16 append entries length1
+429464 LOGE S2 append to log length 17 with llt 16
+429463 LOGE S3 got Append from S4
+429465 LOGE S3 Match index 0 append entries length17
+429465 LOGE S3 append to log length 17 with llt 16
+429465 LOGE S3 commit index 12
+429467 LOGE S4 as leader commit to index 17
+429532 VOTE S4 start election
+436493 VOTE S3 start election
+436500 VOTE S4 in term 17 with llt 16 grant S3 with llt 16 with term 17
+436502 VOTE S2 in term 17 with llt 16 grant S3 with llt 16 with term 17
+436505 VOTE S3 become leader at term 17
+436507 LOGE S3 send heartbeat to S4
+436510 LOGE S3 send heartbeat to S1
+436512 LOGE S4 got Append from S3
+436513 LOGE S4 commit index 0
+436512 LOGE S3 send heartbeat to S0
+436512 LOGE S3 send heartbeat to S2
+436521 LOGE S2 got Append from S3
+436621 LOGE S3 got log length 18 wit llt 17
+436625 LOGE S3 send append to S4 with term 17
+436627 LOGE S3 send append to S0 with term 17
+436628 LOGE S3 send append to S1 with term 17
+436629 LOGE S3 send append to S2 with term 17
+436633 LOGE S4 got Append from S3
+436635 LOGE S4 Match index 17 append entries length1
+436636 LOGE S4 append to log length 18 with llt 17
+436636 LOGE S4 commit index 12
+436633 LOGE S2 got Append from S3
+436641 LOGE S2 Match index 17 append entries length1
+436641 LOGE S2 append to log length 18 with llt 17
+436645 LOGE S3 as leader commit to index 18
+436716 VOTE S3 start election
+443427 VOTE S4 start election
+443431 VOTE S0 in term 18 with llt 11 grant S4 with llt 17 with term 18
+443434 VOTE S2 in term 18 with llt 17 grant S4 with llt 17 with term 18
+443436 VOTE S4 become leader at term 18
+443436 LOGE S4 send heartbeat to S3
+443436 LOGE S4 send heartbeat to S2
+443437 LOGE S4 send heartbeat to S1
+443437 LOGE S4 send heartbeat to S0
+443437 LOGE S2 got Append from S4
+443439 LOGE S0 got Append from S4
+443440 LOGE S0 commit index 0
+443539 LOGE S4 got log length 19 wit llt 18
+443541 LOGE S4 send append to S3 with term 18
+443541 LOGE S4 send append to S1 with term 18
+443542 LOGE S4 send append to S2 with term 18
+443542 LOGE S4 send append to S0 with term 18
+443544 LOGE S2 got Append from S4
+443545 LOGE S2 Match index 18 append entries length1
+443545 LOGE S2 append to log length 19 with llt 18
+443544 LOGE S0 got Append from S4
+443547 LOGE S0 commit index 0
+443548 LOGE S4 Resend because unfit index
+443548 LOGE S4 send append to S0 with term 18
+443550 LOGE S0 got Append from S4
+443550 LOGE S0 Match index 0 append entries length19
+443550 LOGE S0 append to log length 19 with llt 18
+443550 LOGE S0 commit index 12
+443552 LOGE S4 as leader commit to index 19
+443647 VOTE S4 start election
+449357 VOTE S3 start election
+450009 VOTE S0 start election
+450013 VOTE S2 in term 19 with llt 18 grant S0 with llt 18 with term 19
+450015 VOTE S3 in term 19 with llt 17 grant S0 with llt 18 with term 19
+450017 VOTE S0 become leader at term 19
+450019 LOGE S0 send heartbeat to S4
+450019 LOGE S0 send heartbeat to S1
+450020 LOGE S0 send heartbeat to S2
+450021 LOGE S0 send heartbeat to S3
+450021 LOGE S2 got Append from S0
+450023 LOGE S3 got Append from S0
+450023 LOGE S3 commit index 0
+450109 LOGE S0 got log length 20 wit llt 19
+450110 LOGE S0 send append to S4 with term 19
+450111 LOGE S0 send append to S2 with term 19
+450111 LOGE S0 send append to S3 with term 19
+450111 LOGE S0 send append to S1 with term 19
+450116 LOGE S3 got Append from S0
+450116 LOGE S3 commit index 0
+450113 LOGE S2 got Append from S0
+450117 LOGE S2 Match index 19 append entries length1
+450117 LOGE S2 append to log length 20 with llt 19
+450118 LOGE S0 Resend because unfit index
+450118 LOGE S0 send append to S3 with term 19
+450119 LOGE S3 got Append from S0
+450120 LOGE S3 Match index 0 append entries length20
+450120 LOGE S3 append to log length 20 with llt 19
+450120 LOGE S3 commit index 12
+450122 LOGE S0 as leader commit to index 20
+450227 VOTE S0 start election
+455961 VOTE S0 start election
+455967 VOTE S2 in term 20 with llt 19 grant S0 with llt 19 with term 20
+455968 VOTE S3 in term 20 with llt 19 grant S0 with llt 19 with term 20
+455971 VOTE S0 become leader at term 20
+455972 LOGE S0 send heartbeat to S4
+455973 LOGE S0 send heartbeat to S1
+455973 LOGE S0 send heartbeat to S3
+455974 LOGE S0 send heartbeat to S2
+455975 LOGE S3 got Append from S0
+455976 LOGE S2 got Append from S0
+456011 LOGE S0 got log length 21 wit llt 20
+456013 LOGE S0 send append to S4 with term 20
+456015 LOGE S0 send append to S1 with term 20
+456015 LOGE S0 send append to S2 with term 20
+456016 LOGE S0 send append to S3 with term 20
+456018 LOGE S3 got Append from S0
+456019 LOGE S3 Match index 20 append entries length1
+456019 LOGE S3 append to log length 21 with llt 20
+456020 LOGE S2 got Append from S0
+456020 LOGE S2 Match index 20 append entries length1
+456020 LOGE S2 append to log length 21 with llt 20
+456022 LOGE S0 as leader commit to index 21
+456077 VOTE S0 start election
+462117 VOTE S4 start election
+462886 VOTE S2 start election
+462891 VOTE S4 in term 21 with llt 18 grant S2 with llt 20 with term 21
+462893 VOTE S3 in term 21 with llt 20 grant S2 with llt 20 with term 21
+462895 VOTE S2 become leader at term 21
+462896 LOGE S2 send heartbeat to S4
+462897 LOGE S2 send heartbeat to S1
+462898 LOGE S4 got Append from S2
+462900 LOGE S4 commit index 0
+462898 LOGE S2 send heartbeat to S3
+462898 LOGE S2 send heartbeat to S0
+462905 LOGE S3 got Append from S2
+462993 LOGE S2 got log length 22 wit llt 21
+462995 LOGE S2 send append to S4 with term 21
+462996 LOGE S2 send append to S0 with term 21
+462998 LOGE S2 send append to S1 with term 21
+462998 LOGE S4 got Append from S2
+462999 LOGE S2 send append to S3 with term 21
+463000 LOGE S4 commit index 0
+463004 LOGE S2 Resend because unfit index
+463005 LOGE S2 send append to S4 with term 21
+463008 LOGE S4 got Append from S2
+463008 LOGE S4 Match index 0 append entries length22
+463008 LOGE S4 append to log length 22 with llt 21
+463008 LOGE S4 commit index 12
+463004 LOGE S3 got Append from S2
+463009 LOGE S3 Match index 21 append entries length1
+463009 LOGE S3 append to log length 22 with llt 21
+463012 LOGE S2 as leader commit to index 22
+463096 VOTE S2 start election
+468963 VOTE S3 start election
+468967 VOTE S4 in term 22 with llt 21 grant S3 with llt 21 with term 22
+468969 VOTE S2 in term 22 with llt 21 grant S3 with llt 21 with term 22
+468971 VOTE S3 become leader at term 22
+468972 LOGE S3 send heartbeat to S4
+468974 LOGE S4 got Append from S3
+468975 LOGE S3 send heartbeat to S2
+468974 LOGE S3 send heartbeat to S1
+468975 LOGE S3 send heartbeat to S0
+468977 LOGE S2 got Append from S3
+468978 LOGE S2 commit index 0
+470476 LOGE S3 send heartbeat to S4
+470478 LOGE S3 send heartbeat to S1
+470480 LOGE S3 send heartbeat to S0
+470480 LOGE S4 got Append from S3
+470480 LOGE S3 send heartbeat to S2
+470486 LOGE S2 got Append from S3
+470486 LOGE S2 commit index 0
+471079 LOGE S3 got log length 23 wit llt 22
+471080 LOGE S3 send append to S4 with term 22
+471081 LOGE S3 send append to S1 with term 22
+471082 LOGE S4 got Append from S3
+471083 LOGE S4 Match index 22 append entries length1
+471083 LOGE S4 append to log length 23 with llt 22
+471083 LOGE S3 send append to S2 with term 22
+471082 LOGE S3 send append to S0 with term 22
+471086 LOGE S2 got Append from S3
+471086 LOGE S2 Match index 22 append entries length1
+471086 LOGE S2 append to log length 23 with llt 22
+471086 LOGE S2 commit index 12
+471089 LOGE S3 as leader commit to index 23
+471229 VOTE S3 start election
+476783 VOTE S2 start election
+476788 VOTE S4 in term 23 with llt 22 grant S2 with llt 22 with term 23
+476794 VOTE S3 in term 23 with llt 22 grant S2 with llt 22 with term 23
+476799 VOTE S2 become leader at term 23
+476800 LOGE S2 send heartbeat to S4
+476801 LOGE S2 send heartbeat to S1
+476802 LOGE S4 got Append from S2
+476802 LOGE S2 send heartbeat to S3
+476802 LOGE S2 send heartbeat to S0
+476809 LOGE S3 got Append from S2
+476809 LOGE S3 commit index 0
+477580 LOGE S2 got log length 24 wit llt 23
+477581 LOGE S2 send append to S4 with term 23
+477581 LOGE S2 send append to S1 with term 23
+477582 LOGE S2 send append to S0 with term 23
+477583 LOGE S4 got Append from S2
+477583 LOGE S4 Match index 23 append entries length1
+477583 LOGE S4 append to log length 24 with llt 23
+477583 LOGE S2 send append to S3 with term 23
+477588 LOGE S3 got Append from S2
+477589 LOGE S3 Match index 23 append entries length1
+477589 LOGE S3 append to log length 24 with llt 23
+477589 LOGE S3 commit index 12
+477591 LOGE S2 as leader commit to index 24
+477764 VOTE S2 start election
+483750 VOTE S0 start election
+483752 VOTE S4 start election
+483756 VOTE S0 in term 24 with llt 20 grant S4 with llt 23 with term 24
+483759 VOTE S3 in term 24 with llt 23 grant S4 with llt 23 with term 24
+483761 VOTE S4 become leader at term 24
+483763 LOGE S4 send heartbeat to S3
+483765 LOGE S4 send heartbeat to S1
+483765 LOGE S3 got Append from S4
+483765 LOGE S4 send heartbeat to S2
+483765 LOGE S4 send heartbeat to S0
+483770 LOGE S0 got Append from S4
+483771 LOGE S0 commit index 0
+485267 LOGE S4 send heartbeat to S3
+485268 LOGE S4 send heartbeat to S1
+485269 LOGE S4 send heartbeat to S0
+485269 LOGE S3 got Append from S4
+485270 LOGE S0 got Append from S4
+485270 LOGE S0 commit index 0
+485270 LOGE S4 send heartbeat to S2
+485746 LOGE S4 got log length 25 wit llt 24
+485746 LOGE S4 send append to S3 with term 24
+485747 LOGE S4 send append to S1 with term 24
+485748 LOGE S3 got Append from S4
+485748 LOGE S3 Match index 24 append entries length1
+485748 LOGE S4 send append to S0 with term 24
+485748 LOGE S4 send append to S2 with term 24
+485748 LOGE S3 append to log length 25 with llt 24
+485751 LOGE S0 got Append from S4
+485751 LOGE S0 commit index 0
+485753 LOGE S4 Resend because unfit index
+485753 LOGE S4 send append to S0 with term 24
+485754 LOGE S0 got Append from S4
+485754 LOGE S0 Match index 0 append entries length25
+485754 LOGE S0 append to log length 25 with llt 24
+485754 LOGE S0 commit index 12
+485755 LOGE S4 as leader commit to index 25
+485856 VOTE S4 start election
+492222 VOTE S3 start election
+492226 VOTE S2 start election
+492231 VOTE S0 in term 25 with llt 24 grant S3 with llt 24 with term 25
+492235 VOTE S2 in term 25 with llt 23 grant S3 with llt 24 with term 25
+492238 VOTE S3 become leader at term 25
+492240 LOGE S3 send heartbeat to S4
+492241 LOGE S3 send heartbeat to S0
+492242 LOGE S3 send heartbeat to S1
+492242 LOGE S0 got Append from S3
+492243 LOGE S3 send heartbeat to S2
+492246 LOGE S2 got Append from S3
+492248 LOGE S2 commit index 0
+493741 LOGE S3 send heartbeat to S4
+493743 LOGE S3 send heartbeat to S2
+493743 LOGE S3 send heartbeat to S1
+493745 LOGE S3 send heartbeat to S0
+493745 LOGE S2 got Append from S3
+493746 LOGE S2 commit index 0
+493746 LOGE S0 got Append from S3
+494253 LOGE S3 got log length 26 wit llt 25
+494253 LOGE S3 send append to S4 with term 25
+494254 LOGE S3 send append to S0 with term 25
+494255 LOGE S3 send append to S1 with term 25
+494256 LOGE S0 got Append from S3
+494256 LOGE S0 Match index 25 append entries length1
+494256 LOGE S0 append to log length 26 with llt 25
+494256 LOGE S3 send append to S2 with term 25
+494258 LOGE S2 got Append from S3
+494259 LOGE S2 commit index 0
+494260 LOGE S3 Resend because unfit index
+494260 LOGE S3 send append to S2 with term 25
+494262 LOGE S2 got Append from S3
+494262 LOGE S2 Match index 0 append entries length26
+494262 LOGE S2 append to log length 26 with llt 25
+494262 LOGE S2 commit index 12
+494263 LOGE S3 as leader commit to index 26
+494822 VOTE S3 start election
+500886 VOTE S1 start election
+501110 VOTE S2 start election
+501115 VOTE S0 in term 26 with llt 25 grant S2 with llt 25 with term 26
+501115 VOTE S1 in term 26 with llt 15 grant S2 with llt 25 with term 26
+501120 VOTE S2 become leader at term 26
+501120 LOGE S2 send heartbeat to S4
+501121 LOGE S2 send heartbeat to S3
+501121 LOGE S2 send heartbeat to S0
+501121 LOGE S2 send heartbeat to S1
+501125 LOGE S1 got Append from S2
+501126 LOGE S1 commit index 0
+501126 LOGE S0 got Append from S2
+502628 LOGE S2 send heartbeat to S4
+502630 LOGE S2 send heartbeat to S3
+502631 LOGE S2 send heartbeat to S1
+502632 LOGE S2 send heartbeat to S0
+502634 LOGE S1 got Append from S2
+502635 LOGE S1 commit index 0
+502636 LOGE S0 got Append from S2
+504129 LOGE S2 send heartbeat to S4
+504131 LOGE S2 send heartbeat to S3
+504131 LOGE S2 send heartbeat to S1
+504133 LOGE S1 got Append from S2
+504134 LOGE S1 commit index 0
+504131 LOGE S2 send heartbeat to S0
+504137 LOGE S0 got Append from S2
+505417 LOGE S2 got log length 27 wit llt 26
+505418 LOGE S2 send append to S4 with term 26
+505419 LOGE S2 send append to S0 with term 26
+505421 LOGE S2 send append to S1 with term 26
+505422 LOGE S0 got Append from S2
+505424 LOGE S1 got Append from S2
+505424 LOGE S1 commit index 0
+505426 LOGE S2 Resend because unfit index
+505426 LOGE S2 send append to S1 with term 26
+505424 LOGE S0 Match index 26 append entries length1
+505428 LOGE S0 append to log length 27 with llt 26
+505428 LOGE S1 got Append from S2
+505429 LOGE S1 Match index 0 append entries length27
+505429 LOGE S1 append to log length 27 with llt 26
+505429 LOGE S1 commit index 12
+505422 LOGE S2 send append to S3 with term 26
+505431 LOGE S2 as leader commit to index 27
+505548 VOTE S2 start election
+511142 VOTE S1 start election
+511147 VOTE S0 in term 27 with llt 26 grant S1 with llt 26 with term 27
+511149 VOTE S3 in term 27 with llt 25 grant S1 with llt 26 with term 27
+511151 VOTE S1 become leader at term 27
+511152 LOGE S1 send heartbeat to S4
+511153 LOGE S1 send heartbeat to S0
+511154 LOGE S1 send heartbeat to S2
+511154 LOGE S0 got Append from S1
+511154 LOGE S1 send heartbeat to S3
+511158 LOGE S3 got Append from S1
+511159 LOGE S3 commit index 0
+512340 LOGE S1 got log length 28 wit llt 27
+512342 LOGE S1 send append to S4 with term 27
+512343 LOGE S1 send append to S0 with term 27
+512344 LOGE S1 send append to S2 with term 27
+512345 LOGE S0 got Append from S1
+512346 LOGE S0 Match index 27 append entries length1
+512346 LOGE S0 append to log length 28 with llt 27
+512345 LOGE S1 send append to S3 with term 27
+512349 LOGE S3 got Append from S1
+512350 LOGE S3 commit index 0
+512352 LOGE S1 Resend because unfit index
+512352 LOGE S1 send append to S3 with term 27
+512355 LOGE S3 got Append from S1
+512358 LOGE S3 Match index 0 append entries length28
+512358 LOGE S3 append to log length 28 with llt 27
+512358 LOGE S3 commit index 12
+512360 LOGE S1 as leader commit to index 28
+512659 LOGE S1 send heartbeat to S4
+512661 LOGE S1 send heartbeat to S3
+512661 LOGE S1 send heartbeat to S2
+512662 LOGE S1 send heartbeat to S0
+512665 LOGE S3 got Append from S1
+512666 LOGE S3 commit index 28
+512666 LOGE S0 got Append from S1
+512668 LOGE S0 commit index 28
+514178 LOGE S1 send heartbeat to S4
+514180 LOGE S1 send heartbeat to S3
+514180 LOGE S1 send heartbeat to S2
+514181 LOGE S1 send heartbeat to S0
+514181 LOGE S3 got Append from S1
+514183 LOGE S0 got Append from S1
+515683 LOGE S1 send heartbeat to S4
+515684 LOGE S1 send heartbeat to S3
+515685 LOGE S1 send heartbeat to S2
+515685 LOGE S1 send heartbeat to S0
+515686 LOGE S0 got Append from S1
+515686 LOGE S3 got Append from S1
+516321 VOTE S1 start election
+523628 VOTE S4 start election
+523851 VOTE S0 start election
+523860 VOTE S4 in term 28 with llt 24 grant S0 with llt 27 with term 28
+523863 VOTE S3 in term 28 with llt 27 grant S0 with llt 27 with term 28
+523865 VOTE S0 become leader at term 28
+523869 LOGE S0 send heartbeat to S4
+523870 LOGE S4 got Append from S0
+523871 LOGE S4 commit index 0
+523870 LOGE S0 send heartbeat to S2
+523870 LOGE S0 send heartbeat to S1
+523870 LOGE S0 send heartbeat to S3
+523876 LOGE S3 got Append from S0
+524802 LOGE S0 got log length 29 wit llt 28
+524803 LOGE S0 send append to S4 with term 28
+524804 LOGE S4 got Append from S0
+524804 LOGE S4 commit index 0
+524804 LOGE S0 send append to S2 with term 28
+524804 LOGE S0 send append to S3 with term 28
+524804 LOGE S0 send append to S1 with term 28
+524805 LOGE S3 got Append from S0
+524805 LOGE S3 Match index 28 append entries length1
+524805 LOGE S3 append to log length 29 with llt 28
+524805 LOGE S0 Resend because unfit index
+524805 LOGE S0 send append to S4 with term 28
+524809 LOGE S4 got Append from S0
+524809 LOGE S4 Match index 0 append entries length29
+524809 LOGE S4 append to log length 29 with llt 28
+524809 LOGE S4 commit index 28
+524810 LOGE S0 as leader commit to index 29
+524989 VOTE S0 start election
+530603 VOTE S2 start election
+531317 VOTE S4 start election
+531321 VOTE S2 in term 29 with llt 26 grant S4 with llt 28 with term 29
+531321 VOTE S3 in term 29 with llt 28 grant S4 with llt 28 with term 29
+531326 VOTE S4 become leader at term 29
+531327 LOGE S4 send heartbeat to S3
+531329 LOGE S3 got Append from S4
+531329 LOGE S4 send heartbeat to S2
+531329 LOGE S4 send heartbeat to S1
+531329 LOGE S4 send heartbeat to S0
+531331 LOGE S2 got Append from S4
+531331 LOGE S2 commit index 0
+531694 LOGE S4 got log length 30 wit llt 29
+531695 LOGE S4 send append to S3 with term 29
+531696 LOGE S4 send append to S1 with term 29
+531697 LOGE S4 send append to S0 with term 29
+531697 LOGE S4 send append to S2 with term 29
+531699 LOGE S2 got Append from S4
+531699 LOGE S2 commit index 0
+531701 LOGE S4 Resend because unfit index
+531701 LOGE S4 send append to S2 with term 29
+531697 LOGE S3 got Append from S4
+531702 LOGE S3 Match index 29 append entries length1
+531702 LOGE S3 append to log length 30 with llt 29
+531703 LOGE S2 got Append from S4
+531704 LOGE S2 Match index 0 append entries length30
+531704 LOGE S2 append to log length 30 with llt 29
+531704 LOGE S2 commit index 28
+531705 LOGE S4 as leader commit to index 30
+531759 VOTE S4 start election
+538432 VOTE S3 start election
+538433 VOTE S0 start election
+538435 VOTE S0 in term 30 with llt 28 grant S3 with llt 29 with term 30
+538436 VOTE S2 in term 30 with llt 29 grant S3 with llt 29 with term 30
+538438 VOTE S3 become leader at term 30
+538438 LOGE S3 send heartbeat to S4
+538439 LOGE S3 send heartbeat to S0
+538439 LOGE S3 send heartbeat to S1
+538439 LOGE S3 send heartbeat to S2
+538439 LOGE S0 got Append from S3
+538439 LOGE S0 commit index 0
+538440 LOGE S2 got Append from S3
+538475 LOGE S3 got log length 31 wit llt 30
+538476 LOGE S3 send append to S4 with term 30
+538477 LOGE S3 send append to S0 with term 30
+538478 LOGE S3 send append to S1 with term 30
+538478 LOGE S0 got Append from S3
+538479 LOGE S0 commit index 0
+538478 LOGE S3 send append to S2 with term 30
+538481 LOGE S2 got Append from S3
+538482 LOGE S2 Match index 30 append entries length1
+538482 LOGE S2 append to log length 31 with llt 30
+538480 LOGE S3 Resend because unfit index
+538483 LOGE S3 send append to S0 with term 30
+538484 LOGE S0 got Append from S3
+538484 LOGE S0 Match index 0 append entries length31
+538484 LOGE S0 append to log length 31 with llt 30
+538484 LOGE S0 commit index 28
+538485 LOGE S3 as leader commit to index 31
+538640 VOTE S3 start election
+545385 VOTE S1 start election
+545387 VOTE S0 start election
+545389 VOTE S1 in term 31 with llt 27 grant S0 with llt 30 with term 31
+545391 VOTE S2 in term 31 with llt 30 grant S0 with llt 30 with term 31
+545393 VOTE S0 become leader at term 31
+545394 LOGE S0 send heartbeat to S4
+545395 LOGE S0 send heartbeat to S3
+545395 LOGE S0 send heartbeat to S2
+545395 LOGE S0 send heartbeat to S1
+545396 LOGE S2 got Append from S0
+545396 LOGE S1 got Append from S0
+545398 LOGE S1 commit index 0
+545467 LOGE S0 got log length 32 wit llt 31
+545468 LOGE S0 send append to S4 with term 31
+545469 LOGE S0 send append to S1 with term 31
+545470 LOGE S0 send append to S2 with term 31
+545470 LOGE S0 send append to S3 with term 31
+545470 LOGE S1 got Append from S0
+545473 LOGE S1 commit index 0
+545473 LOGE S2 got Append from S0
+545475 LOGE S2 Match index 31 append entries length1
+545475 LOGE S2 append to log length 32 with llt 31
+545475 LOGE S0 Resend because unfit index
+545475 LOGE S0 send append to S1 with term 31
+545477 LOGE S1 got Append from S0
+545477 LOGE S1 Match index 0 append entries length32
+545477 LOGE S1 append to log length 32 with llt 31
+545477 LOGE S1 commit index 28
+545478 LOGE S0 as leader commit to index 32
+545599 VOTE S0 start election
+551538 VOTE S1 start election
+551542 VOTE S4 in term 32 with llt 29 grant S1 with llt 31 with term 32
+551543 VOTE S2 in term 32 with llt 31 grant S1 with llt 31 with term 32
+551546 VOTE S1 become leader at term 32
+551547 LOGE S1 send heartbeat to S4
+551548 LOGE S1 send heartbeat to S2
+551549 LOGE S4 got Append from S1
+551549 LOGE S4 commit index 0
+551550 LOGE S2 got Append from S1
+551550 LOGE S1 send heartbeat to S0
+551550 LOGE S1 send heartbeat to S3
+553048 LOGE S1 send heartbeat to S4
+553051 LOGE S1 send heartbeat to S2
+553052 LOGE S4 got Append from S1
+553052 LOGE S4 commit index 0
+553054 LOGE S2 got Append from S1
+553054 LOGE S1 send heartbeat to S0
+553054 LOGE S1 send heartbeat to S3
+553680 LOGE S1 got log length 33 wit llt 32
+553681 LOGE S1 send append to S4 with term 32
+553682 LOGE S1 send append to S2 with term 32
+553684 LOGE S1 send append to S0 with term 32
+553684 LOGE S4 got Append from S1
+553685 LOGE S4 commit index 0
+553686 LOGE S2 got Append from S1
+553686 LOGE S2 Match index 32 append entries length1
+553686 LOGE S2 append to log length 33 with llt 32
+553687 LOGE S1 Resend because unfit index
+553687 LOGE S1 send append to S4 with term 32
+553685 LOGE S1 send append to S3 with term 32
+553691 LOGE S4 got Append from S1
+553692 LOGE S4 Match index 0 append entries length33
+553692 LOGE S4 append to log length 33 with llt 32
+553692 LOGE S4 commit index 28
+553694 LOGE S1 as leader commit to index 33
+553800 VOTE S1 start election
+559758 VOTE S2 start election
+559762 VOTE S0 in term 33 with llt 31 grant S2 with llt 32 with term 33
+559762 VOTE S4 in term 33 with llt 32 grant S2 with llt 32 with term 33
+559768 VOTE S2 become leader at term 33
+559770 LOGE S2 send heartbeat to S4
+559772 LOGE S4 got Append from S2
+559774 LOGE S2 send heartbeat to S3
+559775 LOGE S2 send heartbeat to S1
+559775 LOGE S2 send heartbeat to S0
+559776 LOGE S0 got Append from S2
+559777 LOGE S0 commit index 0
+561281 LOGE S2 send heartbeat to S0
+561283 LOGE S2 send heartbeat to S3
+561285 LOGE S2 send heartbeat to S1
+561285 LOGE S0 got Append from S2
+561285 LOGE S0 commit index 0
+561285 LOGE S2 send heartbeat to S4
+561288 LOGE S4 got Append from S2
+562382 LOGE S2 got log length 34 wit llt 33
+562383 LOGE S2 send append to S4 with term 33
+562384 LOGE S2 send append to S1 with term 33
+562386 LOGE S2 send append to S0 with term 33
+562388 LOGE S2 send append to S3 with term 33
+562389 LOGE S4 got Append from S2
+562389 LOGE S4 Match index 33 append entries length1
+562389 LOGE S4 append to log length 34 with llt 33
+562390 LOGE S0 got Append from S2
+562391 LOGE S0 commit index 0
+562403 LOGE S2 Resend because unfit index
+562404 LOGE S2 send append to S0 with term 33
+562412 LOGE S0 got Append from S2
+562413 LOGE S0 Match index 0 append entries length34
+562413 LOGE S0 append to log length 34 with llt 33
+562413 LOGE S0 commit index 28
+562419 LOGE S2 as leader commit to index 34
+562511 VOTE S2 start election
+569606 VOTE S0 start election
+569612 VOTE S4 in term 34 with llt 33 grant S0 with llt 33 with term 34
+569614 VOTE S1 in term 34 with llt 32 grant S0 with llt 33 with term 34
+569616 VOTE S0 become leader at term 34
+569618 LOGE S0 send heartbeat to S4
+569620 LOGE S4 got Append from S0
+569622 LOGE S0 send heartbeat to S2
+569623 LOGE S0 send heartbeat to S3
+569623 LOGE S0 send heartbeat to S1
+569625 LOGE S1 got Append from S0
+569626 LOGE S1 commit index 0
+571127 LOGE S0 send heartbeat to S4
+571130 LOGE S0 send heartbeat to S2
+571131 LOGE S4 got Append from S0
+571132 LOGE S0 send heartbeat to S1
+571132 LOGE S0 send heartbeat to S3
+571134 LOGE S1 got Append from S0
+571134 LOGE S1 commit index 0
+572646 LOGE S0 send heartbeat to S4
+572647 LOGE S0 send heartbeat to S1
+572647 LOGE S4 got Append from S0
+572648 LOGE S0 send heartbeat to S2
+572648 LOGE S1 got Append from S0
+572649 LOGE S1 commit index 0
+572648 LOGE S0 send heartbeat to S3
+573231 LOGE S0 got log length 35 wit llt 34
+573233 LOGE S0 send append to S4 with term 34
+573235 LOGE S0 send append to S2 with term 34
+573236 LOGE S0 send append to S1 with term 34
+573236 LOGE S0 send append to S3 with term 34
+573238 LOGE S1 got Append from S0
+573239 LOGE S1 commit index 0
+573241 LOGE S0 Resend because unfit index
+573241 LOGE S0 send append to S1 with term 34
+573239 LOGE S4 got Append from S0
+573242 LOGE S4 Match index 34 append entries length1
+573242 LOGE S4 append to log length 35 with llt 34
+573244 LOGE S1 got Append from S0
+573245 LOGE S1 Match index 0 append entries length35
+573245 LOGE S1 append to log length 35 with llt 34
+573245 LOGE S1 commit index 28
+573247 LOGE S0 as leader commit to index 35
+573340 VOTE S0 start election
+579015 VOTE S1 start election
+579021 VOTE S3 in term 35 with llt 30 grant S1 with llt 34 with term 35
+579022 VOTE S4 in term 35 with llt 34 grant S1 with llt 34 with term 35
+579027 VOTE S1 become leader at term 35
+579030 LOGE S1 send heartbeat to S4
+579033 LOGE S1 send heartbeat to S2
+579035 LOGE S1 got log length 36 wit llt 35
+579035 LOGE S1 send append to S4 with term 35
+579036 LOGE S1 send heartbeat to S0
+579036 LOGE S1 send append to S2 with term 35
+579036 LOGE S4 got Append from S1
+579037 LOGE S1 send append to S0 with term 35
+579036 LOGE S1 send heartbeat to S3
+579037 LOGE S1 send append to S3 with term 35
+579040 LOGE S4 got Append from S1
+579040 LOGE S4 Match index 35 append entries length1
+579041 LOGE S4 append to log length 36 with llt 35
+579041 LOGE S3 got Append from S1
+579045 LOGE S3 commit index 0
+579049 LOGE S3 got Append from S1
+579050 LOGE S3 commit index 0
+579053 LOGE S1 Resend because unfit index
+579053 LOGE S1 send append to S3 with term 35
+579056 LOGE S3 got Append from S1
+579057 LOGE S3 Match index 0 append entries length36
+579058 LOGE S3 append to log length 36 with llt 35
+579058 LOGE S3 commit index 28
+579063 LOGE S1 as leader commit to index 36
+579118 VOTE S1 start election
+584978 VOTE S1 start election
+584980 VOTE S4 in term 36 with llt 35 grant S1 with llt 35 with term 36
+584981 VOTE S3 in term 36 with llt 35 grant S1 with llt 35 with term 36
+584984 VOTE S1 become leader at term 36
+584985 LOGE S1 send heartbeat to S4
+584986 LOGE S4 got Append from S1
+584987 LOGE S1 send heartbeat to S2
+584987 LOGE S1 send heartbeat to S3
+584987 LOGE S1 send heartbeat to S0
+584988 LOGE S3 got Append from S1
+585019 LOGE S1 got log length 37 wit llt 36
+585020 LOGE S1 send append to S4 with term 36
+585022 LOGE S4 got Append from S1
+585023 LOGE S4 Match index 36 append entries length1
+585023 LOGE S4 append to log length 37 with llt 36
+585022 LOGE S1 send append to S2 with term 36
+585022 LOGE S1 send append to S0 with term 36
+585022 LOGE S1 send append to S3 with term 36
+585029 LOGE S3 got Append from S1
+585029 LOGE S3 Match index 36 append entries length1
+585030 LOGE S3 append to log length 37 with llt 36
+585031 LOGE S1 as leader commit to index 37
+585099 VOTE S1 start election
+590971 VOTE S0 start election
+591211 VOTE S4 start election
+591214 VOTE S3 in term 37 with llt 36 grant S4 with llt 36 with term 37
+591214 VOTE S0 in term 37 with llt 34 grant S4 with llt 36 with term 37
+597134 VOTE S0 start election
+598034 VOTE S4 start election
+598039 VOTE S0 in term 39 with llt 34 grant S4 with llt 36 with term 39
+603988 VOTE S4 start election
+603995 VOTE S0 in term 40 with llt 34 grant S4 with llt 36 with term 40
+609835 VOTE S4 start election
+609842 VOTE S0 in term 41 with llt 34 grant S4 with llt 36 with term 41
+615433 VOTE S0 start election
+617629 VOTE S4 start election
+617632 VOTE S0 in term 43 with llt 34 grant S4 with llt 36 with term 43
+623766 VOTE S0 start election
+625424 VOTE S4 start election
+625431 VOTE S0 in term 45 with llt 34 grant S4 with llt 36 with term 45
+631881 VOTE S0 start election
+632385 VOTE S4 start election
+632393 VOTE S0 in term 47 with llt 34 grant S4 with llt 36 with term 47
+638574 VOTE S4 start election
+638578 VOTE S0 in term 48 with llt 34 grant S4 with llt 36 with term 48
+645444 VOTE S4 start election
+645448 VOTE S0 in term 49 with llt 34 grant S4 with llt 36 with term 49
+651525 VOTE S0 start election
+653192 VOTE S4 start election
+653195 VOTE S0 in term 51 with llt 34 grant S4 with llt 36 with term 51
+659847 VOTE S4 start election
+659849 VOTE S0 start election
+665573 VOTE S0 start election
+668078 VOTE S4 start election
+668085 VOTE S0 in term 54 with llt 34 grant S4 with llt 36 with term 54
+674917 VOTE S0 start election
+676440 VOTE S4 start election
+676446 VOTE S0 in term 56 with llt 34 grant S4 with llt 36 with term 56
+684010 VOTE S0 start election
+685213 VOTE S4 start election
+685215 VOTE S0 in term 58 with llt 34 grant S4 with llt 36 with term 58
+690830 VOTE S0 start election
+693825 VOTE S4 start election
+693834 VOTE S0 in term 60 with llt 34 grant S4 with llt 36 with term 60
+700408 VOTE S0 start election
+702532 VOTE S4 start election
+702539 VOTE S0 in term 62 with llt 34 grant S4 with llt 36 with term 62
+709411 VOTE S0 start election
+710538 VOTE S4 start election
+710545 VOTE S0 in term 64 with llt 34 grant S4 with llt 36 with term 64
+717158 VOTE S0 start election
+718681 VOTE S4 start election
+718686 VOTE S0 in term 66 with llt 34 grant S4 with llt 36 with term 66
+725326 VOTE S4 start election
+725335 VOTE S0 in term 67 with llt 34 grant S4 with llt 36 with term 67
+731681 VOTE S4 start election
+731688 VOTE S0 in term 68 with llt 34 grant S4 with llt 36 with term 68
+738381 VOTE S4 start election
+738392 VOTE S0 in term 69 with llt 34 grant S4 with llt 36 with term 69
+745440 VOTE S0 start election
+746606 VOTE S4 start election
+746611 VOTE S0 in term 71 with llt 34 grant S4 with llt 36 with term 71
+754677 VOTE S0 start election
+755004 VOTE S4 start election
+755009 VOTE S0 in term 73 with llt 34 grant S4 with llt 36 with term 73
+762034 VOTE S0 start election
+762600 VOTE S4 start election
+762603 VOTE S0 in term 75 with llt 34 grant S4 with llt 36 with term 75
+768818 VOTE S0 start election
+769698 VOTE S4 start election
+769702 VOTE S0 in term 77 with llt 34 grant S4 with llt 36 with term 77
+775494 VOTE S0 start election
+777546 VOTE S4 start election
+777554 VOTE S0 in term 79 with llt 34 grant S4 with llt 36 with term 79
+783959 VOTE S0 start election
+784519 VOTE S4 start election
+784523 VOTE S0 in term 81 with llt 34 grant S4 with llt 36 with term 81
+792088 VOTE S0 start election
+793315 VOTE S4 start election
+793321 VOTE S0 in term 83 with llt 34 grant S4 with llt 36 with term 83
+799386 VOTE S0 start election
+799723 VOTE S4 start election
+799726 VOTE S0 in term 85 with llt 34 grant S4 with llt 36 with term 85
+806612 VOTE S0 start election
+807703 VOTE S4 start election
+807714 VOTE S0 in term 87 with llt 34 grant S4 with llt 36 with term 87
+813408 VOTE S4 start election
+813417 VOTE S0 in term 88 with llt 34 grant S4 with llt 36 with term 88
+820098 VOTE S0 start election
+820840 VOTE S4 start election
+820847 VOTE S0 in term 90 with llt 34 grant S4 with llt 36 with term 90
+826807 VOTE S0 start election
+827660 VOTE S4 start election
+827663 VOTE S0 in term 92 with llt 34 grant S4 with llt 36 with term 92
+834286 VOTE S0 start election
+834722 VOTE S4 start election
+834724 VOTE S0 in term 94 with llt 34 grant S4 with llt 36 with term 94
+842079 VOTE S0 start election
+842401 VOTE S4 start election
+842408 VOTE S0 in term 96 with llt 34 grant S4 with llt 36 with term 96
+849316 VOTE S0 start election
+850544 VOTE S4 start election
+850549 VOTE S0 in term 98 with llt 34 grant S4 with llt 36 with term 98
+856859 VOTE S4 start election
+856864 VOTE S0 in term 99 with llt 34 grant S4 with llt 36 with term 99
+863554 VOTE S0 start election
+864994 VOTE S4 start election
+865003 VOTE S0 in term 101 with llt 34 grant S4 with llt 36 with term 101
+872571 VOTE S0 start election
+873346 VOTE S4 start election
+873360 VOTE S0 in term 103 with llt 34 grant S4 with llt 36 with term 103
+880487 VOTE S4 start election
+880492 VOTE S0 in term 104 with llt 34 grant S4 with llt 36 with term 104
+889119 VOTE S4 start election
+889124 VOTE S0 in term 105 with llt 34 grant S4 with llt 36 with term 105
+896493 VOTE S4 start election
+896500 VOTE S0 in term 106 with llt 34 grant S4 with llt 36 with term 106
+903848 VOTE S0 start election
+904064 VOTE S4 start election
+904067 VOTE S0 in term 108 with llt 34 grant S4 with llt 36 with term 108
+910238 VOTE S0 start election
+912367 VOTE S4 start election
+912377 VOTE S0 in term 110 with llt 34 grant S4 with llt 36 with term 110
+920520 VOTE S0 start election
+921094 VOTE S4 start election
+921097 VOTE S0 in term 112 with llt 34 grant S4 with llt 36 with term 112
+929162 VOTE S4 start election
+929170 VOTE S0 in term 113 with llt 34 grant S4 with llt 36 with term 113
+935721 VOTE S0 start election
+936845 VOTE S4 start election
+936851 VOTE S0 in term 115 with llt 34 grant S4 with llt 36 with term 115
+944057 VOTE S0 start election
+944059 VOTE S4 start election
+952739 VOTE S0 start election
+952847 VOTE S4 start election
+952855 VOTE S0 in term 118 with llt 34 grant S4 with llt 36 with term 118
+958749 VOTE S4 start election
+958755 VOTE S0 in term 119 with llt 34 grant S4 with llt 36 with term 119
+965400 VOTE S0 start election
+967615 VOTE S4 start election
+967621 VOTE S0 in term 121 with llt 34 grant S4 with llt 36 with term 121
+974958 VOTE S0 start election
+975737 VOTE S4 start election
+975743 VOTE S0 in term 123 with llt 34 grant S4 with llt 36 with term 123
+982389 VOTE S4 start election
+982403 VOTE S0 in term 124 with llt 34 grant S4 with llt 36 with term 124
+989051 VOTE S0 start election
+990630 VOTE S4 start election
+990638 VOTE S0 in term 126 with llt 34 grant S4 with llt 36 with term 126
+996220 VOTE S4 start election
+996228 VOTE S0 in term 127 with llt 34 grant S4 with llt 36 with term 127
+1002535 VOTE S0 start election
+1003595 VOTE S4 start election
+1003601 VOTE S0 in term 129 with llt 34 grant S4 with llt 36 with term 129
+1009863 VOTE S4 start election
+1009869 VOTE S0 in term 130 with llt 34 grant S4 with llt 36 with term 130
+1016503 VOTE S4 start election
+1016508 VOTE S0 in term 131 with llt 34 grant S4 with llt 36 with term 131
+1022242 VOTE S0 start election
+1023670 VOTE S4 start election
+1023674 VOTE S0 in term 133 with llt 34 grant S4 with llt 36 with term 133
+1030431 VOTE S0 start election
+1030549 VOTE S4 start election
+1030554 VOTE S0 in term 135 with llt 34 grant S4 with llt 36 with term 135
+1037392 VOTE S0 start election
+1038494 VOTE S4 start election
+1038498 VOTE S0 in term 137 with llt 34 grant S4 with llt 36 with term 137
+1046347 VOTE S4 start election
+1046362 VOTE S0 in term 138 with llt 34 grant S4 with llt 36 with term 138
+1053617 VOTE S4 start election
+1053624 VOTE S0 in term 139 with llt 34 grant S4 with llt 36 with term 139
+1059294 VOTE S0 start election
+1060286 VOTE S4 start election
+1060294 VOTE S0 in term 141 with llt 34 grant S4 with llt 36 with term 141
+1066036 VOTE S4 start election
+1066041 VOTE S0 in term 142 with llt 34 grant S4 with llt 36 with term 142
+1072285 VOTE S4 start election
+1072290 VOTE S0 in term 143 with llt 34 grant S4 with llt 36 with term 143
+1078247 VOTE S4 start election
+1078252 VOTE S0 in term 144 with llt 34 grant S4 with llt 36 with term 144
+1085391 VOTE S4 start election
+1085397 VOTE S0 in term 145 with llt 34 grant S4 with llt 36 with term 145
+1092390 VOTE S0 start election
+1092740 VOTE S4 start election
+1092745 VOTE S0 in term 147 with llt 34 grant S4 with llt 36 with term 147
+1099101 VOTE S0 start election
+1100319 VOTE S4 start election
+1100325 VOTE S0 in term 149 with llt 34 grant S4 with llt 36 with term 149
+1106698 VOTE S4 start election
+1106703 VOTE S0 in term 150 with llt 34 grant S4 with llt 36 with term 150
+1113728 VOTE S0 start election
+1114972 VOTE S4 start election
+1114977 VOTE S0 in term 152 with llt 34 grant S4 with llt 36 with term 152
+1123286 VOTE S0 start election
+1123403 VOTE S4 start election
+1123408 VOTE S0 in term 154 with llt 34 grant S4 with llt 36 with term 154
+1128952 VOTE S0 start election
+1132170 VOTE S4 start election
+1132174 VOTE S0 in term 156 with llt 34 grant S4 with llt 36 with term 156
+1138812 VOTE S0 start election
+1139026 VOTE S4 start election
+1139034 VOTE S0 in term 158 with llt 34 grant S4 with llt 36 with term 158
+1144774 VOTE S0 start election
+1147365 VOTE S4 start election
+1147372 VOTE S0 in term 160 with llt 34 grant S4 with llt 36 with term 160
+1152940 VOTE S0 start election
+1155973 VOTE S4 start election
+1155980 VOTE S0 in term 162 with llt 34 grant S4 with llt 36 with term 162
+1163508 VOTE S0 start election
+1164157 VOTE S4 start election
+1164161 VOTE S0 in term 164 with llt 34 grant S4 with llt 36 with term 164
+1171776 VOTE S0 start election
+1171891 VOTE S4 start election
+1171897 VOTE S0 in term 166 with llt 34 grant S4 with llt 36 with term 166
+1177478 VOTE S4 start election
+1177486 VOTE S0 in term 167 with llt 34 grant S4 with llt 36 with term 167
+1184357 VOTE S0 start election
+1185932 VOTE S4 start election
+1185937 VOTE S0 in term 169 with llt 34 grant S4 with llt 36 with term 169
+1191968 VOTE S4 start election
+1192005 VOTE S0 in term 170 with llt 34 grant S4 with llt 36 with term 170
+1199559 VOTE S4 start election
+1199564 VOTE S0 in term 171 with llt 34 grant S4 with llt 36 with term 171
+1205383 VOTE S0 start election
+1205596 VOTE S4 start election
+1205601 VOTE S0 in term 173 with llt 34 grant S4 with llt 36 with term 173
+1211278 VOTE S4 start election
+1211285 VOTE S0 in term 174 with llt 34 grant S4 with llt 36 with term 174
+1217993 VOTE S4 start election
+1217999 VOTE S0 in term 175 with llt 34 grant S4 with llt 36 with term 175
+1225101 VOTE S0 start election
+1225570 VOTE S4 start election
+1225573 VOTE S0 in term 177 with llt 34 grant S4 with llt 36 with term 177
+1231467 VOTE S0 start election
+1232220 VOTE S4 start election
+1232226 VOTE S0 in term 179 with llt 34 grant S4 with llt 36 with term 179
+1240804 VOTE S4 start election
+1240806 VOTE S0 start election
+1246428 VOTE S0 start election
+1246538 VOTE S4 start election
+1246543 VOTE S0 in term 182 with llt 34 grant S4 with llt 36 with term 182
+1253264 VOTE S0 start election
+1255048 VOTE S4 start election
+1255055 VOTE S0 in term 184 with llt 34 grant S4 with llt 36 with term 184
+1261069 VOTE S4 start election
+1261073 VOTE S0 in term 185 with llt 34 grant S4 with llt 36 with term 185
+1266952 VOTE S0 start election
+1268550 VOTE S4 start election
+1268556 VOTE S0 in term 187 with llt 34 grant S4 with llt 36 with term 187
+1274838 VOTE S0 start election
+1276816 VOTE S4 start election
+1276818 VOTE S0 in term 189 with llt 34 grant S4 with llt 36 with term 189
+1284515 VOTE S4 start election
+1284519 VOTE S0 in term 190 with llt 34 grant S4 with llt 36 with term 190
+1291853 VOTE S4 start election
+1291856 VOTE S0 in term 191 with llt 34 grant S4 with llt 36 with term 191
+1298435 VOTE S4 start election
+1298443 VOTE S0 in term 192 with llt 34 grant S4 with llt 36 with term 192
+1305673 VOTE S4 start election
+1305677 VOTE S0 in term 193 with llt 34 grant S4 with llt 36 with term 193
+1312322 VOTE S4 start election
+1312327 VOTE S0 in term 194 with llt 34 grant S4 with llt 36 with term 194
+1317932 VOTE S0 start election
+1318898 VOTE S4 start election
+1318902 VOTE S0 in term 196 with llt 34 grant S4 with llt 36 with term 196
+1324552 VOTE S4 start election
+1324554 VOTE S0 in term 197 with llt 34 grant S4 with llt 36 with term 197
+1331422 VOTE S4 start election
+1331432 VOTE S0 in term 198 with llt 34 grant S4 with llt 36 with term 198
+1337362 VOTE S0 start election
+1338987 VOTE S4 start election
+1339011 VOTE S0 in term 200 with llt 34 grant S4 with llt 36 with term 200
+1344714 VOTE S0 start election
+1346601 VOTE S4 start election
+1346615 VOTE S0 in term 202 with llt 34 grant S4 with llt 36 with term 202
+1352874 VOTE S0 start election
+1354738 VOTE S4 start election
+1354740 VOTE S0 in term 204 with llt 34 grant S4 with llt 36 with term 204
+1360283 VOTE S0 start election
+1360826 VOTE S4 start election
+1360830 VOTE S0 in term 206 with llt 34 grant S4 with llt 36 with term 206
+1366876 VOTE S4 start election
+1366880 VOTE S0 in term 207 with llt 34 grant S4 with llt 36 with term 207
+1373002 VOTE S0 start election
+1373782 VOTE S4 start election
+1373785 VOTE S0 in term 209 with llt 34 grant S4 with llt 36 with term 209
+1380724 VOTE S4 start election
+1380730 VOTE S0 in term 210 with llt 34 grant S4 with llt 36 with term 210
+1386570 VOTE S0 start election
+1387112 VOTE S4 start election
+1387123 VOTE S0 in term 212 with llt 34 grant S4 with llt 36 with term 212
+1392903 VOTE S4 start election
+1392907 VOTE S0 in term 213 with llt 34 grant S4 with llt 36 with term 213
+1400498 VOTE S0 start election
+1400988 VOTE S4 start election
+1401003 VOTE S0 in term 215 with llt 34 grant S4 with llt 36 with term 215
+1408098 VOTE S0 start election
+1408998 VOTE S4 start election
+1409001 VOTE S0 in term 217 with llt 34 grant S4 with llt 36 with term 217
+1417144 VOTE S0 start election
+1417355 VOTE S4 start election
+1417361 VOTE S0 in term 219 with llt 34 grant S4 with llt 36 with term 219
+1423353 VOTE S0 start election
+1423354 VOTE S4 start election
+1431828 VOTE S4 start election
+1431831 VOTE S0 start election
+1437919 VOTE S0 start election
+1438662 VOTE S4 start election
+1438669 VOTE S0 in term 223 with llt 34 grant S4 with llt 36 with term 223
+1445398 VOTE S0 start election
+1446745 VOTE S4 start election
+1446755 VOTE S0 in term 225 with llt 34 grant S4 with llt 36 with term 225
+1454498 VOTE S0 start election
+1454825 VOTE S4 start election
+1454829 VOTE S0 in term 227 with llt 34 grant S4 with llt 36 with term 227
+1462781 VOTE S0 start election
+1463414 VOTE S4 start election
+1463418 VOTE S0 in term 229 with llt 34 grant S4 with llt 36 with term 229
+1469144 VOTE S4 start election
+1469153 VOTE S0 in term 230 with llt 34 grant S4 with llt 36 with term 230
+1475986 VOTE S4 start election
+1475990 VOTE S0 in term 231 with llt 34 grant S4 with llt 36 with term 231
+1482336 VOTE S4 start election
+1482345 VOTE S0 in term 232 with llt 34 grant S4 with llt 36 with term 232
+1488736 VOTE S4 start election
+1488739 VOTE S0 in term 233 with llt 34 grant S4 with llt 36 with term 233
+1495117 VOTE S4 start election
+1495124 VOTE S0 in term 234 with llt 34 grant S4 with llt 36 with term 234
+1501293 VOTE S0 start election
+1502258 VOTE S4 start election
+1502265 VOTE S0 in term 236 with llt 34 grant S4 with llt 36 with term 236
+1507977 VOTE S4 start election
+1507984 VOTE S0 in term 237 with llt 34 grant S4 with llt 36 with term 237
+1515871 VOTE S4 start election
+1515882 VOTE S0 in term 238 with llt 34 grant S4 with llt 36 with term 238
+1521370 VOTE S0 start election
+1521697 VOTE S4 start election
+1521705 VOTE S0 in term 240 with llt 34 grant S4 with llt 36 with term 240
+1527558 VOTE S0 start election
+1527779 VOTE S4 start election
+1527784 VOTE S0 in term 242 with llt 34 grant S4 with llt 36 with term 242
+1533944 VOTE S4 start election
+1533947 VOTE S0 in term 243 with llt 34 grant S4 with llt 36 with term 243
+1541599 VOTE S4 start election
+1541606 VOTE S0 in term 244 with llt 34 grant S4 with llt 36 with term 244
+1547785 VOTE S4 start election
+1547789 VOTE S0 in term 245 with llt 34 grant S4 with llt 36 with term 245
+1553849 VOTE S4 start election
+1553851 VOTE S0 in term 246 with llt 34 grant S4 with llt 36 with term 246
+1559601 VOTE S0 start election
+1560670 VOTE S4 start election
+1560675 VOTE S0 in term 248 with llt 34 grant S4 with llt 36 with term 248
+1567868 VOTE S0 start election
+1568318 VOTE S4 start election
+1568325 VOTE S0 in term 250 with llt 34 grant S4 with llt 36 with term 250
+1576013 VOTE S0 start election
+1576823 VOTE S4 start election
+1576828 VOTE S0 in term 252 with llt 34 grant S4 with llt 36 with term 252
+1583144 VOTE S0 start election
+1584807 VOTE S4 start election
+1584813 VOTE S0 in term 254 with llt 34 grant S4 with llt 36 with term 254
+1591139 VOTE S4 start election
+1591147 VOTE S0 in term 255 with llt 34 grant S4 with llt 36 with term 255
+1597697 VOTE S0 start election
+1598237 VOTE S4 start election
+1598241 VOTE S0 in term 257 with llt 34 grant S4 with llt 36 with term 257
+1605480 VOTE S0 start election
+1606143 VOTE S4 start election
+1606150 VOTE S0 in term 259 with llt 34 grant S4 with llt 36 with term 259
+1613138 VOTE S4 start election
+1613141 VOTE S0 start election
+1618937 VOTE S0 start election
+1621894 VOTE S4 start election
+1621898 VOTE S0 in term 262 with llt 34 grant S4 with llt 36 with term 262
+1627687 VOTE S0 start election
+1628232 VOTE S4 start election
+1628238 VOTE S0 in term 264 with llt 34 grant S4 with llt 36 with term 264
+1635793 VOTE S4 start election
+1635799 VOTE S0 in term 265 with llt 34 grant S4 with llt 36 with term 265
+1643240 VOTE S4 start election
+1643245 VOTE S0 in term 266 with llt 34 grant S4 with llt 36 with term 266
+1649233 VOTE S0 start election
+1650313 VOTE S4 start election
+1650319 VOTE S0 in term 268 with llt 34 grant S4 with llt 36 with term 268
+1658549 VOTE S0 start election
+1658869 VOTE S4 start election
+1658876 VOTE S0 in term 270 with llt 34 grant S4 with llt 36 with term 270
+1665882 VOTE S4 start election
+1665891 VOTE S0 in term 271 with llt 34 grant S4 with llt 36 with term 271
+1671547 VOTE S0 start election
+1674084 VOTE S4 start election
+1674088 VOTE S0 in term 273 with llt 34 grant S4 with llt 36 with term 273
+1680464 VOTE S0 start election
+1680795 VOTE S4 start election
+1680802 VOTE S0 in term 275 with llt 34 grant S4 with llt 36 with term 275
+1688383 VOTE S0 start election
+1688930 VOTE S4 start election
+1688936 VOTE S0 in term 277 with llt 34 grant S4 with llt 36 with term 277
+1696541 VOTE S0 start election
+1697732 VOTE S4 start election
+1697739 VOTE S0 in term 279 with llt 34 grant S4 with llt 36 with term 279
+1704425 VOTE S0 start election
+1705984 VOTE S4 start election
+1705990 VOTE S0 in term 281 with llt 34 grant S4 with llt 36 with term 281
+1711756 VOTE S0 start election
+1712306 VOTE S4 start election
+1712311 VOTE S0 in term 283 with llt 34 grant S4 with llt 36 with term 283
+1718342 VOTE S4 start election
+1718351 VOTE S0 in term 284 with llt 34 grant S4 with llt 36 with term 284
+1724818 VOTE S0 start election
+1725596 VOTE S4 start election
+1725599 VOTE S0 in term 286 with llt 34 grant S4 with llt 36 with term 286
+1732093 VOTE S0 start election
+1733643 VOTE S4 start election
+1733648 VOTE S0 in term 288 with llt 34 grant S4 with llt 36 with term 288
+1739306 VOTE S0 start election
+1739644 VOTE S4 start election
+1739650 VOTE S0 in term 290 with llt 34 grant S4 with llt 36 with term 290
+1746165 VOTE S0 start election
+1747699 VOTE S4 start election
+1747708 VOTE S0 in term 292 with llt 34 grant S4 with llt 36 with term 292
+1754008 VOTE S0 start election
+1754448 VOTE S4 start election
+1754452 VOTE S0 in term 294 with llt 34 grant S4 with llt 36 with term 294
+1760925 VOTE S0 start election
+1761048 VOTE S4 start election
+1761055 VOTE S0 in term 296 with llt 34 grant S4 with llt 36 with term 296
+1766818 VOTE S4 start election
+1766822 VOTE S0 in term 297 with llt 34 grant S4 with llt 36 with term 297
+1772935 VOTE S0 start election
+1775591 VOTE S4 start election
+1775599 VOTE S0 in term 299 with llt 34 grant S4 with llt 36 with term 299
+1782797 VOTE S0 start election
+1784332 VOTE S4 start election
+1784338 VOTE S0 in term 301 with llt 34 grant S4 with llt 36 with term 301
+1789960 VOTE S4 start election
+1789966 VOTE S0 in term 302 with llt 34 grant S4 with llt 36 with term 302
+1797688 VOTE S0 start election
+1798556 VOTE S4 start election
+1798560 VOTE S0 in term 304 with llt 34 grant S4 with llt 36 with term 304
+1805230 VOTE S4 start election
+1805237 VOTE S0 in term 305 with llt 34 grant S4 with llt 36 with term 305
+1811789 VOTE S0 start election
+1811899 VOTE S4 start election
+1811903 VOTE S0 in term 307 with llt 34 grant S4 with llt 36 with term 307
+1818160 VOTE S0 start election
+1818953 VOTE S4 start election
+1818961 VOTE S0 in term 309 with llt 34 grant S4 with llt 36 with term 309
+1825947 VOTE S4 start election
+1825953 VOTE S0 in term 310 with llt 34 grant S4 with llt 36 with term 310
+1833355 VOTE S0 start election
+1834035 VOTE S4 start election
+1834038 VOTE S0 in term 312 with llt 34 grant S4 with llt 36 with term 312
+1839920 VOTE S4 start election
+1839930 VOTE S0 in term 313 with llt 34 grant S4 with llt 36 with term 313
+1845793 VOTE S0 start election
+1846304 VOTE S4 start election
+1846310 VOTE S0 in term 315 with llt 34 grant S4 with llt 36 with term 315
+1854297 VOTE S4 start election
+1854302 VOTE S0 in term 316 with llt 34 grant S4 with llt 36 with term 316
+1861673 VOTE S4 start election
+1861679 VOTE S0 in term 317 with llt 34 grant S4 with llt 36 with term 317
+1867486 VOTE S4 start election
+1867506 VOTE S0 in term 318 with llt 34 grant S4 with llt 36 with term 318
+1873498 VOTE S4 start election
+1873503 VOTE S0 in term 319 with llt 34 grant S4 with llt 36 with term 319
+1879701 VOTE S4 start election
+1879711 VOTE S0 in term 320 with llt 34 grant S4 with llt 36 with term 320
+1886087 VOTE S0 start election
+1888173 VOTE S4 start election
+1888179 VOTE S0 in term 322 with llt 34 grant S4 with llt 36 with term 322
+1893998 VOTE S4 start election
+1894000 VOTE S0 in term 323 with llt 34 grant S4 with llt 36 with term 323
+1900743 VOTE S0 start election
+1901842 VOTE S4 start election
+1901849 VOTE S0 in term 325 with llt 34 grant S4 with llt 36 with term 325
+1908779 VOTE S4 start election
+1908786 VOTE S0 in term 326 with llt 34 grant S4 with llt 36 with term 326
+1914463 VOTE S0 start election
+1915347 VOTE S4 start election
+1915352 VOTE S0 in term 328 with llt 34 grant S4 with llt 36 with term 328
+1922554 VOTE S4 start election
+1922557 VOTE S0 start election
+1928249 VOTE S0 start election
+1928925 VOTE S4 start election
+1928928 VOTE S0 in term 331 with llt 34 grant S4 with llt 36 with term 331
+1936112 VOTE S4 start election
+1936119 VOTE S0 in term 332 with llt 34 grant S4 with llt 36 with term 332
+1942364 VOTE S0 start election
+1942470 VOTE S4 start election
+1942477 VOTE S0 in term 334 with llt 34 grant S4 with llt 36 with term 334
+1949184 VOTE S4 start election
+1949191 VOTE S0 in term 335 with llt 34 grant S4 with llt 36 with term 335
+1954726 VOTE S4 start election
+1954730 VOTE S0 in term 336 with llt 34 grant S4 with llt 36 with term 336
+1960854 VOTE S0 start election
+1961499 VOTE S4 start election
+1961506 VOTE S0 in term 338 with llt 34 grant S4 with llt 36 with term 338
+1967737 VOTE S0 start election
+1969112 VOTE S4 start election
+1969119 VOTE S0 in term 340 with llt 34 grant S4 with llt 36 with term 340
+1976312 VOTE S4 start election
+1976318 VOTE S0 in term 341 with llt 34 grant S4 with llt 36 with term 341
+1983259 VOTE S4 start election
+1983264 VOTE S0 in term 342 with llt 34 grant S4 with llt 36 with term 342
+1989313 VOTE S4 start election
+1989320 VOTE S0 in term 343 with llt 34 grant S4 with llt 36 with term 343
+1996371 VOTE S0 start election
+1996812 VOTE S4 start election
+1996817 VOTE S0 in term 345 with llt 34 grant S4 with llt 36 with term 345
