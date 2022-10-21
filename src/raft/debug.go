@@ -29,6 +29,7 @@ const (
 	dTimer  logTopic = "TIMR"
 	dLog	logTopic = "LOGE"
 	dDecode logTopic = "DECO"
+	dSnap	logTopic = "SNAP" 
 )
 
 var debugStart time.Time
@@ -42,7 +43,7 @@ func init() {
 }
 
 func Printo(topic logTopic, format string, fm ...interface{}) {
-	if debugVerbosity >= 0 {
+	if debugVerbosity >= 1 {
 		time := time.Since(debugStart).Microseconds()
 		time /= 100
 		prefix := fmt.Sprintf("%06d %v ", time, string(topic))

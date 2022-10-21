@@ -353,7 +353,6 @@ func TestFailNoAgree2B(t *testing.T) {
 	if index2 < 2 || index2 > 3 {
 		t.Fatalf("unexpected index %v", index2)
 	}
-
 	cfg.one(1000, servers, true)
 
 	cfg.end()
@@ -824,7 +823,7 @@ func TestFigure82C(t *testing.T) {
 	nup := servers
 	for iters := 0; iters < 1000; iters++ {
 		leader := -1
-		fmt.Printf("In iter %v/ 1000\n", iters)
+		Printo(dClient, "iter %v\n", iters)
 		for i := 0; i < servers; i++ {
 			if cfg.rafts[i] != nil {
 				_, _, ok := cfg.rafts[i].Start(rand.Int())
@@ -836,11 +835,11 @@ func TestFigure82C(t *testing.T) {
 
 		if (rand.Int() % 1000) < 100 {
 			ms := rand.Int63() % (int64(RaftElectionTimeout/time.Millisecond) / 2)
-			fmt.Printf("Should wait %v ms\n", ms)
+			Printo(dClient, "Should wait %v ms\n", ms)
 			time.Sleep(time.Duration(ms) * time.Millisecond)
 		} else {
 			ms := (rand.Int63() % 13)
-			fmt.Printf("Should wait %v ms\n", ms)
+			Printo(dClient, "Should wait %v ms\n", ms)
 			time.Sleep(time.Duration(ms) * time.Millisecond)
 		}
 
@@ -858,7 +857,7 @@ func TestFigure82C(t *testing.T) {
 			}
 		}
 	}
-	fmt.Printf("Connect all\n")
+	Printo(dClient, "Connect all\n")
 	for i := 0; i < servers; i++ {
 		if cfg.rafts[i] == nil {
 			cfg.start1(i, cfg.applier)
@@ -911,7 +910,7 @@ func TestFigure8Unreliable2C(t *testing.T) {
 
 	nup := servers
 	for iters := 0; iters < 1000; iters++ {
-		fmt.Printf("In iter %v/ 1000\n", iters)
+		Printo(dClient, "iter %v\n", iters)
 		if iters == 200 {
 			cfg.setlongreordering(true)
 		}
@@ -925,11 +924,11 @@ func TestFigure8Unreliable2C(t *testing.T) {
 
 		if (rand.Int() % 1000) < 100 {
 			ms := rand.Int63() % (int64(RaftElectionTimeout/time.Millisecond) / 2)
-			fmt.Printf("Should wait %v ms\n", ms)
+			Printo(dClient, "Should wait %v ms\n", ms)
 			time.Sleep(time.Duration(ms) * time.Millisecond)
 		} else {
 			ms := (rand.Int63() % 13)
-			fmt.Printf("Should wait %v ms\n", ms)
+			Printo(dClient, "Should wait %v ms\n", ms)
 			time.Sleep(time.Duration(ms) * time.Millisecond)
 		}
 
@@ -946,7 +945,7 @@ func TestFigure8Unreliable2C(t *testing.T) {
 			}
 		}
 	}
-	fmt.Printf("Connect all\n")
+	Printo(dClient, "Connect all\n")
 	for i := 0; i < servers; i++ {
 		if cfg.connected[i] == false {
 			cfg.connect(i)
@@ -1125,14 +1124,20 @@ func snapcommon(t *testing.T, name string, disconnect bool, reliable bool, crash
 	leader1 := cfg.checkOneLeader()
 
 	for i := 0; i < iters; i++ {
+		Printo(dClient, "iter %v\n", i)
 		victim := (leader1 + 1) % servers
 		sender := leader1
 		if i%3 == 1 {
 			sender = (leader1 + 1) % servers
 			victim = leader1
 		}
-
+		Printo(dClient, "Sender in iter %v is S%v\n", i, sender)
 		if disconnect {
+			if victim == leader1 {
+				Printo(dClient, "S%v leader disconnect\n", victim)
+			} else {
+				Printo(dClient, "S%v follower disconnect\n", victim)
+			}
 			cfg.disconnect(victim)
 			cfg.one(rand.Int(), servers-1, true)
 		}
@@ -1164,6 +1169,7 @@ func snapcommon(t *testing.T, name string, disconnect bool, reliable bool, crash
 			// reconnect a follower, who maybe behind and
 			// needs to rceive a snapshot to catch up.
 			cfg.connect(victim)
+			Printo(dClient, "S%v reconnect\n", victim)
 			cfg.one(rand.Int(), servers, true)
 			leader1 = cfg.checkOneLeader()
 		}
