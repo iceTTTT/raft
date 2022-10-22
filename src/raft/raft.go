@@ -60,7 +60,6 @@ type Log struct {
 
 type Timer struct {
 	mu 		sync.Mutex
-	cond 	*sync.Cond
 	ticker  int
 	timeout int
 }
@@ -123,10 +122,10 @@ func (rf *Raft) Snapshot(index int, snapshot []byte) {
 	// Your code here (2D).
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	Printo(dSnap, "Got snapshot to preindex %v\n", index)
-	if index < rf.preindex {
+	if index <= rf.preindex {
 		return
 	}
+	Printo(dSnap, "S%v Got snapshot to preindex %v\n", rf.me, index)
 	rf.preterm = rf.log[index - rf.preindex -1].Term
 	rf.log = rf.log[index - rf.preindex:]
 	rf.preindex = index
@@ -163,10 +162,10 @@ func (rf *Raft) InstallSnapshot(args *SnapshotArgs, reply *SnapshotReply) {
 		rf.votedFor = -1
 	}
 	rf.isleader = false
-	rf.timer.cond.L.Lock()
+	rf.timer.mu.Lock()
 	rf.timer.ticker = 0
 	rf.timer.timeout = rand.Int() % 500 + 400
-	rf.timer.cond.L.Unlock()
+	rf.timer.mu.Unlock()
 
 	// Discard log.
 	i := len(rf.log)
@@ -256,10 +255,10 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 	Printo(dLog, "S%v got Append from S%v\n", rf.me, args.Leaderid)
 	if args.LeaderTerm >= rf.currentTerm {
 		// Reset election timeout. For the real leader.
-		rf.timer.cond.L.Lock()
+		rf.timer.mu.Lock()
 		rf.timer.ticker = 0
 		rf.timer.timeout = rand.Int() % 500 + 400
-		rf.timer.cond.L.Unlock()
+		rf.timer.mu.Unlock()
 		rf.currentTerm = args.LeaderTerm
 		// If candidates or leader Become follower
 		if rf.votedFor == rf.me {
@@ -585,10 +584,10 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		reply.Replyid = rf.me
 		rf.isleader = false
 		// Reset timeout after granting.
-		rf.timer.cond.L.Lock()
+		rf.timer.mu.Lock()
 		rf.timer.timeout = rand.Int() % 500 + 400
 		rf.timer.ticker = 0
-		rf.timer.cond.L.Unlock()
+		rf.timer.mu.Unlock()
 		rf.persist(nil)
 		return 
 	}
@@ -667,23 +666,28 @@ func (rf *Raft) Election() {
 }
 // Ticker routine.Runs all the time.
 func (rf *Raft) ticker() {
-	rf.timer.cond.L.Lock()
-	defer rf.timer.cond.L.Unlock()
-	go rf.Interval()
+	rf.timer.mu.Lock()
+	defer rf.timer.mu.Unlock()
 	for !rf.Killed() {
 		// Reset timeout, Become candidate start election.
 		rf.timer.timeout = rand.Int() % 500 + 400
-		Printo(dTimer, "S%v got timeout %v\n", rf.me, rf.timer.timeout)
 		rf.timer.ticker = 0
+		Printo(dTimer, "S%v got timeout %v\n", rf.me, rf.timer.timeout)
 		// Waiting ...
 		for !rf.Killed() {
 			for	rf.timer.ticker < rf.timer.timeout && !rf.Killed() {
-				rf.timer.cond.Wait()
+				rf.timer.ticker += 10
+				rf.timer.mu.Unlock()
+				time.Sleep(10 * time.Millisecond)
+				rf.timer.mu.Lock()
 			}
+			rf.timer.mu.Unlock()
 			if !rf.Isleader() {
 				// Break start election.
+				rf.timer.mu.Lock()
 				break
 			}
+			rf.timer.mu.Lock()
 			// Is leader reset timeout, keep waiting.
 			rf.timer.timeout = rand.Int() % 500 + 400
 			rf.timer.ticker = 0 
@@ -692,16 +696,6 @@ func (rf *Raft) ticker() {
 	} 
 }
 
-func (rf *Raft) Interval() {
-	for !rf.Killed() {
-		rf.timer.cond.L.Lock()
-		rf.timer.ticker += 10
-		rf.timer.cond.L.Unlock()
-		time.Sleep(10 * time.Millisecond)
-		rf.timer.cond.Signal()
-	}
-	rf.timer.cond.Signal()
-}
 //
 // the service or tester wants to create a Raft server. the ports
 // of all the Raft servers (including this one) are in peers[]. this
@@ -722,7 +716,6 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.appinfly = make([]int, len(rf.peers)) 
 	rf.timer = Timer{}
 	// rf.timer.cond = sync.NewTimer(&rf.timer.mu)
-	rf.timer.cond = sync.NewCond(&rf.timer.mu)
 	
 	rf.matchIndex = make([]int, len(peers))
 	

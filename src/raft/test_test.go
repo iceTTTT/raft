@@ -916,7 +916,9 @@ func TestFigure8Unreliable2C(t *testing.T) {
 		}
 		leader := -1
 		for i := 0; i < servers; i++ {
+			Printo(dClient, "iter %v Before S%v start\n", iters, i)
 			_, _, ok := cfg.rafts[i].Start(rand.Int() % 10000)
+			Printo(dClient, "iter %v After S%v start\n", iters, i)
 			if ok && cfg.connected[i] {
 				leader = i
 			}
@@ -934,16 +936,21 @@ func TestFigure8Unreliable2C(t *testing.T) {
 
 		if leader != -1 && (rand.Int()%1000) < int(RaftElectionTimeout/time.Millisecond)/2 {
 			cfg.disconnect(leader)
+			Printo(dClient, "S%v leader disconnect\n", leader)
 			nup -= 1
+		} else {
+			Printo(dClient, "No disconnection this iter\n")
 		}
 
 		if nup < 3 {
 			s := rand.Int() % servers
 			if cfg.connected[s] == false {
 				cfg.connect(s)
+				Printo(dClient, "S%v connect\n", s)
 				nup += 1
 			}
 		}
+		Printo(dClient, "%v nup in the end of iter %v\n", nup, iters)
 	}
 	Printo(dClient, "Connect all\n")
 	for i := 0; i < servers; i++ {
