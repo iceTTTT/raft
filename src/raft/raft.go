@@ -525,9 +525,11 @@ func (rf *Raft) OneApply(cmit int) {
 			select {
 			case rf.apmsg <- ApplyMsg{true, rf.log[na - rf.preindex -1].Command,
 				 na, false, nil, 0, 0}:
+				 Printo(dLog, "S%v applied index %v\n", rf.me, na)
 				 rf.lastApplied++
 			default:
 				rf.mu.Unlock()
+				Printo(dLog, "S%v sleep cant apply\n", rf.me)
 				time.Sleep(10 * time.Millisecond)
 				rf.mu.Lock()
 			}
@@ -760,7 +762,23 @@ func (rf *Raft) Isleader() bool {
 	return rf.isleader
 }
 
+func (rf *Raft) VotedFor() int {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	return rf.votedFor
+}
 
+func (rf *Raft) GetMe() int {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	return rf.me
+}
+
+func (rf *Raft) GetPersister() *Persister {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	return rf.persister
+}
 //
 // save Raft's persistent state to stable storage,
 // where it can later be retrieved after a crash and restart.
