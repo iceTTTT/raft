@@ -7,6 +7,8 @@ import (
 	"log"
 	"sync"
 	"sync/atomic"
+	"time"
+	"bytes"
 )
 
 const Debug = false
@@ -20,9 +22,12 @@ func DPrintf(format string, a ...interface{}) (n int, err error) {
 
 
 type Op struct {
-	// Your definitions here.
 	// Field names must start with capital letters,
 	// otherwise RPC will break.
+	Snumber int64	
+	Key  	string
+	Value 	string
+	Option 		string
 }
 
 type KVServer struct {
@@ -34,18 +39,144 @@ type KVServer struct {
 
 	maxraftstate int // snapshot if log grows this big
 
-	// Your definitions here.
+	smap	map[int64]bool
+
+	storemap	map[string]string
 }
 
 
 func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
-	// Your code here.
+	kv.mu.Lock()
+	defer kv.mu.Unlock()
+	raft.Printo(raft.DServer, "S%v got raft%v got Get call with key %v\n", kv.me, kv.rf.GetMe(), args.Key)
+	// Check applied. If commit, must delete, Get must return with the most recently commited value.
+	_, ok := kv.smap[args.Snum]
+	if ok {
+		delete(kv.smap, args.Snum)
+	}
+	reply.MayLeader = -1
+	op := Op{}
+	op.Snumber = args.Snum
+	op.Key = args.Key
+	op.Option = "Get"
+	_, _, isleader := kv.rf.Start(op)
+	if !isleader {
+		reply.MayLeader = kv.rf.VotedFor()
+		reply.Err = Err("NO")
+		return
+	}
+	_, ok = kv.smap[args.Snum]
+	for !ok && kv.rf.Isleader() && !kv.killed() {
+		kv.mu.Unlock()
+		time.Sleep(10 * time.Millisecond)
+		kv.mu.Lock()
+		_, ok = kv.smap[args.Snum]
+	}
+	
+	if !kv.rf.Isleader() || kv.killed() {
+		reply.MayLeader = kv.rf.VotedFor()
+		reply.Err = Err("NO")
+		return
+	}
+	reply.Err = Err("YES")
+	_, ok = kv.storemap[args.Key]
+	if !ok {
+		reply.Value = ""
+	} else {
+		reply.Value = kv.storemap[args.Key]
+	}
 }
 
 func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
-	// Your code here.
+	kv.mu.Lock()
+	defer kv.mu.Unlock()
+	raft.Printo(raft.DServer, "S%v got PutAppend call from with op: %v key: %v value: %v\n", kv.me, args.Op, args.Key, args.Value)
+	reply.MayLeader = -1
+	op := Op{}
+	op.Snumber = args.Snum
+	op.Key = args.Key	
+	op.Value = args.Value
+	op.Option = args.Op
+	_, _, isleader := kv.rf.Start(op)
+	if !isleader {
+		reply.MayLeader = kv.rf.VotedFor()
+		reply.Err = Err("NO")
+		return 
+	}
+	// May be a isolated leader. Wait for the index to be commmitted.
+	_, ok := kv.smap[args.Snum]
+	for !ok && kv.rf.Isleader() && !kv.killed() {
+		kv.mu.Unlock()
+		time.Sleep(10 * time.Millisecond)
+		kv.mu.Lock()
+		_, ok = kv.smap[args.Snum]
+	}	
+	
+	if !kv.rf.Isleader() || kv.killed() {
+		reply.MayLeader = kv.rf.VotedFor()
+		reply.Err = Err("NO")
+		return
+	}
+	raft.Printo(raft.DServer, "S%v return to APCall call \n", kv.me)
+	reply.Err = Err("YES")
 }
 
+func (kv *KVServer) ApplyHandler() {
+	kv.mu.Lock()	
+	defer kv.mu.Unlock()
+	for !kv.killed()  {
+		select {
+		case msg := <- kv.applyCh:
+			if msg.CommandValid {
+				op := msg.Command.(Op)
+				_, ok := kv.smap[op.Snumber]
+				if ok {
+					// Check snapshot.
+					goto cs
+				}
+				raft.Printo(raft.DServer, "Serialnum %v got commit and apply\n", op.Snumber)
+				switch op.Option {
+				case "Put":
+					kv.storemap[op.Key] = op.Value
+				case "Append":
+					_, ok := kv.storemap[op.Key]
+					if !ok {
+						kv.storemap[op.Key] = op.Value
+					} else {
+						kv.storemap[op.Key] = kv.storemap[op.Key] + op.Value
+					}
+				default:
+				}
+				kv.smap[op.Snumber] = true
+				// Check snapshot.
+				cs:
+				if kv.maxraftstate > 0 && kv.maxraftstate <= kv.rf.GetPersister().RaftStateSize() {
+					// Should make snapshot.	
+					w := new(bytes.Buffer)
+					e := labgob.NewEncoder(w)
+					e.Encode(kv.storemap)
+					onlystore := w.Bytes()
+					raft.Printo(raft.DServer, "store num %v\n", len(onlystore))
+					e.Encode(kv.smap)
+					raft.Printo(raft.DServer, "length of smap %v\n", len(kv.smap))
+					snapshot := w.Bytes()
+					raft.Printo(raft.DServer, "Snapshot num %v\n", len(snapshot))
+					kv.rf.Snapshot(msg.CommandIndex, snapshot)
+				}
+			} else {
+				// Get snapshot. should execute it.
+				r := bytes.NewBuffer(msg.Snapshot)
+				d := labgob.NewDecoder(r)
+				d.Decode(&kv.storemap)
+				d.Decode(&kv.smap)
+			}
+		default:
+			kv.mu.Unlock()
+			time.Sleep(10 * time.Millisecond)
+			kv.mu.Lock()
+		}
+	}
+}
 //
 // the tester calls Kill() when a KVServer instance won't
 // be needed again. for your convenience, we supply
@@ -92,10 +223,17 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 
 	// You may need initialization code here.
 
-	kv.applyCh = make(chan raft.ApplyMsg)
+	kv.applyCh = make(chan raft.ApplyMsg, 1)
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
-
+	kv.storemap = make(map[string]string)
+	kv.smap = make(map[int64]bool)
 	// You may need initialization code here.
-
+	if maxraftstate > 0 {
+		r := bytes.NewBuffer(kv.rf.GetPersister().ReadSnapshot())
+		d := labgob.NewDecoder(r)
+		d.Decode(&kv.storemap)
+		d.Decode(&kv.smap)
+	}
+	go kv.ApplyHandler()
 	return kv
 }
