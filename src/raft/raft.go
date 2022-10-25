@@ -150,7 +150,7 @@ type SnapshotReply struct {
 func (rf *Raft) InstallSnapshot(args *SnapshotArgs, reply *SnapshotReply) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	Printo(dSnap, "S%v got snapshot from S%v\n", rf.me, args.LeaderId)
+	Printo(dSnap, "S%v got snapshot from S%v to preindex %v\n", rf.me, args.LeaderId, args.Lastindex)
 	reply.Term = rf.currentTerm
 	if args.Term < rf.currentTerm {
 		Printo(dSnap, "S%v reject snapshot from S%v due to low term\n", rf.me, args.LeaderId)
@@ -166,10 +166,14 @@ func (rf *Raft) InstallSnapshot(args *SnapshotArgs, reply *SnapshotReply) {
 	rf.timer.ticker = 0
 	rf.timer.timeout = rand.Int() % 500 + 400
 	rf.timer.mu.Unlock()
-
+	// Check snapshot.
+	if args.Lastindex <= rf.preindex {
+		Printo(dSnap, "S%v reject snapshot from S%v due to lastindex: %v < preindex: %v\n", rf.me, args.LeaderId, args.Lastindex, rf.preindex)
+		return
+	}
 	// Discard log.
 	i := len(rf.log)
-	for ; i >=0; i-- {
+	for ; i >= 0; i-- {
 		if i + rf.preindex == args.Lastindex && 
 		((i == 0 && rf.preterm == args.Lastterm) || ( i != 0 && rf.log[i - 1].Term == args.Lastterm)) {
 			rf.log = rf.log[i:]
@@ -183,7 +187,7 @@ func (rf *Raft) InstallSnapshot(args *SnapshotArgs, reply *SnapshotReply) {
 	rf.preterm = args.Lastterm
 	rf.persist(args.Snapshot)
 	// Send apply.
-	Printo(dSnap, "S%v got snapshot from leader %v and get preindex %v preterm %v\n", rf.me, args.LeaderId, rf.preindex, rf.preterm)
+	Printo(dSnap, "S%v got snapshot from leader %v and get preindex %v preterm %v and remain log length %v\n", rf.me, args.LeaderId, rf.preindex, rf.preterm, len(rf.log))
 	if rf.commitIndex < rf.preindex {
 		rf.commitIndex = rf.preindex
 		go rf.OneApply(rf.commitIndex)
@@ -216,7 +220,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		// Persist after log change.
 		rf.persist(nil)
 		index = rf.preindex + len(rf.log)
-		Printo(dLog, "S%v got log length %v wit llt %v\n", rf.me, len(rf.log), rf.currentTerm)
+		Printo(dLog, "S%v got log length %v wit llt  %v and preindex %v\n", rf.me, len(rf.log), rf.currentTerm, rf.preindex)
 		LastLogIndex := rf.preindex + len(rf.log)
 		for i := 0; i < len(rf.peers) && !rf.Killed() && rf.isleader; i++ {
 			if i == rf.me {
@@ -245,6 +249,7 @@ type AppendArgs struct {
 type AppendReply struct {
 	Repterm int
 	Suc     bool
+	Notify  int
 	// 0 represent term.
 }
 
@@ -252,7 +257,8 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	// Check leader term.
-	Printo(dLog, "S%v got Append from S%v\n", rf.me, args.Leaderid)
+	reply.Notify = -1
+	Printo(dLog, "S%v got Append from S%v with PrelogIndex %v and entries length %v\n", rf.me, args.Leaderid, args.PreLogIndex, len(args.Entries))
 	if args.LeaderTerm >= rf.currentTerm {
 		// Reset election timeout. For the real leader.
 		rf.timer.mu.Lock()
@@ -266,7 +272,6 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 		}
 		rf.isleader = false
 	}
-
 	if args.LeaderTerm < rf.currentTerm {
 		reply.Repterm = rf.currentTerm
 		reply.Suc = false
@@ -274,6 +279,13 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 		return
 	}
 	if len(args.Entries) > 0 { 
+		if args.PreLogIndex < rf.preindex {
+			if args.PreLogIndex + len(args.Entries) > rf.preindex && 
+			args.Entries[rf.preindex - args.PreLogIndex -1].Term == rf.preterm {
+				reply.Notify = rf.preindex + 1
+			}
+			goto out
+		}
 		// check match	append entries
 		for i := len(rf.log); i >= 0; i-- {
 			if i + rf.preindex != args.PreLogIndex {
@@ -303,7 +315,7 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 			}
 		}
 	}
-
+	out:
 	if args.LeaderCommit > rf.commitIndex {
 		newthisterm := 0
 		for i := len(rf.log) - 1; i >= 0; i-- {
@@ -315,9 +327,11 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 		if newthisterm > args.LeaderCommit {
 			rf.commitIndex = args.LeaderCommit
 		} else {
-			rf.commitIndex = newthisterm
+			if newthisterm > rf.commitIndex {
+				rf.commitIndex = newthisterm
+			}
 		}
-		Printo(dLog, "S%v commit index %v\n", rf.me, rf.commitIndex)
+		Printo(dLog, "S%v commit with preindex %v and log length %v to index %v\n", rf.me, rf.preindex, len(rf.log), rf.commitIndex)
 		go rf.OneApply(rf.commitIndex)
 	}
 	reply.Repterm = rf.currentTerm
@@ -349,7 +363,7 @@ func (rf *Raft) sendAppendEntries(server int) {
 			args.Snapshot = rf.persister.ReadSnapshot()
 			// rpc call release the lock
 			rf.mu.Unlock()
-			Printo(dLog, "S%v send snapshot with lastindex %v and lastterm %v to S%v\n", rf.me, args.Lastindex, args.Lastterm, server)
+			Printo(dLog, "S%v send snapshot with lastindex %v and lastterm %v and  to S%v\n", rf.me, args.Lastindex, args.Lastterm, server)
 			ok := rf.peers[server].Call("Raft.InstallSnapshot", &args, &reply)
 			if !ok {
 				time.Sleep(20 * time.Millisecond)
@@ -391,7 +405,7 @@ func (rf *Raft) sendAppendEntries(server int) {
 		// Rpc call. Release lock
 		rf.mu.Unlock()
 		reply := AppendReply{}
-		Printo(dLog, "S%v send append to S%v with term %v\n", rf.me, server, args.LeaderTerm)
+		Printo(dLog, "S%v send append to S%v with term %v with prelogindex %v and entrie length %v\n", rf.me, server, args.LeaderTerm, args.PreLogIndex, len(args.Entries))
 		ok := rf.peers[server].Call("Raft.AppendEntries", &args, &reply)
 		if !ok {
 			time.Sleep(20 * time.Millisecond)
@@ -418,8 +432,9 @@ func (rf *Raft) sendAppendEntries(server int) {
 			// Change nextindex and restart.
 			if rf.nextIndex[server] > rf.preindex + 1 {
 				rf.nextIndex[server] = rf.preindex + 1
+			} else if reply.Notify != -1{
+				rf.nextIndex[server] = reply.Notify
 			} else {
-				// Can't match entries, goto start should send snapshot.
 				rf.nextIndex[server]--
 			}
 			Printo(dLog, "S%v Resend because unfit index ,may send snapshot\n", rf.me)
@@ -511,6 +526,7 @@ func (rf *Raft) OneApply(cmit int) {
 	defer rf.mu.Unlock()
 	for rf.lastApplied < cmit && !rf.Killed() {
 		na := rf.lastApplied + 1
+		Printo(dLog, "S%v To apply index %v got preindex %v and log length%v\n", rf.me, na, rf.preindex, len(rf.log))
 		if na <= rf.preindex {
 			select {
 			case rf.apmsg <- ApplyMsg{false, 0, 
@@ -529,7 +545,6 @@ func (rf *Raft) OneApply(cmit int) {
 				 rf.lastApplied++
 			default:
 				rf.mu.Unlock()
-				Printo(dLog, "S%v sleep cant apply\n", rf.me)
 				time.Sleep(10 * time.Millisecond)
 				rf.mu.Lock()
 			}
@@ -579,8 +594,8 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	   	( args.LastLogTerm > LastLogTerm ||
 			(args.LastLogTerm == LastLogTerm && args.LastLogIndex >= LastLogIndex) ) &&
 			 rf.votedFor == -1 {
-		Printo(dVote, "S%v in term %v with llt %v grant S%v with llt %v with term %v\n", rf.me, rf.currentTerm, LastLogTerm, args.CandidateId,
-	 args.LastLogTerm, args.Term)
+		Printo(dVote, "S%v in term %v with llt %v and lastindex %v grant S%v with llt %v with term %v and lastindex %v\n", rf.me, rf.currentTerm, LastLogTerm, LastLogIndex, args.CandidateId,
+	 args.LastLogTerm, args.Term, args.LastLogIndex)
 		rf.votedFor = args.CandidateId
 		reply.Grant = true
 		reply.Replyid = rf.me
@@ -645,6 +660,7 @@ func (rf *Raft) Election() {
 		Printo(dVote, "S%v start election\n", rf.me)
 		rf.votedFor = rf.me
 		rf.currentTerm++
+		rf.isleader = false
 		gotvote := 1
 
 		var LastLogIndex, LastLogTerm int
@@ -694,7 +710,9 @@ func (rf *Raft) ticker() {
 			rf.timer.timeout = rand.Int() % 500 + 400
 			rf.timer.ticker = 0 
 		}
-		go rf.Election()	 
+		if !rf.Killed() {
+			go rf.Election()
+		}
 	} 
 }
 

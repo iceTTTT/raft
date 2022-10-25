@@ -24,7 +24,7 @@ func DPrintf(format string, a ...interface{}) (n int, err error) {
 type Op struct {
 	// Field names must start with capital letters,
 	// otherwise RPC will break.
-	Snumber int64	
+	Unikey  Key
 	Key  	string
 	Value 	string
 	Option 		string
@@ -39,7 +39,7 @@ type KVServer struct {
 
 	maxraftstate int // snapshot if log grows this big
 
-	smap	map[int64]bool
+	smap	map[Key]bool
 
 	storemap	map[string]string
 }
@@ -48,15 +48,14 @@ type KVServer struct {
 func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 	kv.mu.Lock()
 	defer kv.mu.Unlock()
-	raft.Printo(raft.DServer, "S%v got raft%v got Get call with key %v\n", kv.me, kv.rf.GetMe(), args.Key)
 	// Check applied. If commit, must delete, Get must return with the most recently commited value.
-	_, ok := kv.smap[args.Snum]
+	_, ok := kv.smap[args.Unikey]
 	if ok {
-		delete(kv.smap, args.Snum)
+		delete(kv.smap, args.Unikey)
 	}
 	reply.MayLeader = -1
 	op := Op{}
-	op.Snumber = args.Snum
+	op.Unikey = args.Unikey
 	op.Key = args.Key
 	op.Option = "Get"
 	_, _, isleader := kv.rf.Start(op)
@@ -65,12 +64,13 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 		reply.Err = Err("NO")
 		return
 	}
-	_, ok = kv.smap[args.Snum]
+	raft.Printo(raft.DServer, "S%v got raft%v got Get call with key %v\n", kv.me, kv.rf.GetMe(), args.Key)
+	_, ok = kv.smap[args.Unikey]
 	for !ok && kv.rf.Isleader() && !kv.killed() {
 		kv.mu.Unlock()
 		time.Sleep(10 * time.Millisecond)
 		kv.mu.Lock()
-		_, ok = kv.smap[args.Snum]
+		_, ok = kv.smap[args.Unikey]
 	}
 	
 	if !kv.rf.Isleader() || kv.killed() {
@@ -90,10 +90,9 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	kv.mu.Lock()
 	defer kv.mu.Unlock()
-	raft.Printo(raft.DServer, "S%v got PutAppend call from with op: %v key: %v value: %v\n", kv.me, args.Op, args.Key, args.Value)
 	reply.MayLeader = -1
 	op := Op{}
-	op.Snumber = args.Snum
+	op.Unikey = args.Unikey
 	op.Key = args.Key	
 	op.Value = args.Value
 	op.Option = args.Op
@@ -103,13 +102,14 @@ func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		reply.Err = Err("NO")
 		return 
 	}
+	raft.Printo(raft.DServer, "S%v got PutAppend call from with op: %v key: %v value: %v\n", kv.me, args.Op, args.Key, args.Value)
 	// May be a isolated leader. Wait for the index to be commmitted.
-	_, ok := kv.smap[args.Snum]
+	_, ok := kv.smap[args.Unikey]
 	for !ok && kv.rf.Isleader() && !kv.killed() {
 		kv.mu.Unlock()
 		time.Sleep(10 * time.Millisecond)
 		kv.mu.Lock()
-		_, ok = kv.smap[args.Snum]
+		_, ok = kv.smap[args.Unikey]
 	}	
 	
 	if !kv.rf.Isleader() || kv.killed() {
@@ -129,12 +129,17 @@ func (kv *KVServer) ApplyHandler() {
 		case msg := <- kv.applyCh:
 			if msg.CommandValid {
 				op := msg.Command.(Op)
-				_, ok := kv.smap[op.Snumber]
+				for k, _ := range kv.smap {
+					if k.Cid == op.Unikey.Cid && k.Snum != op.Unikey.Snum {
+						delete(kv.smap, k)
+					}
+				}
+				_, ok := kv.smap[op.Unikey]
 				if ok {
 					// Check snapshot.
 					goto cs
 				}
-				raft.Printo(raft.DServer, "Serialnum %v got commit and apply\n", op.Snumber)
+				raft.Printo(raft.DServer, "Unikey %v got commit and apply\n", op.Unikey)
 				switch op.Option {
 				case "Put":
 					kv.storemap[op.Key] = op.Value
@@ -147,7 +152,7 @@ func (kv *KVServer) ApplyHandler() {
 					}
 				default:
 				}
-				kv.smap[op.Snumber] = true
+				kv.smap[op.Unikey] = true
 				// Check snapshot.
 				cs:
 				if kv.maxraftstate > 0 && kv.maxraftstate <= kv.rf.GetPersister().RaftStateSize() {
@@ -155,12 +160,8 @@ func (kv *KVServer) ApplyHandler() {
 					w := new(bytes.Buffer)
 					e := labgob.NewEncoder(w)
 					e.Encode(kv.storemap)
-					onlystore := w.Bytes()
-					raft.Printo(raft.DServer, "store num %v\n", len(onlystore))
 					e.Encode(kv.smap)
-					raft.Printo(raft.DServer, "length of smap %v\n", len(kv.smap))
 					snapshot := w.Bytes()
-					raft.Printo(raft.DServer, "Snapshot num %v\n", len(snapshot))
 					kv.rf.Snapshot(msg.CommandIndex, snapshot)
 				}
 			} else {
@@ -226,7 +227,7 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	kv.applyCh = make(chan raft.ApplyMsg, 1)
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
 	kv.storemap = make(map[string]string)
-	kv.smap = make(map[int64]bool)
+	kv.smap = make(map[Key]bool)
 	// You may need initialization code here.
 	if maxraftstate > 0 {
 		r := bytes.NewBuffer(kv.rf.GetPersister().ReadSnapshot())

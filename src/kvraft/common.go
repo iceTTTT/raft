@@ -11,13 +11,18 @@ const (
 type Err string
 
 var mu sync.Mutex
-var snum int64
+var clientid int
+
+type Key struct {
+	Cid		int
+	Snum	int
+}
 // Put or Append
 type PutAppendArgs struct {
 	Key   string
 	Value string
 	Op    string // "Put" or "Append"
-	Snum  int64
+	Unikey Key
 	// You'll have to add definitions here.
 	// Field names must start with capital letters,
 	// otherwise RPC will break.
@@ -31,7 +36,7 @@ type PutAppendReply struct {
 
 type GetArgs struct {
 	Key string
-	Snum int64
+	Unikey Key
 	// You'll have to add definitions here.
 }
 

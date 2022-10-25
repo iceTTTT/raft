@@ -11,6 +11,8 @@ type Clerk struct {
 	servers []*labrpc.ClientEnd
 	// You will have to modify this struct.
 	xleader int
+	Snum	int
+	Cid		int
 	mu      sync.Mutex
 }
 
@@ -25,6 +27,11 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 	ck := new(Clerk)
 	ck.servers = servers
 	ck.xleader = int(nrand()) % len(ck.servers)
+	ck.Snum = 0
+	mu.Lock()
+	defer mu.Unlock()
+	ck.Cid = clientid
+	clientid++
 	// You'll have to add code here.
 	return ck
 }
@@ -52,10 +59,8 @@ func (ck *Clerk) Get(key string) string {
 	defer ck.mu.Unlock()
 	args := GetArgs{}
 	args.Key = key
-	mu.Lock()
-	args.Snum = snum
-	snum++
-	mu.Unlock()
+	args.Unikey = Key{ck.Cid, ck.Snum}
+	ck.Snum++
 
 	var ok bool
 	var reply GetReply
@@ -63,22 +68,25 @@ func (ck *Clerk) Get(key string) string {
 	for {
 		x = ck.xleader
 		ck.mu.Unlock()	
-		raft.Printo(raft.DClient, "Client send Get call \n")
+		raft.Printo(raft.DClient, "Client send Get call with unikey %v\n", args.Unikey)
 		ck.GetCall(x, &ok, &reply, &args)
 		for !ok {
 			time.Sleep(10 * time.Millisecond)
 			ck.mu.Lock()
-			ck.xleader = int(nrand()) % len(ck.servers)
+			ck.xleader = (ck.xleader + 1) % len(ck.servers)
 			x = ck.xleader
 			ck.mu.Unlock()
-			raft.Printo(raft.DClient, "Client send Get call in not ok loop\n")
+			raft.Printo(raft.DClient, "Client send Get call with unikey %v in not ok loop\n", args.Unikey)
 			ck.GetCall(x, &ok, &reply, &args)
 		}
 		ck.mu.Lock()
 		if reply.Err == Err("YES") {
 			break
 		}
-		ck.xleader = int(nrand()) % len(ck.servers)
+		ck.mu.Unlock()
+		time.Sleep(10 * time.Millisecond)
+		ck.mu.Lock()
+		ck.xleader = (ck.xleader + 1) % len(ck.servers)
 	}
 	raft.Printo(raft.DClient, "Client got Get return key:%v got value:%v\n", key, reply.Value)
 	return reply.Value
@@ -109,10 +117,8 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 	args.Value = value
 	args.Op = op
 	// Hold the global lock, and increase the snumber.
-	mu.Lock()
-	args.Snum = snum
-	snum++
-	mu.Unlock()
+	args.Unikey = Key{ck.Cid, ck.Snum}
+	ck.Snum++
 
 	var ok bool
 	var reply PutAppendReply
@@ -121,9 +127,8 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 		// Release the lock, and the function keep waiting the rpc call return. 
 		x = ck.xleader
 		ck.mu.Unlock()
-		raft.Printo(raft.DClient, "Client send putappend call to server with op:%v key:%v value:%v\n", args.Op, args.Key, args.Value) 
+		raft.Printo(raft.DClient, "Client send putappend call with unikey %v to server with op:%v key:%v value:%v\n", args.Unikey, args.Op, args.Key, args.Value) 
 		ck.PACall(x, &args, &ok, &reply)
-		raft.Printo(raft.DClient, "First PACall return\n")
 		for !ok {
 			time.Sleep(10 * time.Millisecond)
 			ck.mu.Lock()
@@ -131,9 +136,8 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 			x = ck.xleader
 			// Same waiting functon.
 			ck.mu.Unlock()
-			raft.Printo(raft.DClient, "Client send putappend call in not ok loop with op:%v key:%v value:%v\n", args.Op, args.Key, args.Value)
+			raft.Printo(raft.DClient, "Client send putappend call with unikey %v in not ok loop with op:%v key:%v value:%v\n", args.Unikey, args.Op, args.Key, args.Value)
 			ck.PACall(x, &args, &ok, &reply)
-			raft.Printo(raft.DClient, "PACall return\n")
 		}
 		ck.mu.Lock()
 		if reply.Err == Err("YES") {
@@ -144,7 +148,7 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 		ck.mu.Lock()
 		ck.xleader = (ck.xleader + 1) % len(ck.servers)
 	}
-	raft.Printo(raft.DClient, "Client PACall get final return\n")
+	raft.Printo(raft.DClient, "Client PACall with uinkey %v get final return\n", args.Unikey)
 }
 
 func (ck *Clerk) Put(key string, value string) {

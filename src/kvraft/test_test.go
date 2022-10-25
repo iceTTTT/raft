@@ -11,7 +11,7 @@ import "sync"
 import "sync/atomic"
 import "fmt"
 import "io/ioutil"
-
+import "6.824/raft"
 // The tester generously allows solutions to complete elections in one second
 // (much more than the paper's range of timeouts).
 const electionTimeout = 1 * time.Second
@@ -263,7 +263,9 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 			}()
 			last := "" // only used when not randomkeys
 			if !randomkeys {
+				raft.Printo(raft.DClient, "A put start \n")
 				Put(cfg, myck, strconv.Itoa(cli), last, opLog, cli)
+				raft.Printo(raft.DClient, "A put over \n")
 			}
 			for atomic.LoadInt32(&done_clients) == 0 {
 				var key string
@@ -275,7 +277,9 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 				nv := "x " + strconv.Itoa(cli) + " " + strconv.Itoa(j) + " y"
 				if (rand.Int() % 1000) < 500 {
 					// log.Printf("%d: client new append %v\n", cli, nv)
+					raft.Printo(raft.DClient, "A append start \n")
 					Append(cfg, myck, key, nv, opLog, cli)
+					raft.Printo(raft.DClient, "A append over \n")
 					if !randomkeys {
 						last = NextValue(last, nv)
 					}
@@ -283,11 +287,15 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 				} else if randomkeys && (rand.Int()%1000) < 100 {
 					// we only do this when using random keys, because it would break the
 					// check done after Get() operations
+					raft.Printo(raft.DClient, "A put start \n")
 					Put(cfg, myck, key, nv, opLog, cli)
+					raft.Printo(raft.DClient, "A put over \n")
 					j++
 				} else {
 					// log.Printf("%d: client new get %v\n", cli, key)
+					raft.Printo(raft.DClient, "A get start \n")
 					v := Get(cfg, myck, key, opLog, cli)
+					raft.Printo(raft.DClient, "A get over \n")
 					// the following check only makes sense when we're not using random keys
 					if !randomkeys && v != last {
 						t.Fatalf("get wrong value, key %v, wanted:\n%v\n, got\n%v\n", key, last, v)
@@ -308,7 +316,9 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 
 		if partitions {
 			// log.Printf("wait for partitioner\n")
+			raft.Printo(raft.DClient, "Wait partition\n")
 			<-ch_partitioner
+			raft.Printo(raft.DClient, "Wait partition\n")
 			// reconnect network and submit a request. A client may
 			// have submitted a request in a minority.  That request
 			// won't return until that server discovers a new term
@@ -343,7 +353,9 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 			// }
 			key := strconv.Itoa(i)
 			// log.Printf("Check %v for client %d\n", j, i)
+			raft.Printo(raft.DClient, "A get start\n")
 			v := Get(cfg, ck, key, opLog, 0)
+			raft.Printo(raft.DClient, "A get over\n")
 			if !randomkeys {
 				checkClntAppends(t, i, v, j)
 			}
