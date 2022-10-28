@@ -1,5 +1,6 @@
 package shardctrler
 
+import "sync"
 //
 // Shard controler: assigns shards to replication groups.
 //
@@ -20,6 +21,9 @@ package shardctrler
 // The number of shards.
 const NShards = 10
 
+var clientid int
+var mu		 sync.Mutex
+
 // A configuration -- an assignment of shards to groups.
 // Please don't change this.
 type Config struct {
@@ -36,6 +40,7 @@ type Err string
 
 type JoinArgs struct {
 	Servers map[int][]string // new GID -> servers mappings
+	Unikey Key
 }
 
 type JoinReply struct {
@@ -45,6 +50,7 @@ type JoinReply struct {
 
 type LeaveArgs struct {
 	GIDs []int
+	Unikey Key
 }
 
 type LeaveReply struct {
@@ -55,6 +61,7 @@ type LeaveReply struct {
 type MoveArgs struct {
 	Shard int
 	GID   int
+	Unikey Key
 }
 
 type MoveReply struct {
@@ -64,6 +71,7 @@ type MoveReply struct {
 
 type QueryArgs struct {
 	Num int // desired config number
+	Unikey Key
 }
 
 type QueryReply struct {

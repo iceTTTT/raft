@@ -5,6 +5,7 @@ import (
 	"sync"
 	"testing"
 	"time"
+	"6.824/raft"
 )
 
 // import "time"
@@ -94,6 +95,9 @@ func TestBasic(t *testing.T) {
 
 	var gid1 int = 1
 	ck.Join(map[int][]string{gid1: []string{"x", "y", "z"}})
+
+	raft.Printo(raft.DClient, "Check start\n")
+
 	check(t, []int{gid1}, ck)
 	cfa[1] = ck.Query(-1)
 

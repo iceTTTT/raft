@@ -341,7 +341,6 @@ func (rf *Raft) AppendEntries(args *AppendArgs, reply *AppendReply) {
 
 func (rf *Raft) sendAppendEntries(server int) {
 	rf.mu.Lock()
-	defer rf.mu.Unlock()
 	// Lastlogindex >= nextindex.
 	for rf.preindex + len(rf.log) >= rf.nextIndex[server] && rf.isleader && !rf.Killed() {
 		args := AppendArgs{}
@@ -447,6 +446,7 @@ func (rf *Raft) sendAppendEntries(server int) {
 		rf.nextIndex[server] = rf.matchIndex[server] + 1
 	}
 	rf.appinfly[server]--
+	rf.mu.Unlock()
 }
 
 func (rf *Raft) Checkmatch() {
