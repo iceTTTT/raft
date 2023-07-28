@@ -1,1 +1,1 @@
-### Sharded k-v supported by raft
+### Simple sharded k-v supported by raft
